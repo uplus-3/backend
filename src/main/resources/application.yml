@@ -1,3 +1,43 @@
 spring:
   profiles:
-    include: db, swagger
+    default: local
+  devtools:
+    livereload:
+      enabled: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+build:
+  date: '@build.date@'
+server:
+  port: '8080'
+  servlet:
+    contextPath: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+'#server':
+  address: localhost
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+      springframework:
+        web: DEBUG
+      apache:
+        tiles: INFO
+      sringframework:
+        boot: DEBUG
+        security: DEBUG
+    root: INFO
+    com:
+      samsung:
+        security: DEBUG
+  file:
+    name: ./uplus.log
+
+
+
