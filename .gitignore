@@ -35,5 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Yaml ###
 /src/main/resources/application-db.yml
-/src/test/resources/application-db.yml
+/src/main/resources/application-swagger.yml
+
+### Log ###
+/logs/
