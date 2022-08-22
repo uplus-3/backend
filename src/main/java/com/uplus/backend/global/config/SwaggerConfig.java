@@ -31,7 +31,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "Uplus mobile squad REST API",
-                "This is mobile, plan API.",
+                "This is mobile, plan,  API.",
                 "V1",
                 "Terms of service",
                 new Contact("uplus IT Agile TF team 3", "www.lguplus.co.kr", "intern228622@lguplus.co.jr"),

@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
  * 지원금 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
 @Slf4j
-@Api(value = "지원금 API", tags = {"Device"})
+@Api(value = "지원금 API", tags = {"Support"})
 @RestController
-@RequestMapping("api/device")
+@RequestMapping("api/support")
 @RequiredArgsConstructor
 public class SupportController {
 

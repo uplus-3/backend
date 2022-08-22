@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
  * 요금제 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
 @Slf4j
-@Api(value = "요금제 API", tags = {"Device"})
+@Api(value = "요금제 API", tags = {"Plan"})
 @RestController
-@RequestMapping("api/device")
+@RequestMapping("api/plan")
 @RequiredArgsConstructor
 public class PlanController {
 

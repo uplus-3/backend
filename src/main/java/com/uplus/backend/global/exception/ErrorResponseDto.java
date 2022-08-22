@@ -8,13 +8,13 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ErrorResponseDto {
 
-    private int code;
-    private String message;
+	private int code;
+	private String message;
 
-    @Builder
-    public ErrorResponseDto(ErrorCode errorCode) {
-        this.code = errorCode.getStatus();
-        this.message = errorCode.getMessage();
-    }
+	@Builder
+	public ErrorResponseDto(ErrorCode errorCode) {
+		this.code = errorCode.getStatus();
+		this.message = errorCode.getMessage();
+	}
 
 }

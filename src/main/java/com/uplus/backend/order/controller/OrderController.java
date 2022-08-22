@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
  * 주문 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
 @Slf4j
-@Api(value = "주문 API", tags = {"Device"})
+@Api(value = "주문 API", tags = {"Order"})
 @RestController
-@RequestMapping("api/device")
+@RequestMapping("api/order")
 @RequiredArgsConstructor
 public class OrderController {
 
