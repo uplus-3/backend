@@ -1,4 +1,4 @@
-package com.uplus.backend.device.controller;
+package com.uplus.backend.search.controller;
 
 
 import io.swagger.annotations.Api;
@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 단말기 관련 API 요청 처리를 위한 컨트롤러 정의.
+ * 검색 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
 @Slf4j
-@Api(value = "단말기 API", tags = {"Device"})
+@Api(value = "검색 API", tags = {"Search"})
 @RestController
-@RequestMapping("api/device")
+@RequestMapping("api/search")
 @RequiredArgsConstructor
-public class DeviceController {
+public class SearchController {
 
-//    private final DeviceService deviceService;
+//    private final SearchService searchService;
 
 	@GetMapping("")
-	@ApiOperation(value = "단말기 생성 Test", notes = "Test")
+	@ApiOperation(value = "검색 생성 Test", notes = "Test")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Test 성공"),
 		@ApiResponse(code = 500, message = "서버 오류")

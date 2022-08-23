@@ -1,11 +1,10 @@
-package com.uplus.backend.support.entity;
+package com.uplus.backend.device.entity;
 
-import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.global.entity.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,15 +20,21 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Entity
 @Getter
-public class Support extends BaseEntity {
+public class Image extends BaseEntity {
 
 	@Column(nullable = false)
-	private String publicSupport;
+	private String url;
 
-	@Column(nullable = false)
-	private String addtionalSupport;
+	@ManyToOne
+	@JoinColumn(name = "color_id")
+	private Color color;
 
-	@OneToOne
-	@JoinColumn(name = "device_id")
-	private Device device;
+	public void setColor(Color color) {
+		this.color = color;
+
+		if (!color.getImages().contains(this)) {
+			color.getImages().add(this);
+		}
+	}
+
 }

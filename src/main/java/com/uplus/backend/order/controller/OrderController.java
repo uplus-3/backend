@@ -26,17 +26,17 @@ public class OrderController {
 
 //    private final OrderService orderService;
 
-    @GetMapping("")
-    @ApiOperation(value = "주문 생성 Test", notes = "Test")
-    @ApiResponses({
-            @ApiResponse(code = 201, message = "Test 성공"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<String> createBoard(
-            HttpServletRequest request) {
+	@GetMapping("")
+	@ApiOperation(value = "주문 생성 Test", notes = "Test")
+	@ApiResponses({
+		@ApiResponse(code = 201, message = "Test 성공"),
+		@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<String> createBoard(
+		HttpServletRequest request) {
 
-        return new ResponseEntity<String>("Test성공", HttpStatus.CREATED);
-    }
+		return new ResponseEntity<String>("Test성공", HttpStatus.CREATED);
+	}
 
 }
 
