@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BatchScheduler {
 
-
 //    @Scheduled(cron = "0 0 0 * * *")
 //    public void Schedule() {
 //    }

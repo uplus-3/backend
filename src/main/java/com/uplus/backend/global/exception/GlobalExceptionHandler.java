@@ -40,7 +40,8 @@ public class GlobalExceptionHandler {
 
 	// @Valid : Dto validation Exception
 	@ExceptionHandler({MethodArgumentNotValidException.class})
-	public ResponseEntity<ErrorResponseDto> processValidationError(MethodArgumentNotValidException e) {
+	public ResponseEntity<ErrorResponseDto> processValidationError(
+		MethodArgumentNotValidException e) {
 		log.error("error : {}", e.getMessage());
 		e.printStackTrace();
 
