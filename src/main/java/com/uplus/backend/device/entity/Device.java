@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,7 +32,7 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String serialNumber;
 
 	@Column(nullable = false)
@@ -39,7 +41,7 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private int price;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TIMESTAMP")
 	private LocalDateTime launchedDate;
 
 	@Column(nullable = false)

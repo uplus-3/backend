@@ -29,7 +29,7 @@ public abstract class BaseEntity implements Serializable {
 	private Long id = null;
 
 	@CreatedDate
-	@Column(updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private LocalDateTime createdAt;
 
 	@LastModifiedDate

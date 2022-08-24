@@ -21,7 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @Setter
 public class Order extends BaseEntity {
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private Long number;
 
 	@Column(nullable = false)

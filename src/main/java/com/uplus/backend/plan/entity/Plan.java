@@ -38,7 +38,7 @@ public class Plan extends BaseEntity {
 	private int price;
 
 	@Column(nullable = false)
-	private String date;
+	private String data;
 
 	private String subData;
 
