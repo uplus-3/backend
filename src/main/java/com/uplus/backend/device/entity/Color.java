@@ -33,6 +33,9 @@ public class Color extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "CHAR(7)")
 	private String rdb;
 
+	@Column(nullable = false)
+	private int stock;
+
 	@ManyToOne
 	@JoinColumn(name = "device_id")
 	private Device device;
@@ -63,7 +66,5 @@ public class Color extends BaseEntity {
 			order.setColor(this);
 		}
 	}
-
-	// stock entity
 
 }
