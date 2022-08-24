@@ -37,10 +37,9 @@ public class DeviceController {
 	})
 	public ResponseEntity<DeviceListResponseDto> getDeviceList(
 		@RequestParam("network-type") int networkType, @RequestParam("plan") Long planId,
-		@RequestParam("discount-type") int discountType,
-		@RequestParam("installment-type") int installmentType) {
+		@RequestParam("discount-type") int discountType) {
 		DeviceListResponseDto responseDto =
-			deviceService.getDeviceList(networkType, planId, discountType, installmentType);
+			deviceService.getDeviceList(networkType, planId, discountType);
 
 		return ResponseEntity.ok().body(responseDto);
 	}

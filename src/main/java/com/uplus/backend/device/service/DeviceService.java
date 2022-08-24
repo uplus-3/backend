@@ -23,8 +23,7 @@ public class DeviceService {
 
 	private final PlanRepository planRepository;
 
-	public DeviceListResponseDto getDeviceList(int networkType, Long planId, int discountType,
-		int installmentType) {
+	public DeviceListResponseDto getDeviceList(int networkType, Long planId, int discountType) {
 		// TODO : 예외처리
 		Plan plan = null;
 
@@ -35,7 +34,7 @@ public class DeviceService {
 
 		List<Device> devices = deviceRepository.findByNetworkType(networkType);
 
-		return DeviceListResponseDto.fromEntity(devices, plan, discountType, installmentType);
+		return DeviceListResponseDto.fromEntity(devices, plan, discountType);
 	}
 
 	public DeviceDetailResponseDto getDeviceDetail(Long deviceId, Long planId, int discountType,
