@@ -14,13 +14,12 @@ public class DeviceListResponseDto {
 	private List<DeviceResponseDto> devices;
 
 	public static DeviceListResponseDto fromEntity(List<Device> devices, Plan plan,
-		int discountType) {
+		int discountType, int installmentType) {
 		return DeviceListResponseDto.builder()
-			.devices(
-				devices.stream()
-					.map(device -> DeviceResponseDto.fromEntity(device, plan, discountType))
-					.collect(Collectors.toList())
-			)
+			.devices(devices.stream()
+				.map(device -> DeviceResponseDto.fromEntity(device, plan, discountType,
+					installmentType))
+				.collect(Collectors.toList()))
 			.build();
 	}
 }

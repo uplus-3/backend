@@ -9,14 +9,23 @@ import lombok.Getter;
 @Builder
 public class PlanPriceResponseDto {
 
+	private String name;
+
 	private int price;
 
-	private int d_price;
+	private int dPrice;
 
-	public static PlanPriceResponseDto fromEntity(Plan plan, int discountType) {
+	private int sDiscount;
+
+	public static PlanPriceResponseDto fromEntity(Plan plan, int discountType,
+		int installmentType) {
 		return PlanPriceResponseDto.builder()
-			.price(plan.getPrice())
-			.d_price(DiscountUtil.planDiscount(plan, discountType))
+			.name(plan.getName())
+			.price(plan.getPrice() * DiscountUtil.DEFAULT_MONTH / installmentType)
+			.dPrice(DiscountUtil.planDiscount(plan, discountType)
+				* DiscountUtil.DEFAULT_MONTH / installmentType)
+			.sDiscount((plan.getPrice() - DiscountUtil.planDiscount(plan, discountType))
+				* DiscountUtil.DEFAULT_MONTH / installmentType)
 			.build();
 	}
 }

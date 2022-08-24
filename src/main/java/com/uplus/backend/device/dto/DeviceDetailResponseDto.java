@@ -11,11 +11,17 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class DeviceResponseDto {
+public class DeviceDetailResponseDto {
 
 	private Long id;
 
 	private String name;
+
+	private String storage;
+
+	private String cpu;
+
+	private String display;
 
 	private int price;
 
@@ -23,28 +29,37 @@ public class DeviceResponseDto {
 
 	private int dPrice;
 
+	private int pSupport;
+
+	private int aSupport;
+
 	private PlanPriceResponseDto plan;
 
 	private List<TagResponseDto> tags;
 
 	private List<ColorResponseDto> colors;
 
-	public static DeviceResponseDto fromEntity(Device device, Plan plan, int discountType
+	public static DeviceDetailResponseDto fromEntity(Device device, Plan plan, int discountType
 		, int installmentType) {
-		return DeviceResponseDto.builder()
+		return DeviceDetailResponseDto.builder()
 			.id(device.getId())
 			.name(device.getName())
+			.storage(device.getStorage())
+			.cpu(device.getCpu())
+			.display(device.getDisplay())
 			.price(device.getPrice())
 			.mPrice(device.getPrice() / installmentType)
 			.dPrice(DiscountUtil.deviceDiscount(device, discountType) / installmentType)
-			.plan(PlanPriceResponseDto.fromEntity(plan != null ? plan : device.getPlan(),
-				discountType, installmentType))
+			.pSupport(device.getPublicSupport())
+			.aSupport(device.getAdditionalSupport())
+			.plan(PlanPriceResponseDto.fromEntity(plan, discountType, installmentType))
 			.tags(device.getTags().stream()
 				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))
 			.colors(device.getColors().stream()
 				.map(ColorResponseDto::fromEntity)
 				.collect(Collectors.toList()))
+
 			.build();
 	}
 }

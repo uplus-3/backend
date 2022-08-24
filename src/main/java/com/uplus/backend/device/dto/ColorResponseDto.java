@@ -23,11 +23,9 @@ public class ColorResponseDto {
 			.name(color.getName())
 			.rgb(color.getRdb())
 			.stock(color.getStock())
-			.images(
-				color.getImages().stream()
-					.map(ImageResponseDto::fromEntity)
-					.collect(Collectors.toList())
-			)
+			.images(color.getImages().stream()
+				.map(ImageResponseDto::fromEntity)
+				.collect(Collectors.toList()))
 			.build();
 	}
 }
