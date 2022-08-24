@@ -1,5 +1,8 @@
 package com.uplus.backend.plan.repository;
 
-public class PlanRepository {
+import com.uplus.backend.plan.entity.Plan;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PlanRepository extends JpaRepository<Plan, Long> {
 
 }
