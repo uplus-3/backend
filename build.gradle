@@ -24,7 +24,12 @@ bootJar {
 }
 
 repositories {
+//    maven {
+//        url 'https://repo1.maven.org/maven2'
+//        allowInsecureProtocol true
+//    }
     mavenCentral()
+//    gradlePluginPortal()
 }
 
 dependencies {
@@ -39,7 +44,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-//    // s3 config
+    // s3 config
 //    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.2'
 
     // swagger dependency
@@ -52,6 +57,7 @@ dependencies {
     // 테스트에서 lombok 사용
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
+
 
 }
 

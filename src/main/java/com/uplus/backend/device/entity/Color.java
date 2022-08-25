@@ -74,4 +74,5 @@ public class Color extends BaseEntity {
 			order.setColor(this);
 		}
 	}
+
 }
