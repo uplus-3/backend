@@ -2,6 +2,7 @@ package com.uplus.backend.order.service;
 
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.repository.ColorRepository;
+import com.uplus.backend.global.util.OrderNumberUtil;
 import com.uplus.backend.order.dto.OrderCreateRequestDto;
 import com.uplus.backend.order.dto.OrderCreateResponsetDto;
 import com.uplus.backend.order.dto.OrderResponseDto;
@@ -33,7 +34,7 @@ public class OrderService {
 		Plan plan = planRepository.findById(orderCreateRequestDto.getPlanId())
 			.orElseThrow(RuntimeException::new);
 
-		Order order = orderCreateRequestDto.toEntity(color, plan);
+		Order order = orderCreateRequestDto.toEntity(color, plan, OrderNumberUtil.createOrderNumber());
 
 		orderRepository.save(order);
 

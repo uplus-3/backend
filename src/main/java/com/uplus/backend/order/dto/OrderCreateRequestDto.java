@@ -46,9 +46,10 @@ public class OrderCreateRequestDto {
 	@ApiModelProperty(name = "요금제 ID", example = "1")
 	private Long planId;
 
-	public Order toEntity(Color color, Plan plan) {
+	public Order toEntity(Color color, Plan plan, Long number) {
 		return Order.builder()
 			.name(name)
+			.number(number)
 			.phoneNumber(phoneNumber)
 			.address(address)
 			.price(price)
