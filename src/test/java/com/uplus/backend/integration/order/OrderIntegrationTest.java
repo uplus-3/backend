@@ -1,4 +1,4 @@
-package com.uplus.backend.integration.device;
+package com.uplus.backend.integration.order;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
