@@ -22,7 +22,7 @@ public class SearchResponseDto {
 		return SearchResponseDto.builder()
 			.id(device.getId())
 			.name(device.getName())
-			.imageUrl(device.getRepresentativeImageUrl())
+			.imageUrl(device.getRepImageUrl())
 			.build();
 	}
 }

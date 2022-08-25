@@ -12,7 +12,7 @@ import lombok.Getter;
 public class PlanListResponseDto {
 
 	@ApiModelProperty(name = "검색 결과 리스트", example = "")
-	private List<PlanResponseDto> planList;s
+	private List<PlanResponseDto> planList;
 
 	public static PlanListResponseDto fromEntity(List<Plan> planList) {
 		return PlanListResponseDto.builder()

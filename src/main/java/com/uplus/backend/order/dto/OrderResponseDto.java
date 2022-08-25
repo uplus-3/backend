@@ -63,7 +63,7 @@ public class OrderResponseDto {
 			.discountType(order.getDiscountType())
 			.registrationType(order.getRegistrationType())
 			.installmentPeriod(order.getInstallmentPeriod())
-			.imageUrl(order.getColor().getDevice().getRepresentativeImageUrl())
+			.imageUrl(order.getColor().getDevice().getRepImageUrl())
 			.build();
 	}
 }

@@ -5,6 +5,9 @@ import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.plan.entity.Plan;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,6 +28,11 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(name = "orders")
 @Getter
 public class Order extends BaseEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
+	private Long id;
 
 	@Column(nullable = false, unique = true)
 	private Long number;

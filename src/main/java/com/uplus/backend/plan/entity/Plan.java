@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,6 +30,11 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 @Getter
 public class Plan extends BaseEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
+	private Long id;
 
 	@Column(nullable = false)
 	private String name;
@@ -72,6 +80,4 @@ public class Plan extends BaseEntity {
 			order.setPlan(this);
 		}
 	}
-
-
 }
