@@ -31,9 +31,9 @@ public class DeviceController {
 	private final DeviceService deviceService;
 
 	@GetMapping("")
-	@ApiOperation(value = "단말기 리스트 조회 Test", notes = "Test")
+	@ApiOperation(value = "단말기 리스트 조회", notes = "단말기 리스트를 조회할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "Test 성공")
+		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
 	})
 	public ResponseEntity<DeviceListResponseDto> getDeviceList(
 		@RequestParam("network-type") int networkType, @RequestParam("plan") Long planId,
@@ -45,9 +45,10 @@ public class DeviceController {
 	}
 
 	@GetMapping("/{device-id}")
-	@ApiOperation(value = "디바이스 디테일, 주문 페이지 할인, 요금제 변화 요청 Test", notes = "Test")
+	@ApiOperation(value = "입력값에 따른 단말기 정보 조회",
+		notes = "입력값에 따른 단말기 정보를 조회할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "Test 성공")
+		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
 	})
 	public ResponseEntity<DeviceDetailResponseDto> getDeviceDetail(
 		@PathVariable(name = "device-id") Long deviceId, @RequestParam("plan") Long planId,
@@ -60,9 +61,9 @@ public class DeviceController {
 	}
 
 	@GetMapping("/{device-id}/self")
-	@ApiOperation(value = "동일 기기 비교 조회  Test", notes = "Test")
+	@ApiOperation(value = "동일 기기 비교 조회", notes = "동일 기기 비교 조회할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "Test 성공")
+		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
 	})
 	public ResponseEntity<DeviceSelfCompResponseDto> getDeviceSelfComp(
 		@PathVariable(name = "device-id") Long deviceId) {
