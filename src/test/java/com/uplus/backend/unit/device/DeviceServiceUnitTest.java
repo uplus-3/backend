@@ -44,7 +44,6 @@ public class DeviceServiceUnitTest {
 		.voiceCall("무제한")
 		.message("무제한")
 		.build();
-	;
 
 	private Tag tag1 = Tag.builder()
 		.id(1L)
