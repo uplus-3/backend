@@ -1,11 +1,10 @@
-package com.uplus.backend.support.entity;
+package com.uplus.backend.device.entity;
 
-import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.global.entity.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,15 +20,22 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicUpdate
 @Entity
 @Getter
-public class Support extends BaseEntity {
+public class Tag extends BaseEntity {
 
 	@Column(nullable = false)
-	private String publicSupport;
+	private String content;
 
-	@Column(nullable = false)
-	private String addtionalSupport;
+	@Column(nullable = false, columnDefinition = "CHAR(7)")
+	private String rgb;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "device_id")
 	private Device device;
+
+	public void setDevice(Device device) {
+		this.device = device;
+		if (device.getTags() != this) {
+			device.getTags().add(this);
+		}
+	}
 }

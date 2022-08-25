@@ -33,9 +33,18 @@ public class Color extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "CHAR(7)")
 	private String rdb;
 
+	@Column(nullable = false)
+	private int stock;
+
 	@ManyToOne
 	@JoinColumn(name = "device_id")
 	private Device device;
+
+	@OneToMany(mappedBy = "color")
+	private List<Image> images = new ArrayList<>();
+
+	@OneToMany(mappedBy = "color")
+	private List<Order> orders = new ArrayList<>();
 
 	public void setDevice(Device device) {
 		this.device = device;
@@ -44,9 +53,6 @@ public class Color extends BaseEntity {
 		}
 	}
 
-	@OneToMany(mappedBy = "color")
-	private List<Image> images = new ArrayList<>();
-
 	public void addImages(Image image) {
 		this.images.add(image);
 		if (image.getColor() != this) {
@@ -54,16 +60,10 @@ public class Color extends BaseEntity {
 		}
 	}
 
-	@OneToMany(mappedBy = "color")
-	List<Order> orders = new ArrayList<>();
-
 	public void addOrders(Order order) {
 		this.orders.add(order);
 		if (order.getColor() != this) {
 			order.setColor(this);
 		}
 	}
-
-	// stock entity
-
 }

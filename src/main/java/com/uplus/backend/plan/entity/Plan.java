@@ -31,8 +31,8 @@ public class Plan extends BaseEntity {
 	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = false)
-	private String networkType;
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
+	private int networkType;
 
 	@Column(nullable = false)
 	private int price;

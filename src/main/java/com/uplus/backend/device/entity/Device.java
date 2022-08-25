@@ -2,7 +2,6 @@ package com.uplus.backend.device.entity;
 
 import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.plan.entity.Plan;
-import com.uplus.backend.support.entity.Support;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,7 +44,7 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private String company;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	private int networkType;
 
 	@Column(nullable = false)
@@ -56,23 +53,32 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private String display;
 
+	@Column(nullable = false)
+	private int publicSupport;
+
+	@Column(nullable = false)
+	private int additionalSupport;
+
 	@OneToOne
 	private Plan plan;
-
-	@OneToOne(mappedBy = "device")
-	private Support support;
 
 	@OneToMany(mappedBy = "device")
 	private List<Color> colors = new ArrayList<>();
 
-	public void addColors(Color color) {
+	@OneToMany(mappedBy = "device")
+	private List<Tag> tags = new ArrayList<>();
+
+	public void addColor(Color color) {
 		this.colors.add(color);
 		if (color.getDevice() != this) {
 			color.setDevice(this);
 		}
 	}
 
-	// tag entity
-
-
+	public void addTag(Tag tag) {
+		this.tags.add(tag);
+		if (tag.getDevice() != this) {
+			tag.setDevice(this);
+		}
+	}
 }
