@@ -17,13 +17,9 @@ import com.uplus.backend.plan.entity.Plan;
 import com.uplus.backend.plan.repository.PlanRepository;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +29,6 @@ import org.springframework.util.MultiValueMap;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(Lifecycle.PER_CLASS)
 public class DeviceIntegrationTest {
 
@@ -93,6 +88,7 @@ public class DeviceIntegrationTest {
 			.display("디스플레이")
 			.publicSupport(200000)
 			.additionalSupport(50000)
+			.repImageUrl("대표이미지URL")
 			.plan(plan1)
 			.build();
 		device1 = deviceRepository.save(device1);
@@ -120,9 +116,7 @@ public class DeviceIntegrationTest {
 	}
 
 	@Test
-	@Order(1)
-	@DisplayName("단말기 리스트 조회 테스트")
-	public void getDeviceListTest() throws Exception {
+	void 단말기_리스트_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("network-type", "5");
@@ -137,9 +131,7 @@ public class DeviceIntegrationTest {
 	}
 
 	@Test
-	@Order(2)
-	@DisplayName("디바이스 디테일, 주문 페이지 할인, 요금제 변화 요청, 단말기별 비교 조회 테스트")
-	public void getDeviceDetailTest() throws Exception {
+	void 입력값에_따른_단말기_정보_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("plan", "1");
@@ -153,9 +145,7 @@ public class DeviceIntegrationTest {
 	}
 
 	@Test
-	@Order(3)
-	@DisplayName("동일 기기 비교 조회  테스트")
-	public void getDeviceSelfCompTest() throws Exception {
+	void 동일_기기_비교_조회_테스트() throws Exception {
 		// when & then
 		mockMvc.perform(get("/api/devices/1/self"))
 			.andExpect(status().isOk())
