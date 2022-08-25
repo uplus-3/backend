@@ -60,7 +60,7 @@ public class OrderController {
 
 		OrderResponseDto orderResponseDto = orderService.getByNameAndNumber(name, number);
 
-		return ResponseEntity.ok(orderResponseDto);
+		return ResponseEntity.ok().body(orderResponseDto);
 	}
 
 }

@@ -16,8 +16,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderCreateRequestDto {
 
-	// validation 조건 설정 필요
-
 	@ApiModelProperty(name = "주문자 이름", example = "윤유플")
 	private String name;
 

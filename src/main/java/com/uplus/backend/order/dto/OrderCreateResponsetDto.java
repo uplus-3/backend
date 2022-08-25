@@ -2,15 +2,10 @@ package com.uplus.backend.order.dto;
 
 import com.uplus.backend.order.entity.Order;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class OrderCreateResponsetDto {
 

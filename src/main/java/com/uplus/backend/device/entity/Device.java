@@ -44,7 +44,7 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private String company;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	private int networkType;
 
 	@Column(nullable = false)
@@ -52,6 +52,12 @@ public class Device extends BaseEntity {
 
 	@Column(nullable = false)
 	private String display;
+
+	@Column(nullable = false)
+	private int publicSupport;
+
+	@Column(nullable = false)
+	private int additionalSupport;
 
 	@Column(nullable = false)
 	private int publicSupport;
@@ -68,14 +74,20 @@ public class Device extends BaseEntity {
 	@OneToMany(mappedBy = "device")
 	private List<Color> colors = new ArrayList<>();
 
-	public void addColors(Color color) {
+	@OneToMany(mappedBy = "device")
+	private List<Tag> tags = new ArrayList<>();
+
+	public void addColor(Color color) {
 		this.colors.add(color);
 		if (color.getDevice() != this) {
 			color.setDevice(this);
 		}
 	}
 
-	// tag entity
-
-
+	public void addTag(Tag tag) {
+		this.tags.add(tag);
+		if (tag.getDevice() != this) {
+			tag.setDevice(this);
+		}
+	}
 }

@@ -1,18 +1,14 @@
 package com.uplus.backend.plan.controller;
 
 
-import com.uplus.backend.plan.dto.PlanResponseDto;
+import com.uplus.backend.plan.dto.PlanListResponseDto;
 import com.uplus.backend.plan.service.PlanService;
-import com.uplus.backend.search.dto.SearchResponseDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,20 +25,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PlanController {
 
-    private final PlanService planservice;
+	private final PlanService planservice;
 
 	@GetMapping("")
 	@ApiOperation(value = "요금제 리스트 조회", notes = "네트워크 유형으로 요금제 리스트 조회")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "요금제 리스트 조회"),
+		@ApiResponse(code = 200, message = "요금제 리스트 조회 성공"),
 		@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<List<SearchResponseDto>> findByNetworkType(
+	public ResponseEntity<PlanListResponseDto> findByNetworkType(
 		@RequestParam("network-type") int networkType) {
 
-		List<PlanResponseDto> planResponseListDto = planservice.findByNetworkType(networkType);
+		PlanListResponseDto planListResponseDto = planservice.findByNetworkType(networkType);
 
-		return ResponseEntity.ok(planResponseListDto);
+		return ResponseEntity.ok().body(planListResponseDto);
 	}
 
 }

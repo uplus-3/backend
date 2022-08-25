@@ -14,6 +14,15 @@ configurations {
     }
 }
 
+jar {
+    enabled = false
+}
+
+bootJar {
+    archivesBaseName = 'app'
+    archiveFileName = 'app.jar'
+}
+
 repositories {
 //    maven {
 //        url 'https://repo1.maven.org/maven2'

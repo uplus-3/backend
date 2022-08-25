@@ -1,8 +1,6 @@
 package com.uplus.backend.plan.service;
 
-import com.uplus.backend.plan.controller.planResponseDto;
-import com.uplus.backend.plan.dto.PlanResponseDto;
-import com.uplus.backend.plan.dto.PlanResponseListDto;
+import com.uplus.backend.plan.dto.PlanListResponseDto;
 import com.uplus.backend.plan.entity.Plan;
 import com.uplus.backend.plan.repository.PlanRepository;
 import java.util.List;
@@ -17,10 +15,10 @@ public class PlanService {
 
 	private final PlanRepository planRepository;
 
-	public List<PlanResponseDto> findByNetworkType(int networkType) {
+	public PlanListResponseDto findByNetworkType(int networkType) {
 
 		List<Plan> planList = planRepository.findByNetworkTypeOrderByPriceAsc(networkType);
 
-		return PlanResponseListDto.fromEntity(planList);
+		return PlanListResponseDto.fromEntity(planList);
 	}
 }
