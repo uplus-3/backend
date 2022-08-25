@@ -42,7 +42,7 @@ public class DeviceControllerUnitTest {
 		.id(1L)
 		.name("요금제1")
 		.networkType(5)
-		.price(59000)
+		.price(59_000)
 		.data("11GB(다쓰면 3mbps 무제한)")
 		.voiceCall("무제한")
 		.message("무제한")
@@ -84,8 +84,8 @@ public class DeviceControllerUnitTest {
 		.networkType(5)
 		.cpu("CPU")
 		.display("디스플레이")
-		.publicSupport(200000)
-		.additionalSupport(50000)
+		.publicSupport(200_000)
+		.additionalSupport(50_000)
 		.repImageUrl("대표이미지URL")
 		.plan(plan1)
 		.colors(colors)
@@ -96,15 +96,15 @@ public class DeviceControllerUnitTest {
 	void 단말기_리스트_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("network-type", "5");
-		params.add("plan", "1");
-		params.add("discount-type", "0");
-		params.add("installment-type", "24");
+		params.add("network-type", String.valueOf(device1.getNetworkType()));
+		params.add("plan", String.valueOf(plan1.getId()));
+		params.add("discount-type", String.valueOf(0));
+		params.add("installment-type", String.valueOf(24));
 
 		DeviceListResponseDto responseDto = DeviceListResponseDto.fromEntity(List.of(device1),
 			plan1, 0);
 
-		given(deviceService.getDeviceList(5, 1L, 0))
+		given(deviceService.getDeviceList(device1.getNetworkType(), plan1.getId(), 0))
 			.willReturn(responseDto);
 
 		// when & then
@@ -117,9 +117,9 @@ public class DeviceControllerUnitTest {
 	void 입력값에_따른_단말기_정보_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("plan", "1");
-		params.add("discount-type", "0");
-		params.add("installment-type", "24");
+		params.add("plan", String.valueOf(plan1.getId()));
+		params.add("discount-type", String.valueOf(0));
+		params.add("installment-type", String.valueOf(24));
 
 		DeviceDetailResponseDto responseDto = DeviceDetailResponseDto.fromEntity(device1, plan1, 0,
 			24);

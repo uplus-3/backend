@@ -39,7 +39,7 @@ public class DeviceServiceUnitTest {
 		.id(1L)
 		.name("요금제1")
 		.networkType(5)
-		.price(59000)
+		.price(59_000)
 		.data("11GB(다쓰면 3mbps 무제한)")
 		.voiceCall("무제한")
 		.message("무제한")
@@ -81,8 +81,8 @@ public class DeviceServiceUnitTest {
 		.networkType(5)
 		.cpu("CPU")
 		.display("디스플레이")
-		.publicSupport(200000)
-		.additionalSupport(50000)
+		.publicSupport(200_000)
+		.additionalSupport(50_000)
 		.repImageUrl("대표이미지URL")
 		.plan(plan1)
 		.colors(colors)
@@ -92,8 +92,9 @@ public class DeviceServiceUnitTest {
 	@Test
 	void 단말기_리스트_조회_테스트() {
 		// given
-		given(planRepository.findById(1L)).willReturn(Optional.of(plan1));
-		given(deviceRepository.findByNetworkType(5)).willReturn(List.of(device1));
+		given(planRepository.findById(plan1.getId())).willReturn(Optional.of(plan1));
+		given(deviceRepository.findByNetworkType(device1.getNetworkType())).willReturn(
+			List.of(device1));
 
 		// when
 		DeviceListResponseDto responseDto = deviceService.getDeviceList(device1.getNetworkType(),
@@ -112,8 +113,8 @@ public class DeviceServiceUnitTest {
 	@Test
 	void 입력값에_따른_단말기_정보_조회_테스트() {
 		// given
-		given(planRepository.findById(1L)).willReturn(Optional.of(plan1));
-		given(deviceRepository.findById(1L)).willReturn(Optional.of(device1));
+		given(planRepository.findById(plan1.getId())).willReturn(Optional.of(plan1));
+		given(deviceRepository.findById(device1.getId())).willReturn(Optional.of(device1));
 
 		// when
 		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(device1.getId(),

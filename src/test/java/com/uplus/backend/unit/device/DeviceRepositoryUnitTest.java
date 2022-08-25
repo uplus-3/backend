@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest
 public class DeviceRepositoryUnitTest {
@@ -85,15 +86,19 @@ public class DeviceRepositoryUnitTest {
 			.color(color1)
 			.build();
 		em.persist(image1);
+
+		em.flush();
+
+		em.detach(device1);
 	}
 
 	@Test
 	void 단말기_생성_그리고_조회_테스트() {
 		// when
-		Device device = deviceRepository.findById(1L).get();
+		List<Device> devices = deviceRepository.findAll();
 
 		// then
-		assertThat(device.getName()).isEqualTo("스마트폰1");
+		assertThat(devices.size()).isEqualTo(1);
 	}
 
 	@Test
@@ -104,7 +109,7 @@ public class DeviceRepositoryUnitTest {
 		em.remove(color1);
 
 		// when
-		deviceRepository.delete(device1);
+		deviceRepository.deleteAll();
 		List<Device> devices = deviceRepository.findAll();
 
 		// then
