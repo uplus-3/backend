@@ -59,6 +59,15 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private int additionalSupport;
 
+	@Column(nullable = false)
+	private int publicSupport;
+
+	@Column(nullable = false)
+	private int addtionalSupport;
+
+	@Column(nullable = false)
+	private String representativeImageUrl;
+
 	@OneToOne
 	private Plan plan;
 

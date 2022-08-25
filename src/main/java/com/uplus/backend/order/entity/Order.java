@@ -8,17 +8,22 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DynamicInsert
 @DynamicUpdate
 @Entity
 @Table(name = "orders")
 @Getter
-@Setter
 public class Order extends BaseEntity {
 
 	@Column(nullable = false, unique = true)
@@ -28,7 +33,7 @@ public class Order extends BaseEntity {
 	private String name;
 
 	@Column(nullable = false)
-	private String phone;
+	private String phoneNumber;
 
 	@Column(nullable = false)
 	private String address;
@@ -46,7 +51,7 @@ public class Order extends BaseEntity {
 	private int shipmentType;
 
 	@Column(nullable = false)
-	private int installmentType;
+	private int installmentPeriod;
 
 	@ManyToOne
 	@JoinColumn(name = "color_id")
