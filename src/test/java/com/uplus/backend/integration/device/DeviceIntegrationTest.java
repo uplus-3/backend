@@ -69,7 +69,7 @@ public class DeviceIntegrationTest {
 		plan1 = Plan.builder()
 			.name("요금제1")
 			.networkType(5)
-			.price(59000)
+			.price(59_000)
 			.data("11GB(다쓰면 3mbps 무제한)")
 			.voiceCall("무제한")
 			.message("무제한")
@@ -86,8 +86,8 @@ public class DeviceIntegrationTest {
 			.networkType(5)
 			.cpu("CPU")
 			.display("디스플레이")
-			.publicSupport(200000)
-			.additionalSupport(50000)
+			.publicSupport(200_000)
+			.additionalSupport(50_000)
 			.repImageUrl("대표이미지URL")
 			.plan(plan1)
 			.build();
@@ -119,10 +119,10 @@ public class DeviceIntegrationTest {
 	void 단말기_리스트_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("network-type", "5");
-		params.add("plan", "1");
-		params.add("discount-type", "0");
-		params.add("installment-type", "24");
+		params.add("network-type", String.valueOf(5));
+		params.add("plan", String.valueOf(1L));
+		params.add("discount-type", String.valueOf(0));
+		params.add("installment-type", String.valueOf(24));
 
 		// when & then
 		mockMvc.perform(get("/api/devices").params(params))
@@ -134,9 +134,9 @@ public class DeviceIntegrationTest {
 	void 입력값에_따른_단말기_정보_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("plan", "1");
-		params.add("discount-type", "0");
-		params.add("installment-type", "24");
+		params.add("plan", String.valueOf(1L));
+		params.add("discount-type", String.valueOf(0));
+		params.add("installment-type", String.valueOf(24));
 
 		// when & then
 		mockMvc.perform(get("/api/devices/1").params(params))
