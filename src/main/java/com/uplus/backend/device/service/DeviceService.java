@@ -1,5 +1,7 @@
 package com.uplus.backend.device.service;
 
+import com.uplus.backend.device.dto.DeviceCreateRequestDto;
+import com.uplus.backend.device.dto.DeviceCreateResponseDto;
 import com.uplus.backend.device.dto.DeviceDetailResponseDto;
 import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
@@ -23,8 +25,19 @@ public class DeviceService {
 
 	private final PlanRepository planRepository;
 
-	public DeviceListResponseDto getDeviceList(int networkType, Long planId, int discountType) {
-		// TODO : 예외처리
+	@Transactional
+	public DeviceCreateResponseDto create(DeviceCreateRequestDto requestDto) {
+		Plan plan = planRepository.findById(requestDto.getPlanId())
+			.orElseThrow(RuntimeException::new);
+
+		Device device = requestDto.toEntity(plan);
+		device = deviceRepository.save(device);
+
+		return DeviceCreateResponseDto.fromEntity(device);
+	}
+
+	public DeviceListResponseDto getDeviceList(int networkType, Long planId, int discountType,
+		int installmentPeriod) {
 		Plan plan = null;
 
 		if (planId != -1) {
@@ -34,18 +47,18 @@ public class DeviceService {
 
 		List<Device> devices = deviceRepository.findByNetworkType(networkType);
 
-		return DeviceListResponseDto.fromEntity(devices, plan, discountType);
+		return DeviceListResponseDto.fromEntity(devices, plan, discountType, installmentPeriod);
 	}
 
 	public DeviceDetailResponseDto getDeviceDetail(Long deviceId, Long planId, int discountType,
-		int installment) {
+		int installmentPeriod) {
 		Device device = deviceRepository.findById(deviceId)
 			.orElseThrow(RuntimeException::new);
 
 		Plan plan = planRepository.findById(planId)
 			.orElseThrow(RuntimeException::new);
 
-		return DeviceDetailResponseDto.fromEntity(device, plan, discountType, installment);
+		return DeviceDetailResponseDto.fromEntity(device, plan, discountType, installmentPeriod);
 	}
 
 	public DeviceSelfCompResponseDto getDeviceSelfComp(Long deviceId) {
