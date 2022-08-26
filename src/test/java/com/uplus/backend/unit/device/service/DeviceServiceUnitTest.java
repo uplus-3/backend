@@ -1,4 +1,4 @@
-package com.uplus.backend.unit.device;
+package com.uplus.backend.unit.device.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
