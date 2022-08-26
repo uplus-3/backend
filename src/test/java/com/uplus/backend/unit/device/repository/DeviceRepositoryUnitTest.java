@@ -1,4 +1,4 @@
-package com.uplus.backend.unit.device;
+package com.uplus.backend.unit.device.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.transaction.annotation.Transactional;
 
 @DataJpaTest
 public class DeviceRepositoryUnitTest {
@@ -42,12 +41,12 @@ public class DeviceRepositoryUnitTest {
 		plan1 = Plan.builder()
 			.name("요금제1")
 			.networkType(5)
-			.price(59000)
+			.price(59_000)
 			.data("11GB(다쓰면 3mbps 무제한)")
 			.voiceCall("무제한")
 			.message("무제한")
 			.build();
-		em.persist(plan1);
+		plan1 = em.persist(plan1);
 
 		device1 = Device.builder()
 			.name("스마트폰1")
@@ -59,19 +58,19 @@ public class DeviceRepositoryUnitTest {
 			.networkType(5)
 			.cpu("CPU")
 			.display("디스플레이")
-			.publicSupport(200000)
-			.additionalSupport(50000)
+			.publicSupport(200_000)
+			.additionalSupport(50_000)
 			.repImageUrl("대표이미지URL")
 			.plan(plan1)
 			.build();
-		em.persist(device1);
+		device1 = em.persist(device1);
 
 		tag1 = Tag.builder()
 			.content("최신")
 			.rgb("#000000")
 			.device(device1)
 			.build();
-		em.persist(tag1);
+		tag1 = em.persist(tag1);
 
 		color1 = Color.builder()
 			.name("색상1")
@@ -79,26 +78,22 @@ public class DeviceRepositoryUnitTest {
 			.stock(1)
 			.device(device1)
 			.build();
-		em.persist(color1);
+		color1 = em.persist(color1);
 
 		image1 = Image.builder()
 			.url("이미지URL")
 			.color(color1)
 			.build();
-		em.persist(image1);
-
-		em.flush();
-
-		em.detach(device1);
+		image1 = em.persist(image1);
 	}
 
 	@Test
-	void 단말기_생성_그리고_조회_테스트() {
+	void 단말기__조회_테스트() {
 		// when
-		List<Device> devices = deviceRepository.findAll();
+		Device device = deviceRepository.findById(device1.getId()).get();
 
 		// then
-		assertThat(devices.size()).isEqualTo(1);
+		assertThat(device.getName()).isEqualTo("스마트폰1");
 	}
 
 	@Test
@@ -109,7 +104,7 @@ public class DeviceRepositoryUnitTest {
 		em.remove(color1);
 
 		// when
-		deviceRepository.deleteAll();
+		deviceRepository.deleteById(device1.getId());
 		List<Device> devices = deviceRepository.findAll();
 
 		// then
