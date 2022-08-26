@@ -76,4 +76,6 @@ public class Plan extends BaseEntity {
 			order.setPlan(this);
 		}
 	}
+
+
 }

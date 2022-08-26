@@ -9,4 +9,6 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 	List<Plan> findByNetworkType(int networkType);
 
 	List<Plan> findByNetworkTypeOrderByPriceAsc(int networkType);
+
+	List<Plan> findAllByOrderByPriceAsc();
 }
