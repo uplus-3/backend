@@ -20,7 +20,7 @@ public class OrderResponseDto {
 	private String name;
 
 	@ApiModelProperty(name = "주문 생성 시간", example = "2022.08.24")
-	private String createAt;
+	private String createdAt;
 
 	@ApiModelProperty(name = "기기명", example = "갤럭시 S20 중고폰")
 	private String deviceName;
@@ -54,7 +54,7 @@ public class OrderResponseDto {
 			.id(order.getId())
 			.number(order.getNumber())
 			.name(order.getName())
-			.createAt(order.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
+			.createdAt(order.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
 			.deviceName(order.getColor().getDevice().getName())
 			.planName(order.getPlan().getName())
 			.colorName(order.getColor().getName())

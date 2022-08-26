@@ -7,13 +7,13 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class OrderCreateResponsetDto {
+public class OrderCreateResponseDto {
 
 	@ApiModelProperty(name = "생성 주문번호 ", example = "2022082412")
 	private Long number;
 
-	public static OrderCreateResponsetDto fromEntity(Order order) {
-		return OrderCreateResponsetDto.builder()
+	public static OrderCreateResponseDto fromEntity(Order order) {
+		return OrderCreateResponseDto.builder()
 			.number(order.getNumber())
 			.build();
 	}

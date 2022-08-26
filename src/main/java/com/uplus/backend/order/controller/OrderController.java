@@ -2,7 +2,7 @@ package com.uplus.backend.order.controller;
 
 
 import com.uplus.backend.order.dto.OrderCreateRequestDto;
-import com.uplus.backend.order.dto.OrderCreateResponsetDto;
+import com.uplus.backend.order.dto.OrderCreateResponseDto;
 import com.uplus.backend.order.dto.OrderResponseDto;
 import com.uplus.backend.order.service.OrderService;
 import io.swagger.annotations.Api;
@@ -12,7 +12,6 @@ import io.swagger.annotations.ApiResponses;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,16 +35,16 @@ public class OrderController {
 	@PostMapping("")
 	@ApiOperation(value = "주문 생성", notes = "전송 받은 정보로 주문 데이터를 생성합니다.")
 	@ApiResponses({
-		@ApiResponse(code = 201, message = "주문 생성 완료"),
+		@ApiResponse(code = 200, message = "주문 생성 완료"),
 		@ApiResponse(code = 400, message = "잘못된 주문 생성 정보 전송"),
 		@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<OrderCreateResponsetDto> createOrder(
+	public ResponseEntity<OrderCreateResponseDto> createOrder(
 		@Valid @RequestBody OrderCreateRequestDto request) {
 
-		OrderCreateResponsetDto orderCreateResponseDto = orderService.create(request);
+		OrderCreateResponseDto orderCreateResponseDto = orderService.create(request);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(orderCreateResponseDto);
+		return ResponseEntity.ok().body(orderCreateResponseDto);
 	}
 
 	@GetMapping("")
