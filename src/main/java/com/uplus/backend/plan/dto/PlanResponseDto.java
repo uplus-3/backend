@@ -15,10 +15,14 @@ public class PlanResponseDto {
 	@ApiModelProperty(name = "요금제 명", example = "5G+ 프리미엄 요금제")
 	private String name;
 
+	@ApiModelProperty(name = "요금제 금액", example = "59000")
+	private int price;
+
 	public static PlanResponseDto fromEntity(Plan plan) {
 		return PlanResponseDto.builder()
 			.id(plan.getId())
 			.name(plan.getName())
+			.price(plan.getPrice())
 			.build();
 	}
 }
