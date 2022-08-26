@@ -1,6 +1,9 @@
 package com.uplus.backend.plan.dto;
 
-import com.uplus.backend.global.util.DiscountUtil;
+import static com.uplus.backend.global.util.PriceUtil.DEFAULT_MONTH;
+
+import com.uplus.backend.device.entity.Device;
+import com.uplus.backend.global.util.PriceUtil;
 import com.uplus.backend.plan.entity.Plan;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,15 +20,15 @@ public class PlanPriceResponseDto {
 
 	private int sDiscount;
 
-	public static PlanPriceResponseDto fromEntity(Plan plan, int discountType,
+	public static PlanPriceResponseDto fromEntity(Device device, Plan plan, int discountType,
 		int installmentType) {
 		return PlanPriceResponseDto.builder()
 			.name(plan.getName())
-			.price(plan.getPrice() * DiscountUtil.DEFAULT_MONTH / installmentType)
-			.dPrice(DiscountUtil.planDiscount(plan, discountType)
-				* DiscountUtil.DEFAULT_MONTH / installmentType)
-			.sDiscount((plan.getPrice() - DiscountUtil.planDiscount(plan, discountType))
-				* DiscountUtil.DEFAULT_MONTH / installmentType)
+			.price(plan.getPrice() * DEFAULT_MONTH / installmentType)
+			.dPrice(PriceUtil.planDiscount(device, plan, discountType)
+				* DEFAULT_MONTH / installmentType)
+			.sDiscount((plan.getPrice() - PriceUtil.planDiscount(device, plan, discountType))
+				* DEFAULT_MONTH / installmentType)
 			.build();
 	}
 }

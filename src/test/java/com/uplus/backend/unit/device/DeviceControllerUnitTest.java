@@ -99,12 +99,12 @@ public class DeviceControllerUnitTest {
 		params.add("network-type", String.valueOf(device1.getNetworkType()));
 		params.add("plan", String.valueOf(plan1.getId()));
 		params.add("discount-type", String.valueOf(0));
-		params.add("installment-type", String.valueOf(24));
+		params.add("installment-period", String.valueOf(24));
 
 		DeviceListResponseDto responseDto = DeviceListResponseDto.fromEntity(List.of(device1),
-			plan1, 0);
+			plan1, 0, 24);
 
-		given(deviceService.getDeviceList(device1.getNetworkType(), plan1.getId(), 0))
+		given(deviceService.getDeviceList(device1.getNetworkType(), plan1.getId(), 0, 24))
 			.willReturn(responseDto);
 
 		// when & then
@@ -119,7 +119,7 @@ public class DeviceControllerUnitTest {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("plan", String.valueOf(plan1.getId()));
 		params.add("discount-type", String.valueOf(0));
-		params.add("installment-type", String.valueOf(24));
+		params.add("installment-period", String.valueOf(24));
 
 		DeviceDetailResponseDto responseDto = DeviceDetailResponseDto.fromEntity(device1, plan1, 0,
 			24);

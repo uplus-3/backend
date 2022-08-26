@@ -1,7 +1,10 @@
 package com.uplus.backend.plan.dto;
 
+import static com.uplus.backend.global.util.PriceUtil.PUBLIC_SUPPORT_DISCOUNT_TYPE;
+import static com.uplus.backend.global.util.PriceUtil.SELECT_INSTALLMENT_DISCOUNT_TYPE;
+
 import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.global.util.DiscountUtil;
+import com.uplus.backend.global.util.PriceUtil;
 import com.uplus.backend.plan.entity.Plan;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,8 +40,8 @@ public class PlanDetailResponseDto {
 			.shareData(plan.getShareData())
 			.voiceCall(plan.getVoiceCall())
 			.subVoiceCall(plan.getSubVoiceCall())
-			.psPrice(DiscountUtil.getSelfCompPrice(plan, device, 0))
-			.sdPrice(DiscountUtil.getSelfCompPrice(plan, device, 1))
+			.psPrice(PriceUtil.getSelfCompPrice(plan, device, PUBLIC_SUPPORT_DISCOUNT_TYPE))
+			.sdPrice(PriceUtil.getSelfCompPrice(plan, device, SELECT_INSTALLMENT_DISCOUNT_TYPE))
 			.build();
 	}
 }

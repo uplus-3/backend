@@ -122,7 +122,7 @@ public class DeviceIntegrationTest {
 		params.add("network-type", String.valueOf(5));
 		params.add("plan", String.valueOf(1L));
 		params.add("discount-type", String.valueOf(0));
-		params.add("installment-type", String.valueOf(24));
+		params.add("installment-period", String.valueOf(24));
 
 		// when & then
 		mockMvc.perform(get("/api/devices").params(params))
@@ -136,7 +136,7 @@ public class DeviceIntegrationTest {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("plan", String.valueOf(1L));
 		params.add("discount-type", String.valueOf(0));
-		params.add("installment-type", String.valueOf(24));
+		params.add("installment-period", String.valueOf(24));
 
 		// when & then
 		mockMvc.perform(get("/api/devices/1").params(params))
