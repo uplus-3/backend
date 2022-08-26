@@ -20,7 +20,5 @@ public class PlanListResponseDto {
 				.map(PlanResponseDto::fromEntity)
 				.collect(Collectors.toList()))
 			.build();
-
-
 	}
 }

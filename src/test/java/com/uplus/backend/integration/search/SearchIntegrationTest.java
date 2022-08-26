@@ -73,9 +73,21 @@ public class SearchIntegrationTest {
 	}
 
 	@Test
-	void 검색_조회_테스트() throws Exception {
+	void 검색_연관검색어_조회_테스트() throws Exception {
 		// given
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("q", "갤럭시");
+		params.add("network-type", String.valueOf(5));
 
+		// when & then
+		mockMvc.perform(get("/api/search/keyword").params(params))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@Test
+	void 검색_리스트_조회_테스트() throws Exception {
+		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("q", "갤럭시");
 		params.add("network-type", String.valueOf(5));

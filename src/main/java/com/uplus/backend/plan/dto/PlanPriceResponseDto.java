@@ -12,6 +12,8 @@ import lombok.Getter;
 @Builder
 public class PlanPriceResponseDto {
 
+	private Long id;
+
 	private String name;
 
 	private int price;
@@ -23,6 +25,7 @@ public class PlanPriceResponseDto {
 	public static PlanPriceResponseDto fromEntity(Device device, Plan plan, int discountType,
 		int installmentType) {
 		return PlanPriceResponseDto.builder()
+			.id(plan.getId())
 			.name(plan.getName())
 			.price(plan.getPrice() * DEFAULT_MONTH / installmentType)
 			.dPrice(PriceUtil.planDiscount(device, plan, discountType)

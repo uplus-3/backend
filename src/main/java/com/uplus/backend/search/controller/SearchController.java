@@ -1,6 +1,7 @@
 package com.uplus.backend.search.controller;
 
 
+import com.uplus.backend.search.dto.SearchKeywordListResponseDto;
 import com.uplus.backend.search.dto.SearchListResponseDto;
 import com.uplus.backend.search.service.SearchService;
 import io.swagger.annotations.Api;
@@ -27,16 +28,34 @@ public class SearchController {
 
 	private final SearchService searchService;
 
+	@GetMapping("/keyword")
+	@ApiOperation(value = "검색 키워드(연관 검색어) 조회", notes = "전송 받은 검색 키워드와 검색 기준 유형(0 : 전체 조회, 4 : 4G, 5 : 5G)으로 검색 키워드(연관 검색어)를 조회합니다.")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "검색 키워드(연관 검색어) 조회 성공"),
+		@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<SearchKeywordListResponseDto> getSearchKeyword(
+		@RequestParam("q") String query,
+		@RequestParam(name = "network-type", required = false, defaultValue = "0") int networkType) {
+
+		SearchKeywordListResponseDto searchKeywordListResponseDto = searchService.getSearchKeyword(
+			query, networkType);
+
+		return ResponseEntity.ok().body(searchKeywordListResponseDto);
+	}
+
 	@GetMapping("")
-	@ApiOperation(value = "검색 키워드 조회", notes = "전송 받은 검색 키워드와 검색 기준 유형으로 조회합니다.")
+	@ApiOperation(value = "검색 결과 리스트 조회", notes = "전송 받은 검색 키워드와 검색 기준 유형(0 : 전체 조회, 4 : 4G, 5 : 5G)으로 데이터를 조회합니다.")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "검색 성공"),
 		@ApiResponse(code = 500, message = "서버 오류")
 	})
-	public ResponseEntity<SearchListResponseDto> search(
-		@RequestParam("q") String query, @RequestParam("network-type") int networkType) {
+	public ResponseEntity<SearchListResponseDto> SearchByKeyword(
+		@RequestParam("q") String query,
+		@RequestParam(name = "network-type", required = false, defaultValue = "0") int networkType) {
 
-		SearchListResponseDto searchResponseListDto = searchService.search(query, networkType);
+		SearchListResponseDto searchResponseListDto = searchService.SearchByKeyword(query,
+			networkType);
 
 		return ResponseEntity.ok().body(searchResponseListDto);
 	}

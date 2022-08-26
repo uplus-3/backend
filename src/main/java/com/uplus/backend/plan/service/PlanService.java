@@ -28,7 +28,9 @@ public class PlanService {
 
 	public PlanListResponseDto findByNetworkType(int networkType) {
 
-		List<Plan> planList = planRepository.findByNetworkTypeOrderByPriceAsc(networkType);
+		List<Plan> planList =
+			networkType != 0 ? planRepository.findByNetworkTypeOrderByPriceAsc(networkType)
+				: planRepository.findAllByOrderByPriceAsc();
 
 		return PlanListResponseDto.fromEntity(planList);
 	}

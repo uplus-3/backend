@@ -44,13 +44,13 @@ public class PlanController {
 	}
 
 	@GetMapping("")
-	@ApiOperation(value = "요금제 리스트 조회", notes = "네트워크 유형으로 요금제 리스트 조회")
+	@ApiOperation(value = "요금제 리스트 조회", notes = "네트워크 유형(0 : 전체 조회, 4 : 4G, 5 : 5G) 으로 요금제 리스트 조회")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "요금제 리스트 조회 성공"),
 		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<PlanListResponseDto> findByNetworkType(
-		@RequestParam("network-type") int networkType) {
+		@RequestParam(name = "network-type", required = false, defaultValue = "0") int networkType) {
 
 		PlanListResponseDto planListResponseDto = planservice.findByNetworkType(networkType);
 
