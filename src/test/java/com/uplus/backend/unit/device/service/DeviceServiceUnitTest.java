@@ -1,4 +1,4 @@
-package com.uplus.backend.unit.device;
+package com.uplus.backend.unit.device.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -98,7 +98,7 @@ public class DeviceServiceUnitTest {
 
 		// when
 		DeviceListResponseDto responseDto = deviceService.getDeviceList(device1.getNetworkType(),
-			plan1.getId(), 0);
+			plan1.getId(), 0, 24);
 
 		// then
 		assertThat(responseDto.getDevices().get(0).getName()).isEqualTo("스마트폰1");

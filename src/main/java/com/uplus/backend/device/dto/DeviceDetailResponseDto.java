@@ -1,7 +1,7 @@
 package com.uplus.backend.device.dto;
 
 import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.global.util.DiscountUtil;
+import com.uplus.backend.global.util.PriceUtil;
 import com.uplus.backend.plan.dto.PlanPriceResponseDto;
 import com.uplus.backend.plan.entity.Plan;
 import java.util.List;
@@ -39,8 +39,8 @@ public class DeviceDetailResponseDto {
 
 	private List<ColorResponseDto> colors;
 
-	public static DeviceDetailResponseDto fromEntity(Device device, Plan plan, int discountType
-		, int installmentType) {
+	public static DeviceDetailResponseDto fromEntity(Device device, Plan plan, int discountType,
+		int installmentPeriod) {
 		return DeviceDetailResponseDto.builder()
 			.id(device.getId())
 			.name(device.getName())
@@ -48,11 +48,11 @@ public class DeviceDetailResponseDto {
 			.cpu(device.getCpu())
 			.display(device.getDisplay())
 			.price(device.getPrice())
-			.mPrice(device.getPrice() / installmentType)
-			.dPrice(DiscountUtil.deviceDiscount(device, discountType) / installmentType)
+			.mPrice(device.getPrice() / installmentPeriod)
+			.dPrice(PriceUtil.deviceDiscount(device, plan, discountType) / installmentPeriod)
 			.pSupport(device.getPublicSupport())
 			.aSupport(device.getAdditionalSupport())
-			.plan(PlanPriceResponseDto.fromEntity(plan, discountType, installmentType))
+			.plan(PlanPriceResponseDto.fromEntity(device, plan, discountType, installmentPeriod))
 			.tags(device.getTags().stream()
 				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))

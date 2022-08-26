@@ -1,6 +1,8 @@
 package com.uplus.backend.device.controller;
 
 
+import com.uplus.backend.device.dto.DeviceCreateRequestDto;
+import com.uplus.backend.device.dto.DeviceCreateResponseDto;
 import com.uplus.backend.device.dto.DeviceDetailResponseDto;
 import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
@@ -14,6 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,16 +34,30 @@ public class DeviceController {
 
 	private final DeviceService deviceService;
 
+	@PostMapping("")
+	@ApiOperation(value = "단말기 생성", notes = "단말기를 생성할 수 있다.")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "단말기 생성 성공")
+	})
+	public ResponseEntity<DeviceCreateResponseDto> create(
+		@RequestBody DeviceCreateRequestDto reqeustDto) {
+		DeviceCreateResponseDto responseDto = deviceService.create(reqeustDto);
+
+		return ResponseEntity.ok().body(responseDto);
+	}
+
 	@GetMapping("")
 	@ApiOperation(value = "단말기 리스트 조회", notes = "단말기 리스트를 조회할 수 있다.")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
 	})
 	public ResponseEntity<DeviceListResponseDto> getDeviceList(
-		@RequestParam("network-type") int networkType, @RequestParam("plan") Long planId,
-		@RequestParam("discount-type") int discountType) {
+		@RequestParam("network-type") int networkType,
+		@RequestParam("plan") Long planId,
+		@RequestParam("discount-type") int discountType,
+		@RequestParam(name = "installment-period", required = false, defaultValue = "24") int installmentPeriod) {
 		DeviceListResponseDto responseDto =
-			deviceService.getDeviceList(networkType, planId, discountType);
+			deviceService.getDeviceList(networkType, planId, discountType, installmentPeriod);
 
 		return ResponseEntity.ok().body(responseDto);
 	}
@@ -51,11 +69,12 @@ public class DeviceController {
 		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
 	})
 	public ResponseEntity<DeviceDetailResponseDto> getDeviceDetail(
-		@PathVariable(name = "device-id") Long deviceId, @RequestParam("plan") Long planId,
+		@PathVariable("device-id") Long deviceId,
+		@RequestParam("plan") Long planId,
 		@RequestParam("discount-type") int discountType,
-		@RequestParam("installment-type") int installmentType) {
+		@RequestParam("installment-period") int installmentPeriod) {
 		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(deviceId, planId,
-			discountType, installmentType);
+			discountType, installmentPeriod);
 
 		return ResponseEntity.ok().body(responseDto);
 	}
@@ -66,7 +85,7 @@ public class DeviceController {
 		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
 	})
 	public ResponseEntity<DeviceSelfCompResponseDto> getDeviceSelfComp(
-		@PathVariable(name = "device-id") Long deviceId) {
+		@PathVariable("device-id") Long deviceId) {
 		DeviceSelfCompResponseDto responseDto = deviceService.getDeviceSelfComp(deviceId);
 
 		return ResponseEntity.ok().body(responseDto);

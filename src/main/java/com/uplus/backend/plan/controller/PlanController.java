@@ -1,6 +1,8 @@
 package com.uplus.backend.plan.controller;
 
 
+import com.uplus.backend.plan.dto.PlanCreateRequestDto;
+import com.uplus.backend.plan.dto.PlanCreateResponseDto;
 import com.uplus.backend.plan.dto.PlanListResponseDto;
 import com.uplus.backend.plan.service.PlanService;
 import io.swagger.annotations.Api;
@@ -11,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +30,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlanController {
 
 	private final PlanService planservice;
+
+	@PostMapping("")
+	@ApiOperation(value = "요금제 생성", notes = "요금제 생성")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "요금제 리스트 조회 성공"),
+	})
+	public ResponseEntity<PlanCreateResponseDto> create(
+		@RequestBody PlanCreateRequestDto requestDto) {
+		PlanCreateResponseDto responseDto = planservice.create(requestDto);
+
+		return ResponseEntity.ok().body(responseDto);
+	}
 
 	@GetMapping("")
 	@ApiOperation(value = "요금제 리스트 조회", notes = "네트워크 유형으로 요금제 리스트 조회")
