@@ -30,14 +30,13 @@ jobs:
       
       - name: Create application-db.yml
         run: |
-          ls
-          touch ./backend/src/main/resources/application-db.yml
-          echo "${{ secrets.DB_YML }}" > ./backend/src/main/resources/application-db.yml
+          touch ./src/main/resources/application-db.yml
+          echo "${{ secrets.DB_YML }}" > ./src/main/resources/application-db.yml
       
       - name: Create application-swagger.yml
         run: |
-          touch ./backend/src/main/resources/application-swagger.yml
-          echo "${{ secrets.SWAGGER_YML }}" > ./backend/src/main/resources/application-swagger.yml
+          touch ./src/main/resources/application-swagger.yml
+          echo "${{ secrets.SWAGGER_YML }}" > ./src/main/resources/application-swagger.yml
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
