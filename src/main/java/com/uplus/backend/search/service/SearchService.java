@@ -29,7 +29,7 @@ public class SearchService {
 	}
 
 	@Transactional(readOnly = true)
-	public SearchListResponseDto SearchByKeyword(String query, int networkType) {
+	public SearchListResponseDto searchByKeyword(String query, int networkType) {
 		List<Device> searchList = networkType == 0
 			? deviceRepository.findByNameContainingIgnoreCaseAndNetworkTypeOrderByLaunchedDateDesc(
 			query, networkType)

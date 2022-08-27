@@ -54,7 +54,7 @@ public class SearchController {
 		@RequestParam("q") String query,
 		@RequestParam(name = "network-type", required = false, defaultValue = "0") int networkType) {
 
-		SearchListResponseDto searchResponseListDto = searchService.SearchByKeyword(query,
+		SearchListResponseDto searchResponseListDto = searchService.searchByKeyword(query,
 			networkType);
 
 		return ResponseEntity.ok().body(searchResponseListDto);

@@ -52,7 +52,7 @@ public class SearchIntegrationTest {
 		plan1 = planRepository.save(plan1);
 
 		device1 = Device.builder()
-			.name("갤럭시  Z Fold 4 512GB")
+			.name("갤럭시 Z Fold 4 512GB")
 			.serialNumber("SM-F936N513")
 			.storage("512GB")
 			.price(2_119_700)
