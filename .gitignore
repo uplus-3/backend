@@ -39,6 +39,7 @@ out/
 ### Yaml ###
 /src/main/resources/application-db.yml
 /src/main/resources/application-swagger.yml
+/src/main/resources/application-prod.yml
 
 ### Log ###
 /logs/

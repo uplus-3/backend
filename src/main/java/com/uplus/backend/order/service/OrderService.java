@@ -4,7 +4,7 @@ import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.repository.ColorRepository;
 import com.uplus.backend.global.util.OrderNumberUtil;
 import com.uplus.backend.order.dto.OrderCreateRequestDto;
-import com.uplus.backend.order.dto.OrderCreateResponsetDto;
+import com.uplus.backend.order.dto.OrderCreateResponseDto;
 import com.uplus.backend.order.dto.OrderResponseDto;
 import com.uplus.backend.order.entity.Order;
 import com.uplus.backend.order.repository.OrderRepository;
@@ -27,7 +27,7 @@ public class OrderService {
 	private final PlanRepository planRepository;
 
 	@Transactional
-	public OrderCreateResponsetDto create(OrderCreateRequestDto orderCreateRequestDto) {
+	public OrderCreateResponseDto create(OrderCreateRequestDto orderCreateRequestDto) {
 		Color color = colorRepository.findById(orderCreateRequestDto.getColorId())
 			.orElseThrow(RuntimeException::new);
 
@@ -38,7 +38,7 @@ public class OrderService {
 
 		orderRepository.save(order);
 
-		return OrderCreateResponsetDto.fromEntity(order);
+		return OrderCreateResponseDto.fromEntity(order);
 	}
 
 	@Transactional(readOnly = true)

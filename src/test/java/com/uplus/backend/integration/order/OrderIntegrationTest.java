@@ -150,7 +150,7 @@ public class OrderIntegrationTest {
 		mockMvc.perform(post("/api/orders")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(requestDto)))
-			.andExpect(status().isCreated())
+			.andExpect(status().isOk())
 			.andDo(print());
 
 	}

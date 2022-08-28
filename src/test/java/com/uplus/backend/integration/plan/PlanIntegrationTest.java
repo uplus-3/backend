@@ -89,7 +89,7 @@ public class PlanIntegrationTest {
 		params.add("network-type", String.valueOf(5));
 
 		// when & then
-		mockMvc.perform(get("/api/plan").params(params))
+		mockMvc.perform(get("/api/plans").params(params))
 			.andExpect(status().isOk())
 			.andDo(print());
 	}

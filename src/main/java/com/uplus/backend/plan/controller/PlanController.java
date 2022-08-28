@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Api(value = "요금제 API", tags = {"Plan"})
 @RestController
-@RequestMapping("api/plan")
+@RequestMapping("api/plans")
 @RequiredArgsConstructor
 public class PlanController {
 
