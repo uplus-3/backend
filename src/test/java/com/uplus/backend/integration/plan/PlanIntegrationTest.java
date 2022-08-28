@@ -1,36 +1,18 @@
 package com.uplus.backend.integration.plan;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uplus.backend.device.entity.Color;
-import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.device.entity.Image;
-import com.uplus.backend.device.entity.Tag;
-import com.uplus.backend.device.repository.ColorRepository;
-import com.uplus.backend.device.repository.DeviceRepository;
-import com.uplus.backend.device.repository.ImageRepository;
-import com.uplus.backend.device.repository.TagRepository;
-import com.uplus.backend.order.dto.OrderCreateRequestDto;
-import com.uplus.backend.order.repository.OrderRepository;
 import com.uplus.backend.plan.entity.Plan;
 import com.uplus.backend.plan.repository.PlanRepository;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;

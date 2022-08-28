@@ -1,8 +1,8 @@
 package com.uplus.backend.device.dto;
 
 import com.uplus.backend.device.entity.Device;
+import com.uplus.backend.global.util.TimeUtil;
 import com.uplus.backend.plan.entity.Plan;
-import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class DeviceCreateRequestDto {
 
 	private int price;
 
-	private LocalDateTime launchedDate;
+	private String launchedDate;
 
 	private String company;
 
@@ -47,7 +47,7 @@ public class DeviceCreateRequestDto {
 			.serialNumber(serialNumber)
 			.storage(storage)
 			.price(price)
-			.launchedDate(launchedDate)
+			.launchedDate(TimeUtil.strToLDT(launchedDate))
 			.company(company)
 			.networkType(networkType)
 			.cpu(cpu)

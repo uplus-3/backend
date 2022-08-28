@@ -77,7 +77,7 @@ public class DeviceControllerUnitTest {
 		.id(1L)
 		.name("스마트폰1")
 		.serialNumber("1234-5678")
-		.storage("256GB")
+		.storage("128GB")
 		.price(990_000)
 		.launchedDate(LocalDateTime.now())
 		.company("제조회사")
