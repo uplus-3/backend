@@ -19,7 +19,7 @@ public class SearchService {
 
 	@Transactional(readOnly = true)
 	public SearchKeywordListResponseDto getSearchKeyword(String query, int networkType) {
-		List<Device> searchList = networkType == 0
+		List<Device> searchList = networkType != 0
 			? deviceRepository.findTop5ByNameContainingIgnoreCaseAndNetworkTypeOrderByLaunchedDateDesc(
 			query, networkType)
 			: deviceRepository.findTop5ByNameContainingIgnoreCaseOrderByLaunchedDateDesc(
@@ -30,7 +30,7 @@ public class SearchService {
 
 	@Transactional(readOnly = true)
 	public SearchListResponseDto searchByKeyword(String query, int networkType) {
-		List<Device> searchList = networkType == 0
+		List<Device> searchList = networkType != 0
 			? deviceRepository.findByNameContainingIgnoreCaseAndNetworkTypeOrderByLaunchedDateDesc(
 			query, networkType)
 			: deviceRepository.findByNameContainingIgnoreCaseOrderByLaunchedDateDesc(

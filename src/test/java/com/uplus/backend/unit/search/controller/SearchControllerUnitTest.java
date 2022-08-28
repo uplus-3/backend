@@ -93,7 +93,6 @@ public class SearchControllerUnitTest {
 			.build();
 
 
-
 	@Test
 	void 검색_연관검색어_조회_테스트() throws Exception {
 		// given

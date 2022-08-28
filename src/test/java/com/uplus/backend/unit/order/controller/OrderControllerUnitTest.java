@@ -102,6 +102,7 @@ public class OrderControllerUnitTest {
 	private Order order1 = Order.builder()
 			.id(1L)
 			.name("윤유플")
+			.number(2208281234L)
 			.phoneNumber("010-1234-5678")
 			.address("(03924)서울특별시 마포구 월드컵북로 416")
 			.price(100_236)
@@ -148,7 +149,7 @@ public class OrderControllerUnitTest {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		String name = "윤유플";
-		Long number = 1L;
+		Long number = order1.getNumber();
 		params.add("name", name);
 		params.add("number", String.valueOf(number));
 		order1.setCreatedAt(LocalDateTime.now());
