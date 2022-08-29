@@ -4,6 +4,11 @@ import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.order.entity.Order;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
+import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,17 +21,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderCreateRequestDto {
 
+	@NotBlank(message = "주문자 이름을 입력해 주세요")
+	@Size(max = 20, message = "주문자 이름은 최대 20자로 입력해 주세요")
 	@ApiModelProperty(name = "주문자 이름", example = "윤유플")
 	private String name;
 
+	@Pattern(regexp = "^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$|")
 	@ApiModelProperty(name = "주문자 휴대폰 번호", example = "010-1234-5678")
 	private String phoneNumber;
 
+	@NotBlank(message = "주문자 주소를 입력해 주세요")
+	@Size
 	@ApiModelProperty(name = "주문자 주소", example = "(03924)서울특별시 마포구 월드컵북로 416")
 	private String address;
 
+	@Positive(message = "주문금액은 양수로 입력해 주세요")
 	@ApiModelProperty(name = "주문금액", example = "100236")
 	private int price;
+
 
 	@ApiModelProperty(name = "할인 유형", example = "0(공시지원금) or 1(선택약정)")
 	private int discountType;

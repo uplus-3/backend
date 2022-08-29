@@ -2,8 +2,8 @@ package com.uplus.backend.device.entity;
 
 import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.plan.entity.Plan;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,8 +44,9 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private int price;
 
-	@Column(nullable = false, columnDefinition = "TIMESTAMP")
-	private LocalDateTime launchedDate;
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false)
+	private Date launchedDate;
 
 	@Column(nullable = false, columnDefinition = "VARCHAR(30)")
 	private String company;
@@ -60,7 +63,6 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private int publicSupport;
 
-	@Column(nullable = false)
 	private int additionalSupport;
 
 	@Column(nullable = false, columnDefinition = "VARCHAR(1024)")
