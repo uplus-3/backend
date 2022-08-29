@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -49,7 +50,7 @@ public class DeviceCreateRequestDto {
 	@ApiModelProperty(name = "제조회사", example = "Apple")
 	private String company;
 
-	@Positive(message = "네트워크 유형은 현재 4(4G) 또는 5(5G)로 입력해 주세요")
+	@PositiveOrZero(message = "네트워크 유형은 4(4G) 또는 5(5G)로 입력해 주세요")
 	@DecimalMax(value = "9", message = "네트워크 유형은 0 ~ 9 값으로 입력해 주세요")
 	@ApiModelProperty(name = "4G or 5G", example = "5")
 	private int networkType;
