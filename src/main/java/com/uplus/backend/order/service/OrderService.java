@@ -34,7 +34,17 @@ public class OrderService {
 		Plan plan = planRepository.findById(orderCreateRequestDto.getPlanId())
 			.orElseThrow(RuntimeException::new);
 
-		Order order = orderCreateRequestDto.toEntity(color, plan, OrderNumberUtil.createOrderNumber());
+		// 재고 확인
+		if (color.getStock() > 0) {
+			color.setStock(color.getStock() - 1);
+		} else {
+			throw new RuntimeException();
+		}
+
+		colorRepository.save(color);
+
+		Order order = orderCreateRequestDto.toEntity(color, plan,
+			OrderNumberUtil.createOrderNumber());
 
 		orderRepository.save(order);
 

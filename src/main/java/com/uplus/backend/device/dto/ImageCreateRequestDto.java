@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ImageCreateRequestDto {
 
-	@ApiModelProperty(name = "이미지URL", example = "이미지URL")
-	private String url;
+	@ApiModelProperty(name = "이미지 url", example = "이미지 url 해당 이미지")
+	private String imageUrl;
 
-	@ApiModelProperty(name = "색상 식별자", example = "1")
+	@ApiModelProperty(name = "색상 ID", example = "1")
 	private Long colorId;
 
 	public Image toEntity(Color color) {
 		return Image.builder()
-			.url(url)
+			.imageUrl(imageUrl)
 			.color(color)
 			.build();
 	}

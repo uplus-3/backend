@@ -18,10 +18,10 @@ public class TagCreateRequestDto {
 	@ApiModelProperty(name = "태그 내용", example = "최신")
 	private String content;
 
-	@ApiModelProperty(name = "태그 색상코드", example = "#000000")
+	@ApiModelProperty(name = "색상값", example = "#0E0E0E")
 	private String rgb;
 
-	@ApiModelProperty(name = "단말기 식별자", example = "1")
+	@ApiModelProperty(name = "기기 Id", example = "1")
 	private Long deviceId;
 
 	public Tag toEntity(Device device) {

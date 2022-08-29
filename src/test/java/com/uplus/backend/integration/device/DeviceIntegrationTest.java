@@ -109,7 +109,7 @@ public class DeviceIntegrationTest {
 		color1 = colorRepository.save(color1);
 
 		image1 = Image.builder()
-			.url("이미지URL")
+			.imageUrl("이미지URL")
 			.color(color1)
 			.build();
 		image1 = imageRepository.save(image1);

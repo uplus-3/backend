@@ -27,7 +27,7 @@ public class Image extends BaseEntity {
 	private Long id;
 
 	@Column(nullable = false)
-	private String url;
+	private String imageUrl;
 
 	@ManyToOne
 	@JoinColumn(name = "color_id")

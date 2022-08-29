@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public class SearchKeywordListResponseDto {
 
-	@ApiModelProperty(name = "검색 결과 리스트", example = "")
+	@ApiModelProperty(name = "검색 결과 리스트")
 	private List<SearchKeywordResponseDto> searchKeywordList;
 
 	public static SearchKeywordListResponseDto fromEntity(List<Device> searchKeywordList) {

@@ -1,6 +1,7 @@
 package com.uplus.backend.device.dto;
 
 import com.uplus.backend.device.entity.Tag;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,6 +9,7 @@ import lombok.Getter;
 @Builder
 public class TagCreateResponseDto {
 
+	@ApiModelProperty(name = "태그 Id", example = "1")
 	private Long id;
 
 	public static TagCreateResponseDto fromEntity(Tag tag) {
