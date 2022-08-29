@@ -64,7 +64,8 @@ public class Plan extends BaseEntity {
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String shareData;
 
-	// TODO : nullable 컬럼 Validation 처리 필요
+	@NotBlank(message = "음성 통화 스펙을 입력해 주세요")
+	@Size(max = 50, message = "음성 통화 스펙은 최대 50자로 입력해 주세요")
 	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String voiceCall;
 
@@ -77,18 +78,15 @@ public class Plan extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String message;
 
-	@NotBlank(message = "스마트기기 스펙을 입력해 주세요")
-	@Size(max = 50, message = "스마트기기 스펙은 최대 50자로 입력해 주세요")
+	//TODO : nullable validation 적용
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String smartDevice;
 
-	@NotBlank(message = "프리미엄 서비스 스펙을 입력해 주세요")
-	@Size(max = 50, message = "프리미엄 서비스 스펙은 최대 50자로 입력해 주세요")
+	//TODO : nullable validation 적용
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String premiumService;
 
-	@NotBlank(message = "기본혜택 스펙을 입력해 주세요")
-	@Size(max = 50, message = "기본혜택 스펙은 최대 50자로 입력해 주세요")
+	//TODO : nullable validation 적용
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String basicPromotion;
 

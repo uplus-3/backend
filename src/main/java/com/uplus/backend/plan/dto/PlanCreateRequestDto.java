@@ -61,18 +61,15 @@ public class PlanCreateRequestDto {
 	@ApiModelProperty(name = "문자 메시지", example = "기본제공")
 	private String message;
 
-	@NotBlank(message = "스마트기기 스펙을 입력해 주세요")
-	@Size(max = 50, message = "스마트기기 스펙은 최대 50자로 입력해 주세요")
+	//TODO : nullable validation 적용
 	@ApiModelProperty(name = "스마트기기", example = "윤유플")
 	private String smartDevice;
 
-	@NotBlank(message = "프리미엄 서비스 스펙을 입력해 주세요")
-	@Size(max = 50, message = "프리미엄 서비스 스펙은 최대 50자로 입력해 주세요")
+	//TODO : nullable validation 적용
 	@ApiModelProperty(name = "프리미엄 서비스", example = "카테고리 선택팩")
 	private String premiumService;
 
-	@NotBlank(message = "기본혜택 스펙을 입력해 주세요")
-	@Size(max = 50, message = "기본혜택 스펙은 최대 50자로 입력해 주세요")
+	//TODO : nullable validation 적용
 	@ApiModelProperty(name = "기본혜택", example = "U+모바일tv 무료")
 	private String basicPromotion;
 

@@ -75,6 +75,8 @@ public class OrderIntegrationTest {
 
 	private Image image1;
 
+	private com.uplus.backend.order.entity.Order order1;
+
 	@BeforeAll
 	private void setup() {
 		// given
@@ -128,6 +130,23 @@ public class OrderIntegrationTest {
 			.color(color1)
 			.build();
 		image1 = imageRepository.save(image1);
+
+		order1 = com.uplus.backend.order.entity.Order.builder()
+			.name("윤유플")
+			.number(2208281234L)
+			.phoneNumber("010-1234-5678")
+			.address("(03924)서울특별시 마포구 월드컵북로 416")
+			.price(100_236)
+			.discountType(0)
+			.registrationType(0)
+			.shipmentType(0)
+			.installmentPeriod(24)
+			.color(color1)
+			.plan(plan1)
+			.build();
+
+		order1 = orderRepository.save(order1);
+
 	}
 
 	@Test
@@ -160,7 +179,7 @@ public class OrderIntegrationTest {
 	@Order(2)
 	void 주문_조회_테스트() throws Exception {
 		// given
-		com.uplus.backend.order.entity.Order order = orderRepository.findById(1L).get();
+		com.uplus.backend.order.entity.Order order = orderRepository.findById(order1.getId()).get();
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("name", "윤유플");
 		params.add("number", String.valueOf(order.getNumber()));
