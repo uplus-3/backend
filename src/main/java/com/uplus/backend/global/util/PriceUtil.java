@@ -50,6 +50,17 @@ public class PriceUtil {
 		}
 	}
 
+	public static int getRecommendedDiscountType(Device device, Plan plan) {
+		int sDiscountPrice = deviceDiscount(device, device.getPlan(), 0);
+		int psDiscountPrice = deviceDiscount(device, device.getPlan(), 1);
+
+		if (sDiscountPrice >= psDiscountPrice) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 	public static int planDiscount(Device device, Plan plan, int discountType) {
 		switch (discountType) {
 			case RECOMMENDED_DISCOUNT_TYPE:

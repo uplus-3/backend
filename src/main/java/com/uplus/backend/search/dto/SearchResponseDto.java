@@ -40,17 +40,17 @@ public class SearchResponseDto {
 	private List<ColorResponseDto> colors;
 
 	public static SearchResponseDto fromEntity(Device device) {
-		int recommendedDiscountType =
-			PriceUtil.deviceDiscount(device, device.getPlan(), 0) <= PriceUtil.deviceDiscount(device, device.getPlan(), 1) ? 0 : 1;
-
 		return SearchResponseDto.builder()
 			.id(device.getId())
 			.name(device.getName())
 			.price(device.getPrice())
 			.mPrice(device.getPrice() / PriceUtil.DEFAULT_MONTH)
 			.dPrice(
-				PriceUtil.deviceDiscount(device, device.getPlan(), recommendedDiscountType) / PriceUtil.DEFAULT_MONTH)
-			.plan(PlanPriceResponseDto.fromEntity(device, device.getPlan(), recommendedDiscountType,
+				PriceUtil.deviceDiscount(device, device.getPlan(),
+					PriceUtil.getRecommendedDiscountType(device, device.getPlan()))
+					/ PriceUtil.DEFAULT_MONTH)
+			.plan(PlanPriceResponseDto.fromEntity(device, device.getPlan(),
+				PriceUtil.getRecommendedDiscountType(device, device.getPlan()),
 				PriceUtil.DEFAULT_MONTH))
 			.tags(device.getTags().stream()
 				.map(TagResponseDto::fromEntity)
