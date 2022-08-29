@@ -7,19 +7,33 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
 
-	//400 BAD_REQUEST 잘못된 요청
-	INVALID_PARAMETER(400, "잘못된 파라미터 값 전송"),
+	// 0XX : 공통
+	INVALID_PARAMETER_ERROR(400, 0, "잘못된 파라미터 요청"),
 
-	//404 NOT_FOUND 잘못된 리소스 접근
-	DEVICE_NOT_FOUND(404, "존재하지 않는 단말기"),
-	ORDER_NOT_FOUND(404, "존재하지 않는 단말기"),
-	PLAN_NOT_FOUND(404, "존재하지 않는 단말기"),
+	// -1XX : Plan
+	PLAN_NO_DATA_ERROR(404, -104, "존재하지 않는 요금제"),
 
-	//409 CONFLICT 중복된 리소스
-	ORDER_ALREADY_EXISTED(409, "이미 저장되어 있는 주문 ID"),
+	// -2XX : Device
+	DEVICE_NO_DATA_ERROR(404, -204, "존재하지 않는 단말기"),
 
-	//500 INTERNAL SERVER ERROR
-	INTERNAL_SERVER_ERROR(500, "서버 에러");
+	// -3XX : Tag
+	TAG_NO_DATA_ERROR(404, -304, "존재하지 않는 태그"),
+
+	// -4XX : Color
+	COLOR_NO_DATA_ERROR(404, -404, "존재하지 않는 색상"),
+
+	// -5XX : Image
+	IMAGE_NO_DATA_ERROR(404, -504, "존재하지 않는 이미지"),
+
+	// -6XX : Order
+	ORDER_NO_DATA_ERROR(404, -604, "존재하지 않는 주문"),
+
+	// -7XX : Cart
+	CART_NO_DATA_ERROR(404, -704, "존재하지 않는 장바구니");
+
+	// -8XX : Search
+
 	private final int status;
+	private final int detailStatus;
 	private final String message;
 }

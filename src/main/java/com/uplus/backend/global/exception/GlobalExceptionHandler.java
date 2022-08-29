@@ -1,11 +1,9 @@
 package com.uplus.backend.global.exception;
 
 
-import static com.uplus.backend.global.exception.ErrorCode.INTERNAL_SERVER_ERROR;
-import static com.uplus.backend.global.exception.ErrorCode.INVALID_PARAMETER;
+import static com.uplus.backend.global.exception.ErrorCode.INVALID_PARAMETER_ERROR;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,21 +19,13 @@ public class GlobalExceptionHandler {
 	protected ResponseEntity<ErrorResponseDto> handleCustomException(CustomException e) {
 		log.error("error : {}", e.getErrorCode().getMessage());
 		e.printStackTrace();
+		ErrorCode errorCode = e.getErrorCode();
+		ErrorResponseDto responseDto = ErrorResponseDto.builder()
+			.detailStatus(errorCode.getDetailStatus())
+			.message(errorCode.getMessage())
+			.build();
 
-		return new ResponseEntity<ErrorResponseDto>(
-			new ErrorResponseDto(e.getErrorCode().getStatus(), e.getErrorCode().getMessage()),
-			HttpStatus.valueOf(e.getErrorCode().getStatus()));
-	}
-
-	// Server Error or Undefined Exception Handler
-	@ExceptionHandler({Exception.class})
-	protected ResponseEntity<ErrorResponseDto> handleServerException(Exception e) {
-		log.error("Server error : {}", e.getMessage());
-		e.printStackTrace();
-
-		return new ResponseEntity<ErrorResponseDto>(
-			new ErrorResponseDto(INTERNAL_SERVER_ERROR.getStatus(),
-				INTERNAL_SERVER_ERROR.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		return ResponseEntity.status(errorCode.getStatus()).body(responseDto);
 	}
 
 	// @Valid : Dto validation Exception
@@ -44,10 +34,20 @@ public class GlobalExceptionHandler {
 		MethodArgumentNotValidException e) {
 		log.error("error : {}", e.getMessage());
 		e.printStackTrace();
+		ErrorResponseDto responseDto = ErrorResponseDto.builder()
+			.detailStatus(INVALID_PARAMETER_ERROR.getDetailStatus())
+			.message(INVALID_PARAMETER_ERROR.getMessage())
+			.build();
 
-		return new ResponseEntity<ErrorResponseDto>(
-			new ErrorResponseDto(INVALID_PARAMETER.getStatus(), INVALID_PARAMETER.getMessage()),
-			HttpStatus.BAD_REQUEST);
+		return ResponseEntity.badRequest().body(responseDto);
 	}
 
+	// Server Error or Undefined Exception Handle
+	@ExceptionHandler({Exception.class})
+	protected ResponseEntity<ErrorResponseDto> handleServerException(Exception e) {
+		log.error("Server error : {}", e.getMessage());
+		e.printStackTrace();
+
+		return ResponseEntity.internalServerError().build();
+	}
 }

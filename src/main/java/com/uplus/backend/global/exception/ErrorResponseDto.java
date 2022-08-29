@@ -6,15 +6,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
+@Builder
 public class ErrorResponseDto {
 
-	private int code;
+	private int detailStatus;
 	private String message;
-
-	@Builder
-	public ErrorResponseDto(ErrorCode errorCode) {
-		this.code = errorCode.getStatus();
-		this.message = errorCode.getMessage();
-	}
-
 }
