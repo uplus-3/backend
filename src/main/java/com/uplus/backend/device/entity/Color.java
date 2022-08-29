@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,14 +33,20 @@ public class Color extends BaseEntity {
 	@Column(updatable = false)
 	private Long id;
 
+	@NotBlank(message = "색상 이름을 입력해 주세요")
+	@Size(max = 20, message = "색상 이름은 최대 20자로 입력해 주세요")
 	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
 	private String name;
 
+	@NotBlank(message = "색상 코드를 입력해 주세요")
+	@Size(max = 7, message = "색상 코드는 #000000으로 입력해 주세요")
 	@Column(nullable = false, columnDefinition = "CHAR(7)")
 	private String rgb;
 
+	@PositiveOrZero(message = "남은 재고 수량은 0이상이어야 합니다.")
 	@Column(nullable = false)
 	private int stock;
+
 
 	@ManyToOne
 	@JoinColumn(name = "device_id")
