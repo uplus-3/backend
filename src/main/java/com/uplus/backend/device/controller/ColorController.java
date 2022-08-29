@@ -30,8 +30,8 @@ public class ColorController {
 		@ApiResponse(code = 200, message = "색상 생성 성공")
 	})
 	public ResponseEntity<ColorCreateResponseDto> create(
-		@RequestBody ColorCreateRequestDto reqeustDto) {
-		ColorCreateResponseDto responseDto = colorService.create(reqeustDto);
+		@RequestBody ColorCreateRequestDto requestDto) {
+		ColorCreateResponseDto responseDto = colorService.create(requestDto);
 
 		return ResponseEntity.ok().body(responseDto);
 	}
