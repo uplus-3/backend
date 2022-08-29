@@ -40,8 +40,8 @@ public class DeviceController {
 		@ApiResponse(code = 200, message = "단말기 생성 성공")
 	})
 	public ResponseEntity<DeviceCreateResponseDto> create(
-		@RequestBody DeviceCreateRequestDto reqeustDto) {
-		DeviceCreateResponseDto responseDto = deviceService.create(reqeustDto);
+		@RequestBody DeviceCreateRequestDto requestDto) {
+		DeviceCreateResponseDto responseDto = deviceService.create(requestDto);
 
 		return ResponseEntity.ok().body(responseDto);
 	}

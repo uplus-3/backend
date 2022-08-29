@@ -49,7 +49,6 @@ public class Color extends BaseEntity {
 	@OneToMany(mappedBy = "color")
 	private List<Order> orders = new ArrayList<>();
 
-
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
