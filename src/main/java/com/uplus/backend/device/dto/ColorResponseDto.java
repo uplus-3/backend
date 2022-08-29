@@ -20,7 +20,6 @@ public class ColorResponseDto {
 	@ApiModelProperty(name = "해당 색상 단말기 재고", example = "1")
 	private int stock;
 
-	@ApiModelProperty(name = "해당 색상 이미지들", example = "해당 색상 이미지들")
 	private List<ImageResponseDto> images;
 
 	public static ColorResponseDto fromEntity(Color color) {

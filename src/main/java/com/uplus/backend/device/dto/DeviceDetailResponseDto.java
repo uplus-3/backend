@@ -47,13 +47,10 @@ public class DeviceDetailResponseDto {
 	@ApiModelProperty(name = "추가지원금", example = "50000")
 	private int aSupport;
 
-	@ApiModelProperty(name = "요금제", example = "요금제")
 	private PlanPriceResponseDto plan;
 
-	@ApiModelProperty(name = "단말기 태그들", example = "단말기 태그들")
 	private List<TagResponseDto> tags;
 
-	@ApiModelProperty(name = "색상들", example = "색상들")
 	private List<ColorResponseDto> colors;
 
 	public static DeviceDetailResponseDto fromEntity(Device device, Plan plan, int discountType,
