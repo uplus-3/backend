@@ -43,7 +43,8 @@ public class OrderService {
 
 	@Transactional(readOnly = true)
 	public OrderResponseDto getByNameAndNumber(String name, Long number) {
-		Order order = orderRepository.findByNameAndNumber(name, number);
+		Order order = orderRepository.findByNameAndNumber(name, number)
+				.orElseThrow(RuntimeException::new);
 
 		return OrderResponseDto.fromEntity(order);
 	}
