@@ -2,6 +2,7 @@ package com.uplus.backend.device.dto;
 
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.plan.entity.Plan;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import lombok.Getter;
 @Builder
 public class DeviceListResponseDto {
 
+	@ApiModelProperty(name = "단말기들", example = "단말기들")
 	private List<DeviceResponseDto> devices;
 
 	public static DeviceListResponseDto fromEntity(List<Device> devices, Plan plan,
