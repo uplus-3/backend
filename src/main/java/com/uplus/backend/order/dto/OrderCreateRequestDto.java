@@ -5,9 +5,11 @@ import com.uplus.backend.order.entity.Order;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Column;
+import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,11 +37,13 @@ public class OrderCreateRequestDto {
 	@ApiModelProperty(name = "주문자 주소", example = "(03924)서울특별시 마포구 월드컵북로 416")
 	private String address;
 
+	// TODO : 직접 금액 받지 않고 합계 처리 해서 넣는 방식으로 리팩토링하기
 	@Positive(message = "주문금액은 양수로 입력해 주세요")
 	@ApiModelProperty(name = "주문금액", example = "100236")
 	private int price;
 
-
+	@PositiveOrZero(message = "할인 유형은 0(공시지원금) or 1(선택 약정)로 입력해 주세요")
+	@DecimalMax(value = "9", message = "할인 유형은 0 ~ 9 값으로 입력해 주세요")
 	@ApiModelProperty(name = "할인 유형", example = "0(공시지원금) or 1(선택약정)")
 	private int discountType;
 

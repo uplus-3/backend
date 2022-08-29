@@ -1,15 +1,11 @@
 package com.uplus.backend.device.dto;
 
 import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.global.util.TimeUtil;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import javax.validation.Valid;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Null;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -43,7 +39,7 @@ public class DeviceCreateRequestDto {
 	@ApiModelProperty(name = "정상가", example = "1078000")
 	private int price;
 
-//	TODO : Validation 추가
+	//	TODO : Validation 추가
 //	@Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$", message = "출시일은 YYYY-MM-DD 형식으로 입력해 주세요")
 	@ApiModelProperty(name = "출시일", example = "2021-01-23")
 	private Date launchedDate;

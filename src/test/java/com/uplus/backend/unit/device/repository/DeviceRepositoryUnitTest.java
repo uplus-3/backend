@@ -8,6 +8,7 @@ import com.uplus.backend.device.entity.Image;
 import com.uplus.backend.device.entity.Tag;
 import com.uplus.backend.device.repository.DeviceRepository;
 import com.uplus.backend.plan.entity.Plan;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +54,7 @@ public class DeviceRepositoryUnitTest {
 			.serialNumber("1234-5678")
 			.storage("256GB")
 			.price(990_000)
-			.launchedDate(LocalDateTime.now())
+			.launchedDate(Timestamp.valueOf(LocalDateTime.now()))
 			.company("제조회사")
 			.networkType(5)
 			.cpu("CPU")

@@ -18,6 +18,7 @@ import com.uplus.backend.order.dto.OrderCreateRequestDto;
 import com.uplus.backend.order.repository.OrderRepository;
 import com.uplus.backend.plan.entity.Plan;
 import com.uplus.backend.plan.repository.PlanRepository;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
@@ -92,7 +93,7 @@ public class OrderIntegrationTest {
 			.serialNumber("SM-F936N512")
 			.storage("512GB")
 			.price(2_119_700)
-			.launchedDate(LocalDateTime.now())
+			.launchedDate(Timestamp.valueOf(LocalDateTime.now()))
 			.company("삼성")
 			.networkType(5)
 			.cpu("스냅드래곤 8+Gen1 (SM8475) (4nm, Octa-Core)")
