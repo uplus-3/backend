@@ -15,6 +15,8 @@ public class DeviceDetailResponseDto {
 
 	private Long id;
 
+	private String serialNumber;
+
 	private String name;
 
 	private String storage;
@@ -43,6 +45,7 @@ public class DeviceDetailResponseDto {
 		int installmentPeriod) {
 		return DeviceDetailResponseDto.builder()
 			.id(device.getId())
+			.serialNumber(device.getSerialNumber())
 			.name(device.getName())
 			.storage(device.getStorage())
 			.cpu(device.getCpu())

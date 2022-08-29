@@ -15,6 +15,8 @@ public class DeviceResponseDto {
 
 	private Long id;
 
+	private String serialNumber;
+
 	private String name;
 
 	private int price;
@@ -33,6 +35,7 @@ public class DeviceResponseDto {
 		int installmentPeriod) {
 		return DeviceResponseDto.builder()
 			.id(device.getId())
+			.serialNumber(device.getSerialNumber())
 			.name(device.getName())
 			.price(device.getPrice())
 			.mPrice(device.getPrice() / installmentPeriod)
