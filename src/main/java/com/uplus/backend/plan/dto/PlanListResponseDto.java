@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public class PlanListResponseDto {
 
-	@ApiModelProperty(name = "검색 결과 리스트")
+	@ApiModelProperty(name = "요금제 리스트")
 	private List<PlanResponseDto> planList;
 
 	public static PlanListResponseDto fromEntity(List<Plan> planList) {

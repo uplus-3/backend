@@ -106,7 +106,7 @@ public class DeviceServiceUnitTest {
 			.isEqualTo("최신");
 		assertThat(responseDto.getDevices().get(0).getColors().get(0).getName())
 			.isEqualTo("색상1");
-		assertThat(responseDto.getDevices().get(0).getColors().get(0).getImages().get(0).getUrl())
+		assertThat(responseDto.getDevices().get(0).getColors().get(0).getImages().get(0).getImageUrl())
 			.isEqualTo("이미지URL");
 	}
 
@@ -124,7 +124,7 @@ public class DeviceServiceUnitTest {
 		assertThat(responseDto.getName()).isEqualTo("스마트폰1");
 		assertThat(responseDto.getTags().get(0).getContent()).isEqualTo("최신");
 		assertThat(responseDto.getColors().get(0).getName()).isEqualTo("색상1");
-		assertThat(responseDto.getColors().get(0).getImages().get(0).getUrl())
+		assertThat(responseDto.getColors().get(0).getImages().get(0).getImageUrl())
 			.isEqualTo("이미지URL");
 	}
 
