@@ -65,7 +65,7 @@ public class SearchControllerUnitTest {
 	private Color color1 = Color.builder()
 			.id(1L)
 			.name("색상1")
-			.rdb("#010101")
+			.rgb("#010101")
 			.stock(1)
 			.images(images)
 			.build();

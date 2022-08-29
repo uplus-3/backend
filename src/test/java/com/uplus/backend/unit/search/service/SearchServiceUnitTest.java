@@ -1,15 +1,11 @@
 package com.uplus.backend.unit.search.service;
 
-import com.uplus.backend.device.dto.DeviceDetailResponseDto;
-import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.entity.Image;
 import com.uplus.backend.device.entity.Tag;
 import com.uplus.backend.device.repository.DeviceRepository;
-import com.uplus.backend.device.service.DeviceService;
 import com.uplus.backend.plan.entity.Plan;
-import com.uplus.backend.plan.repository.PlanRepository;
 import com.uplus.backend.search.dto.SearchKeywordListResponseDto;
 import com.uplus.backend.search.dto.SearchListResponseDto;
 import com.uplus.backend.search.service.SearchService;
@@ -21,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -67,7 +62,7 @@ public class SearchServiceUnitTest {
     private Color color1 = Color.builder()
             .id(1L)
             .name("색상1")
-            .rdb("#010101")
+            .rgb("#010101")
             .stock(1)
             .images(images)
             .build();

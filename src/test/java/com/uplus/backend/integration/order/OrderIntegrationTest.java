@@ -115,7 +115,7 @@ public class OrderIntegrationTest {
 
 		color1 = Color.builder()
 			.name("색상1")
-			.rdb("#B8AAC8")
+			.rgb("#B8AAC8")
 			.stock(1_000)
 			.device(device1)
 			.build();

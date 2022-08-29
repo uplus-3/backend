@@ -30,11 +30,11 @@ public class Color extends BaseEntity {
 	@Column(updatable = false)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
 	private String name;
 
 	@Column(nullable = false, columnDefinition = "CHAR(7)")
-	private String rdb;
+	private String rgb;
 
 	@Column(nullable = false)
 	private int stock;

@@ -30,7 +30,7 @@ public class ColorCreateRequestDto {
 	public Color toEntity(Device device) {
 		return Color.builder()
 			.name(name)
-			.rdb(rgb)
+			.rgb(rgb)
 			.stock(stock)
 			.device(device)
 			.build();

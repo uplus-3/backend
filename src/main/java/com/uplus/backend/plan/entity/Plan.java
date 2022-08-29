@@ -32,7 +32,7 @@ public class Plan extends BaseEntity {
 	@Column(updatable = false)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String name;
 
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
@@ -41,25 +41,31 @@ public class Plan extends BaseEntity {
 	@Column(nullable = false)
 	private int price;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String data;
 
+	@Column(columnDefinition = "VARCHAR(50)")
 	private String subData;
 
+	@Column(columnDefinition = "VARCHAR(50)")
 	private String shareData;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String voiceCall;
 
+	@Column(columnDefinition = "VARCHAR(50)")
 	private String subVoiceCall;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String message;
 
+	@Column(columnDefinition = "VARCHAR(50)")
 	private String smartDevice;
 
+	@Column(columnDefinition = "VARCHAR(50)")
 	private String premiumService;
 
+	@Column(columnDefinition = "VARCHAR(50)")
 	private String basicPromotion;
 
 	@OneToOne

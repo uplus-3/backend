@@ -26,7 +26,7 @@ public class Tag extends BaseEntity {
 	@Column(updatable = false)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(10)")
 	private String content;
 
 	@Column(nullable = false, columnDefinition = "CHAR(7)")

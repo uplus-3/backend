@@ -25,7 +25,7 @@ public class ColorResponseDto {
 	public static ColorResponseDto fromEntity(Color color) {
 		return ColorResponseDto.builder()
 			.name(color.getName())
-			.rgb(color.getRdb())
+			.rgb(color.getRgb())
 			.stock(color.getStock())
 			.images(color.getImages().stream()
 				.map(ImageResponseDto::fromEntity)

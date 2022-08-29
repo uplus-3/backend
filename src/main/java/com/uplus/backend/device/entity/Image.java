@@ -26,7 +26,7 @@ public class Image extends BaseEntity {
 	@Column(updatable = false)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(1024)")
 	private String imageUrl;
 
 	@ManyToOne

@@ -30,13 +30,13 @@ public class Device extends BaseEntity {
 	@Column(updatable = false)
 	private Long id;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(30)")
 	private String name;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, columnDefinition = "VARCHAR(30)")
 	private String serialNumber;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(30)")
 	private String storage;
 
 	@Column(nullable = false)
@@ -45,16 +45,16 @@ public class Device extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "TIMESTAMP")
 	private LocalDateTime launchedDate;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(30)")
 	private String company;
 
 	@Column(nullable = false, columnDefinition = "TINYINT(1)")
 	private int networkType;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(100)")
 	private String cpu;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(100)")
 	private String display;
 
 	@Column(nullable = false)
@@ -63,7 +63,7 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private int additionalSupport;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(1024)")
 	private String repImageUrl;
 
 	@OneToOne

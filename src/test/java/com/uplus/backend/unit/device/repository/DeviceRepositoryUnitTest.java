@@ -74,7 +74,7 @@ public class DeviceRepositoryUnitTest {
 
 		color1 = Color.builder()
 			.name("색상1")
-			.rdb("#000000")
+			.rgb("#000000")
 			.stock(1)
 			.device(device1)
 			.build();

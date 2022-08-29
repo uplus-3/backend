@@ -102,7 +102,7 @@ public class DeviceIntegrationTest {
 
 		color1 = Color.builder()
 			.name("색상1")
-			.rdb("#000000")
+			.rgb("#000000")
 			.stock(1)
 			.device(device1)
 			.build();
@@ -139,7 +139,7 @@ public class DeviceIntegrationTest {
 		params.add("installment-period", String.valueOf(24));
 
 		// when & then
-		mockMvc.perform(get("/api/devices/1").params(params))
+		mockMvc.perform(get("/api/devices/" + device1.getId()).params(params))
 			.andExpect(status().isOk())
 			.andDo(print());
 	}
@@ -147,7 +147,7 @@ public class DeviceIntegrationTest {
 	@Test
 	void 동일_기기_비교_조회_테스트() throws Exception {
 		// when & then
-		mockMvc.perform(get("/api/devices/1/self"))
+		mockMvc.perform(get("/api/devices/" + device1.getId() + "/self"))
 			.andExpect(status().isOk())
 			.andDo(print());
 	}

@@ -33,13 +33,13 @@ public class Order extends BaseEntity {
 	@Column(nullable = false, unique = true)
 	private Long number;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(20)")
 	private String name;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(15)")
 	private String phoneNumber;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition = "VARCHAR(100)")
 	private String address;
 
 	@Column(nullable = false)

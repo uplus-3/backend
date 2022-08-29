@@ -63,7 +63,7 @@ public class DeviceServiceUnitTest {
 	private Color color1 = Color.builder()
 		.id(1L)
 		.name("색상1")
-		.rdb("#000000")
+		.rgb("#000000")
 		.stock(1)
 		.images(images)
 		.build();
