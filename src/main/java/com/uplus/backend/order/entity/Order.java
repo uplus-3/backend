@@ -83,7 +83,7 @@ public class Order extends BaseEntity {
 	private int installmentPeriod;
 
 	@ManyToOne
-	@JoinColumn(name = "color_id")
+	@JoinColumn(name = "color_id", nullable = false)
 	private Color color;
 
 	public void setColor(Color color) {
@@ -95,7 +95,7 @@ public class Order extends BaseEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "plan_id")
+	@JoinColumn(name = "plan_id", nullable = false)
 	private Plan plan;
 
 	public void setPlan(Plan plan) {

@@ -47,7 +47,6 @@ public class Color extends BaseEntity {
 	@Column(nullable = false)
 	private int stock;
 
-
 	@ManyToOne
 	@JoinColumn(name = "device_id")
 	private Device device;

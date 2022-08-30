@@ -12,11 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -58,6 +58,7 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private int price;
 
+	@PastOrPresent(message = "")
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false)
 	private Date launchedDate;
@@ -86,7 +87,8 @@ public class Device extends BaseEntity {
 	@Column(nullable = false)
 	private int publicSupport;
 
-	//TODO : nullable 컬럼 Validation 처리
+	@PositiveOrZero(message = "추가지원금은 0이상의 양수로 입력해 주세요")
+	@Column(nullable = false)
 	private int additionalSupport;
 
 	@NotBlank(message = "대표이미지Url을 입력해 주세요")

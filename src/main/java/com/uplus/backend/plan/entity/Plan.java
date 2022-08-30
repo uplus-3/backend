@@ -1,6 +1,5 @@
 package com.uplus.backend.plan.entity;
 
-import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.order.entity.Order;
 import java.util.ArrayList;
@@ -10,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -56,11 +53,11 @@ public class Plan extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String data;
 
-	// TODO : nullable 컬럼 Validation 처리 필요
+	@Size(max = 50, message = "부가 데이터 스펙은 50자 이하로 입력해 주세요")
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String subData;
 
-	// TODO : nullable 컬럼 Validation 처리 필요
+	@Size(max = 50, message = "공유 데이터 스펙은 50자 이하로 입력해 주세요")
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String shareData;
 
@@ -69,7 +66,7 @@ public class Plan extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String voiceCall;
 
-	// TODO : nullable 컬럼 Validation 처리 필요
+	@Size(max = 50, message = "부가 통화 스펙은 50자 이하로 입력해 주세요")
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String subVoiceCall;
 
@@ -78,24 +75,19 @@ public class Plan extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "VARCHAR(50)")
 	private String message;
 
-	//TODO : nullable validation 적용
+	@Size(max = 50, message = "스마트기기 스펙은 50자 이하로 입력해 주세요")
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String smartDevice;
 
-	//TODO : nullable validation 적용
+	@Size(max = 50, message = "프리미엄 서비스 스펙은 50자 이하로 입력해 주세요")
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String premiumService;
 
-	//TODO : nullable validation 적용
+	@Size(max = 50, message = "기본혜택 스펙은 50자 이하로 입력해 주세요")
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String basicPromotion;
 
-	@OneToOne
-	@JoinColumn(name = "device_id")
-	private Device device;
-
-	@OneToMany
-	@JoinColumn(name = "orders_id")
+	@OneToMany(mappedBy = "plan")
 	private List<Order> orders = new ArrayList<>();
 
 	public void addOrders(Order order) {

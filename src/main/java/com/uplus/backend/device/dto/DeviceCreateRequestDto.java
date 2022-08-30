@@ -4,6 +4,7 @@ import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -40,8 +41,7 @@ public class DeviceCreateRequestDto {
 	@ApiModelProperty(name = "정상가", example = "1078000")
 	private int price;
 
-	//	TODO : Validation 추가
-//	@Pattern(regexp = "^(19|20)\\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$", message = "출시일은 YYYY-MM-DD 형식으로 입력해 주세요")
+	//	TODO : date Validation 메서드 구현
 	@ApiModelProperty(name = "출시일", example = "2021-01-23")
 	private Date launchedDate;
 
@@ -69,8 +69,7 @@ public class DeviceCreateRequestDto {
 	@ApiModelProperty(name = "공시지원금", example = "200000")
 	private int publicSupport;
 
-
-	// TODO : nullable Validation 추가
+	@PositiveOrZero(message = "추가지원금은 0이상의 양수로 입력해 주세요")
 	@ApiModelProperty(name = "추가지원금", example = "50000")
 	private int additionalSupport;
 
