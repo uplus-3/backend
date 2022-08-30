@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class DeviceService {
 
 	private final DeviceRepository deviceRepository;
@@ -36,6 +35,7 @@ public class DeviceService {
 		return DeviceCreateResponseDto.fromEntity(device);
 	}
 
+	@Transactional(readOnly = true)
 	public DeviceListResponseDto getDeviceList(int networkType, Long planId, int discountType,
 		int installmentPeriod) {
 		Plan plan = null;
@@ -50,6 +50,7 @@ public class DeviceService {
 		return DeviceListResponseDto.fromEntity(devices, plan, discountType, installmentPeriod);
 	}
 
+	@Transactional(readOnly = true)
 	public DeviceDetailResponseDto getDeviceDetail(Long deviceId, Long planId, int discountType,
 		int installmentPeriod) {
 		Device device = deviceRepository.findById(deviceId)
@@ -65,6 +66,7 @@ public class DeviceService {
 		return DeviceDetailResponseDto.fromEntity(device, plan, discountType, installmentPeriod);
 	}
 
+	@Transactional(readOnly = true)
 	public DeviceSelfCompResponseDto getDeviceSelfComp(Long deviceId) {
 		Device device = deviceRepository.findById(deviceId)
 			.orElseThrow(RuntimeException::new);

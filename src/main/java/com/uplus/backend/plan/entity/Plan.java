@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
@@ -88,8 +87,8 @@ public class Plan extends BaseEntity {
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String basicPromotion;
 
-	@OneToMany
-	@JoinColumn(name = "orders_id")
+
+	@OneToMany(mappedBy = "plan")
 	private List<Order> orders = new ArrayList<>();
 
 	public void addOrders(Order order) {
@@ -98,4 +97,6 @@ public class Plan extends BaseEntity {
 			order.setPlan(this);
 		}
 	}
+
+
 }

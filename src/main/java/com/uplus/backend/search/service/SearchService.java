@@ -19,22 +19,22 @@ public class SearchService {
 
 	@Transactional(readOnly = true)
 	public SearchKeywordListResponseDto getSearchKeyword(String query, int networkType) {
-		List<Device> searchList = networkType != 0
-			? deviceRepository.findTop5ByNameContainingIgnoreCaseAndNetworkTypeOrderByLaunchedDateDesc(
-			query, networkType)
-			: deviceRepository.findTop5ByNameContainingIgnoreCaseOrderByLaunchedDateDesc(
-				query);
+		List<Device> searchList = networkType == 0
+			? deviceRepository.findTop5ByNameContainingIgnoreCaseOrderByLaunchedDateDesc(
+			query)
+			: deviceRepository.findTop5ByNameContainingIgnoreCaseAndNetworkTypeOrderByLaunchedDateDesc(
+				query, networkType);
 
 		return SearchKeywordListResponseDto.fromEntity(searchList);
 	}
 
 	@Transactional(readOnly = true)
 	public SearchListResponseDto searchByKeyword(String query, int networkType) {
-		List<Device> searchList = networkType != 0
-			? deviceRepository.findByNameContainingIgnoreCaseAndNetworkTypeOrderByLaunchedDateDesc(
-			query, networkType)
-			: deviceRepository.findByNameContainingIgnoreCaseOrderByLaunchedDateDesc(
-				query);
+		List<Device> searchList = networkType == 0
+			? deviceRepository.findByNameContainingIgnoreCaseOrderByLaunchedDateDesc(
+			query) :
+			deviceRepository.findByNameContainingIgnoreCaseAndNetworkTypeOrderByLaunchedDateDesc(
+				query, networkType);
 
 		return SearchListResponseDto.fromEntity(searchList);
 	}

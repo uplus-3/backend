@@ -3,6 +3,10 @@ package com.uplus.backend.global.util;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.plan.entity.Plan;
 
+/**
+ * 가격 연산 관련 클래스 정의
+ */
+
 public class PriceUtil {
 
 	public static final int DEFAULT_MONTH = 24;
