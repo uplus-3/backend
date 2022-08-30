@@ -3,11 +3,13 @@ package com.uplus.backend.global.util;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.plan.entity.Plan;
 
+/**
+ * 가격 연산 관련 클래스 정의
+ */
+
 public class PriceUtil {
 
 	public static final int DEFAULT_MONTH = 24;
-
-	public static final int DEFAULT_INSTALLMENT_PERIOD = 24;
 
 	public static final int SELECT_DISCOUNT_AMOUNT = 25;
 
@@ -17,9 +19,9 @@ public class PriceUtil {
 
 	public static final int SELECT_INSTALLMENT_DISCOUNT_TYPE = 1;
 
-	public static int recommendedDeviceDiscount(Device device, Plan plan) {
-		if (device.getPublicSupport() + device.getAdditionalSupport()
-			> plan.getPrice() * SELECT_DISCOUNT_AMOUNT / 100 * DEFAULT_MONTH) {
+	public static int getDiscountedDevicePriceByRecommended(Device device, Plan plan) {
+		if (getRecommendedDiscountType(device, plan, RECOMMENDED_DISCOUNT_TYPE)
+			== PUBLIC_SUPPORT_DISCOUNT_TYPE) {
 			return device.getPrice() - device.getPublicSupport()
 				- device.getAdditionalSupport();
 		} else {
@@ -27,19 +29,20 @@ public class PriceUtil {
 		}
 	}
 
-	public static int recommendedPlanDiscount(Device device, Plan plan) {
-		if (device.getPublicSupport() + device.getAdditionalSupport()
-			> plan.getPrice() * SELECT_DISCOUNT_AMOUNT / 100 * DEFAULT_MONTH) {
-			return plan.getPrice();
-		} else {
+	public static int getDiscountedPlanPriceByRecommended(Device device, Plan plan) {
+		if (getRecommendedDiscountType(device, plan, RECOMMENDED_DISCOUNT_TYPE)
+			== SELECT_INSTALLMENT_DISCOUNT_TYPE) {
 			return plan.getPrice() * 75 / 100;
+		} else {
+			return plan.getPrice();
 		}
 	}
 
-	public static int deviceDiscount(Device device, Plan plan, int discountType) {
+	public static int getDiscountedDevicePriceByDiscountType(Device device, Plan plan,
+		int discountType) {
 		switch (discountType) {
 			case RECOMMENDED_DISCOUNT_TYPE:
-				return recommendedDeviceDiscount(device, plan);
+				return getDiscountedDevicePriceByRecommended(device, plan);
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
 				return device.getPrice() - device.getPublicSupport()
 					- device.getAdditionalSupport();
@@ -50,21 +53,26 @@ public class PriceUtil {
 		}
 	}
 
-	public static int getRecommendedDiscountType(Device device, Plan plan) {
-		int sDiscountPrice = deviceDiscount(device, device.getPlan(), 0);
-		int psDiscountPrice = deviceDiscount(device, device.getPlan(), 1);
+	public static int getRecommendedDiscountType(Device device, Plan plan, int discountType) {
+		if (discountType != -1) {
+			return discountType;
+		}
 
-		if (sDiscountPrice >= psDiscountPrice) {
-			return 0;
+		int pSupportAmount = device.getPublicSupport() + device.getAdditionalSupport();
+		int sDiscountAmount = plan.getPrice() * SELECT_DISCOUNT_AMOUNT / 100 * DEFAULT_MONTH;
+
+		if (pSupportAmount > sDiscountAmount) {
+			return PUBLIC_SUPPORT_DISCOUNT_TYPE;
 		} else {
-			return 1;
+			return SELECT_INSTALLMENT_DISCOUNT_TYPE;
 		}
 	}
 
-	public static int planDiscount(Device device, Plan plan, int discountType) {
+	public static int getDiscountedPlanPriceByDiscountType(Device device, Plan plan,
+		int discountType) {
 		switch (discountType) {
 			case RECOMMENDED_DISCOUNT_TYPE:
-				return recommendedPlanDiscount(device, plan);
+				return getDiscountedPlanPriceByRecommended(device, plan);
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
 				return plan.getPrice();
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:

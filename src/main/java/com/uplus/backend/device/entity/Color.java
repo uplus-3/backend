@@ -48,7 +48,7 @@ public class Color extends BaseEntity {
 	private int stock;
 
 	@ManyToOne
-	@JoinColumn(name = "device_id")
+	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
 
 	@OneToMany(mappedBy = "color")

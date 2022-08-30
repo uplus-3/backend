@@ -12,7 +12,6 @@ import lombok.Getter;
 @Builder
 public class DeviceListResponseDto {
 
-	@ApiModelProperty(name = "단말기들", example = "단말기들")
 	private List<DeviceResponseDto> devices;
 
 	public static DeviceListResponseDto fromEntity(List<Device> devices, Plan plan,

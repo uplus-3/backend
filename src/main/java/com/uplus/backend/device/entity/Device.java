@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -96,7 +98,8 @@ public class Device extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "VARCHAR(1024)")
 	private String repImageUrl;
 
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "plan_id", nullable = false)
 	private Plan plan;
 
 	@OneToMany(mappedBy = "device")

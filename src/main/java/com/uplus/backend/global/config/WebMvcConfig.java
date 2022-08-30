@@ -1,6 +1,5 @@
 package com.uplus.backend.global.config;
 
-
 import javax.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		// configuration.addAllowedOrigin("*");
+		configuration.addAllowedOrigin("*");
 		configuration.addAllowedOriginPattern("*");
 		configuration.addAllowedMethod("*");
 		configuration.addAllowedHeader("*");
@@ -39,21 +38,23 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 		registry.addResourceHandler("/webjars/**")
 			.addResourceLocations("classpath:/META-INF/resources/webjars/");
-
 	}
 
 	public Filter requestLoggingFilter() {
+		// request 로깅 설정
 		CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
 		loggingFilter.setIncludeClientInfo(true);
 		loggingFilter.setIncludeQueryString(true);
 		loggingFilter.setIncludePayload(true);
 		loggingFilter.setIncludeHeaders(true);
 		loggingFilter.setMaxPayloadLength(64000);
+		loggingFilter.setAfterMessagePrefix("REQUEST DATA : ");
 		return loggingFilter;
 	}
 
 	@Bean
 	public FilterRegistrationBean loggingFilterRegistration() {
+		// /api/로 시작하는 url request 로깅 설정
 		FilterRegistrationBean registration = new FilterRegistrationBean(requestLoggingFilter());
 		registration.addUrlPatterns("/api/*");
 		return registration;

@@ -13,7 +13,6 @@ import lombok.Getter;
 @Builder
 public class DeviceSelfCompResponseDto {
 
-	@ApiModelProperty(name = "요금제 비교 리스트")
 	private List<PlanDetailResponseDto> plans;
 
 	public static DeviceSelfCompResponseDto fromEntity(Device device, List<Plan> plans) {

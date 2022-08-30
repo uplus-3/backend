@@ -1,7 +1,6 @@
 package com.uplus.backend.global.exception;
 
-
-import static com.uplus.backend.global.exception.ErrorCode.INVALID_PARAMETER_ERROR;
+import static com.uplus.backend.global.exception.ErrorCode.INVALID_REQUEST_VALUE_ERROR;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +8,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * 전역 예외 처리 Handler 정의
+ */
 
 @RestControllerAdvice
 @Slf4j
@@ -35,8 +37,8 @@ public class GlobalExceptionHandler {
 		log.error("error : {}", e.getMessage());
 		e.printStackTrace();
 		ErrorResponseDto responseDto = ErrorResponseDto.builder()
-			.detailStatus(INVALID_PARAMETER_ERROR.getDetailStatus())
-			.message(INVALID_PARAMETER_ERROR.getMessage())
+			.detailStatus(INVALID_REQUEST_VALUE_ERROR.getDetailStatus())
+			.message(INVALID_REQUEST_VALUE_ERROR.getMessage())
 			.build();
 
 		return ResponseEntity.badRequest().body(responseDto);

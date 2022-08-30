@@ -83,7 +83,7 @@ public class Plan extends BaseEntity {
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String premiumService;
 
-	@Size(max = 50, message = "기본혜택 스펙은 50자 이하로 입력해 주세요")
+	//TODO : nullable validation 적용
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String basicPromotion;
 

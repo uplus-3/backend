@@ -1,7 +1,13 @@
 package com.uplus.backend.order.service;
 
+import static com.uplus.backend.global.exception.ErrorCode.COLOR_NO_DATA_ERROR;
+import static com.uplus.backend.global.exception.ErrorCode.NO_STOCK_ERROR;
+import static com.uplus.backend.global.exception.ErrorCode.ORDER_NO_DATA_ERROR;
+import static com.uplus.backend.global.exception.ErrorCode.PLAN_NO_DATA_ERROR;
+
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.repository.ColorRepository;
+import com.uplus.backend.global.exception.CustomException;
 import com.uplus.backend.global.util.OrderNumberUtil;
 import com.uplus.backend.order.dto.OrderCreateRequestDto;
 import com.uplus.backend.order.dto.OrderCreateResponseDto;
@@ -28,23 +34,35 @@ public class OrderService {
 
 	@Transactional
 	public OrderCreateResponseDto create(OrderCreateRequestDto orderCreateRequestDto) {
-		Color color = colorRepository.findById(orderCreateRequestDto.getColorId())
-			.orElseThrow(RuntimeException::new);
 
+		// TODO : COLOR_NO_DATA_ERROR Test 코드 작성
+		Color color = colorRepository.findById(orderCreateRequestDto.getColorId())
+			.orElseThrow(() -> new CustomException(COLOR_NO_DATA_ERROR));
+
+		// TODO : PLAN_NO_DATA_ERROR Test 코드 작성
 		Plan plan = planRepository.findById(orderCreateRequestDto.getPlanId())
-			.orElseThrow(RuntimeException::new);
+			.orElseThrow(() -> new CustomException(PLAN_NO_DATA_ERROR));
 
 		// 재고 확인
 		if (color.getStock() > 0) {
 			color.setStock(color.getStock() - 1);
+			colorRepository.save(color);
 		} else {
-			throw new RuntimeException();
+			// TODO : NO_STOCK_ERROR Test 코드 작성
+			throw new CustomException(NO_STOCK_ERROR);
 		}
 
-		colorRepository.save(color);
+		// 주문번호 부여
+		Long orderNumber;
+		boolean checkOrderNumberDuplicated;
+		do {
+			orderNumber = OrderNumberUtil.createOrderNumber();
+			checkOrderNumberDuplicated = orderRepository.existsByNumber(
+				OrderNumberUtil.createOrderNumber());
+		} while (checkOrderNumberDuplicated);
 
 		Order order = orderCreateRequestDto.toEntity(color, plan,
-			OrderNumberUtil.createOrderNumber());
+			orderNumber);
 
 		orderRepository.save(order);
 
@@ -53,8 +71,10 @@ public class OrderService {
 
 	@Transactional(readOnly = true)
 	public OrderResponseDto getByNameAndNumber(String name, Long number) {
+
+		// TODO : ORDER_NO_DATA_ERROR Test 코드 작성
 		Order order = orderRepository.findByNameAndNumber(name, number)
-				.orElseThrow(RuntimeException::new);
+			.orElseThrow(() -> new CustomException(ORDER_NO_DATA_ERROR));
 
 		return OrderResponseDto.fromEntity(order);
 	}

@@ -34,7 +34,7 @@ public class Image extends BaseEntity {
 	private String imageUrl;
 
 	@ManyToOne
-	@JoinColumn(name = "color_id")
+	@JoinColumn(name = "color_id", nullable = false)
 	private Color color;
 
 	public void setColor(Color color) {

@@ -39,7 +39,7 @@ public class Tag extends BaseEntity {
 	private String rgb;
 
 	@ManyToOne
-	@JoinColumn(name = "device_id")
+	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
 
 	public void setDevice(Device device) {

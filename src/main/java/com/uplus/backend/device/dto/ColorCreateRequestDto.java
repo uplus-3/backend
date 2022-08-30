@@ -3,7 +3,6 @@ package com.uplus.backend.device.dto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
