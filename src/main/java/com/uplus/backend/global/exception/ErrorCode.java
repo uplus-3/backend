@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum ErrorCode {
 
 	// 0XX : 공통
-	INVALID_REQUEST_ERROR(400, 0, "잘못된 요청"),
+	INVALID_REQUEST_VALUE_ERROR(400, 0, "잘못된 요청"),
 
 	// -1XX : Plan
 	PLAN_NO_DATA_ERROR(404, -104, "존재하지 않는 요금제"),

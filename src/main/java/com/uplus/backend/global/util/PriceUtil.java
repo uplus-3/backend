@@ -15,7 +15,7 @@ public class PriceUtil {
 
 	public static final int SELECT_INSTALLMENT_DISCOUNT_TYPE = 1;
 
-	public static int discountDeviceByRecommended(Device device, Plan plan) {
+	public static int getDiscountedDevicePriceByRecommended(Device device, Plan plan) {
 		if (getRecommendedDiscountType(device, plan, RECOMMENDED_DISCOUNT_TYPE)
 			== PUBLIC_SUPPORT_DISCOUNT_TYPE) {
 			return device.getPrice() - device.getPublicSupport()
@@ -25,7 +25,7 @@ public class PriceUtil {
 		}
 	}
 
-	public static int discountPlanByRecommended(Device device, Plan plan) {
+	public static int getDiscountedPlanPriceByRecommended(Device device, Plan plan) {
 		if (getRecommendedDiscountType(device, plan, RECOMMENDED_DISCOUNT_TYPE)
 			== SELECT_INSTALLMENT_DISCOUNT_TYPE) {
 			return plan.getPrice() * 75 / 100;
@@ -34,10 +34,11 @@ public class PriceUtil {
 		}
 	}
 
-	public static int discountDevice(Device device, Plan plan, int discountType) {
+	public static int getDiscountedDevicePriceByDiscountType(Device device, Plan plan,
+		int discountType) {
 		switch (discountType) {
 			case RECOMMENDED_DISCOUNT_TYPE:
-				return discountDeviceByRecommended(device, plan);
+				return getDiscountedDevicePriceByRecommended(device, plan);
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
 				return device.getPrice() - device.getPublicSupport()
 					- device.getAdditionalSupport();
@@ -63,10 +64,11 @@ public class PriceUtil {
 		}
 	}
 
-	public static int discountPlan(Device device, Plan plan, int discountType) {
+	public static int getDiscountedPlanPriceByDiscountType(Device device, Plan plan,
+		int discountType) {
 		switch (discountType) {
 			case RECOMMENDED_DISCOUNT_TYPE:
-				return discountPlanByRecommended(device, plan);
+				return getDiscountedPlanPriceByRecommended(device, plan);
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
 				return plan.getPrice();
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:

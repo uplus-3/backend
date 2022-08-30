@@ -45,7 +45,7 @@ public class SearchResponseDto {
 			.name(device.getName())
 			.price(device.getPrice())
 			.mPrice(device.getPrice() / PriceUtil.DEFAULT_MONTH)
-			.dPrice(PriceUtil.discountDevice(device, device.getPlan(),
+			.dPrice(PriceUtil.getDiscountedDevicePriceByDiscountType(device, device.getPlan(),
 				PriceUtil.getRecommendedDiscountType(device, device.getPlan(),
 					PriceUtil.RECOMMENDED_DISCOUNT_TYPE)) / PriceUtil.DEFAULT_MONTH)
 			.plan(PlanPriceResponseDto.fromEntity(device, device.getPlan(),

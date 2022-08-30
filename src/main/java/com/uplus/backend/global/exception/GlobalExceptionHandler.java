@@ -1,6 +1,6 @@
 package com.uplus.backend.global.exception;
 
-import static com.uplus.backend.global.exception.ErrorCode.INVALID_REQUEST_ERROR;
+import static com.uplus.backend.global.exception.ErrorCode.INVALID_REQUEST_VALUE_ERROR;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +33,8 @@ public class GlobalExceptionHandler {
 		log.error("error : {}", e.getMessage());
 		e.printStackTrace();
 		ErrorResponseDto responseDto = ErrorResponseDto.builder()
-			.detailStatus(INVALID_REQUEST_ERROR.getDetailStatus())
-			.message(INVALID_REQUEST_ERROR.getMessage())
+			.detailStatus(INVALID_REQUEST_VALUE_ERROR.getDetailStatus())
+			.message(INVALID_REQUEST_VALUE_ERROR.getMessage())
 			.build();
 
 		return ResponseEntity.badRequest().body(responseDto);

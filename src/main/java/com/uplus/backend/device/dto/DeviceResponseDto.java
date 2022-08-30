@@ -53,7 +53,7 @@ public class DeviceResponseDto {
 			.name(device.getName())
 			.price(device.getPrice())
 			.mPrice(device.getPrice() / installmentPeriod)
-			.dPrice(PriceUtil.discountDevice(device, plan, discountType) / installmentPeriod)
+			.dPrice(PriceUtil.getDiscountedDevicePriceByDiscountType(device, plan, discountType) / installmentPeriod)
 			.discountType(PriceUtil.getRecommendedDiscountType(device, plan, discountType))
 			.plan(PlanPriceResponseDto.fromEntity(device, plan, discountType, installmentPeriod))
 			.tags(device.getTags().stream()

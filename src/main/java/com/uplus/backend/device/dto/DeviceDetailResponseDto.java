@@ -5,6 +5,7 @@ import com.uplus.backend.global.util.PriceUtil;
 import com.uplus.backend.plan.dto.PlanPriceResponseDto;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
@@ -31,6 +32,9 @@ public class DeviceDetailResponseDto {
 
 	@ApiModelProperty(name = "디스플레이", example = "15.4cm")
 	private String display;
+
+	@ApiModelProperty(name = "출시일", example = "2022-02-02")
+	private Date launchedDate;
 
 	@ApiModelProperty(name = "정상가", example = "1078000")
 	private int price;
@@ -72,10 +76,12 @@ public class DeviceDetailResponseDto {
 			.storage(device.getStorage())
 			.cpu(device.getCpu())
 			.display(device.getDisplay())
+			.launchedDate(device.getLaunchedDate())
 			.price(device.getPrice())
 			.mPrice(device.getPrice() / installmentPeriod)
-			.dPrice(PriceUtil.discountDevice(device, plan, discountType) / installmentPeriod)
-			.tPrice(PriceUtil.discountDevice(device, plan, discountType))
+			.dPrice(PriceUtil.getDiscountedDevicePriceByDiscountType(device, plan, discountType)
+				/ installmentPeriod)
+			.tPrice(PriceUtil.getDiscountedDevicePriceByDiscountType(device, plan, discountType))
 			.pSupport(discountType == 0 ? device.getPublicSupport() : 0)
 			.aSupport(discountType == 0 ? device.getAdditionalSupport() : 0)
 			.discountType(PriceUtil.getRecommendedDiscountType(device, plan, discountType))
