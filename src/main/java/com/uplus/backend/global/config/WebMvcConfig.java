@@ -41,17 +41,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	}
 
 	public Filter requestLoggingFilter() {
+		// request 로깅 설정
 		CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
 		loggingFilter.setIncludeClientInfo(true);
 		loggingFilter.setIncludeQueryString(true);
 		loggingFilter.setIncludePayload(true);
 		loggingFilter.setIncludeHeaders(true);
 		loggingFilter.setMaxPayloadLength(64000);
+		loggingFilter.setAfterMessagePrefix("REQUEST DATA : ");
 		return loggingFilter;
 	}
 
 	@Bean
 	public FilterRegistrationBean loggingFilterRegistration() {
+		// /api/로 시작하는 url request 로깅 설정
 		FilterRegistrationBean registration = new FilterRegistrationBean(requestLoggingFilter());
 		registration.addUrlPatterns("/api/*");
 		return registration;

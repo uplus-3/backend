@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class PlanService {
 
 	private final PlanRepository planRepository;
@@ -26,11 +25,13 @@ public class PlanService {
 		return PlanCreateResponseDto.fromEntity(plan);
 	}
 
+	@Transactional(readOnly = true)
 	public PlanListResponseDto findByNetworkType(int networkType) {
 
+		// 0 : 전체 조회, 아니면 네트워크 유형별 조회
 		List<Plan> planList =
-			networkType != 0 ? planRepository.findByNetworkTypeOrderByPriceAsc(networkType)
-				: planRepository.findAllByOrderByPriceAsc();
+			networkType == 0 ? planRepository.findAllByOrderByPriceAsc()
+				: planRepository.findByNetworkTypeOrderByPriceAsc(networkType);
 
 		return PlanListResponseDto.fromEntity(planList);
 	}
