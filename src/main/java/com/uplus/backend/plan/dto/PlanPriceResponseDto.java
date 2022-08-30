@@ -34,9 +34,9 @@ public class PlanPriceResponseDto {
 			.id(plan.getId())
 			.name(plan.getName())
 			.price(plan.getPrice() * DEFAULT_MONTH / installmentType)
-			.dPrice(PriceUtil.planDiscount(device, plan, discountType)
+			.dPrice(PriceUtil.discountPlan(device, plan, discountType)
 				* DEFAULT_MONTH / installmentType)
-			.sDiscount((plan.getPrice() - PriceUtil.planDiscount(device, plan, discountType))
+			.sDiscount((plan.getPrice() - PriceUtil.discountPlan(device, plan, discountType))
 				* DEFAULT_MONTH / installmentType)
 			.build();
 	}

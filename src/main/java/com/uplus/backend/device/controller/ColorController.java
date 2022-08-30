@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class ColorController {
 		@ApiResponse(code = 200, message = "색상 생성 성공")
 	})
 	public ResponseEntity<ColorCreateResponseDto> create(
-		@RequestBody ColorCreateRequestDto requestDto) {
+		@Valid @RequestBody ColorCreateRequestDto requestDto) {
 		ColorCreateResponseDto responseDto = colorService.create(requestDto);
 
 		return ResponseEntity.ok().body(responseDto);

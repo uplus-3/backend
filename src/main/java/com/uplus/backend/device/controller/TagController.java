@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,8 @@ public class TagController {
 		@ApiResponse(code = 200, message = "태그 생성 성공")
 	})
 	public ResponseEntity<TagCreateResponseDto> create(
-		@RequestBody TagCreateRequestDto reqeustDto) {
-		TagCreateResponseDto responseDto = tagService.create(reqeustDto);
+		@Valid @RequestBody TagCreateRequestDto requestDto) {
+		TagCreateResponseDto responseDto = tagService.create(requestDto);
 
 		return ResponseEntity.ok().body(responseDto);
 	}

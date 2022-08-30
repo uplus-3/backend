@@ -55,8 +55,12 @@ public class DeviceService {
 		Device device = deviceRepository.findById(deviceId)
 			.orElseThrow(RuntimeException::new);
 
-		Plan plan = planRepository.findById(planId)
-			.orElseThrow(RuntimeException::new);
+		Plan plan = null;
+
+		if (planId != -1) {
+			plan = planRepository.findById(planId)
+				.orElseThrow(RuntimeException::new);
+		}
 
 		return DeviceDetailResponseDto.fromEntity(device, plan, discountType, installmentPeriod);
 	}

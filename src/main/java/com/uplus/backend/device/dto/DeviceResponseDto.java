@@ -32,6 +32,9 @@ public class DeviceResponseDto {
 	@ApiModelProperty(name = "할인 적용된 월 납부금액(단말기만)", example = "40000")
 	private int dPrice;
 
+	@ApiModelProperty(name = "할인유형", example = "0")
+	private int discountType;
+
 	private PlanPriceResponseDto plan;
 
 	private List<TagResponseDto> tags;
@@ -40,16 +43,19 @@ public class DeviceResponseDto {
 
 	public static DeviceResponseDto fromEntity(Device device, Plan plan, int discountType,
 		int installmentPeriod) {
+		if (plan == null) {
+			plan = device.getPlan();
+		}
+
 		return DeviceResponseDto.builder()
 			.id(device.getId())
 			.serialNumber(device.getSerialNumber())
 			.name(device.getName())
 			.price(device.getPrice())
 			.mPrice(device.getPrice() / installmentPeriod)
-			.dPrice(PriceUtil.deviceDiscount(device, plan != null ? plan : device.getPlan(),
-				discountType) / installmentPeriod)
-			.plan(PlanPriceResponseDto.fromEntity(device, plan != null ? plan : device.getPlan(),
-				discountType, installmentPeriod))
+			.dPrice(PriceUtil.discountDevice(device, plan, discountType) / installmentPeriod)
+			.discountType(PriceUtil.getRecommendedDiscountType(device, plan, discountType))
+			.plan(PlanPriceResponseDto.fromEntity(device, plan, discountType, installmentPeriod))
 			.tags(device.getTags().stream()
 				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))

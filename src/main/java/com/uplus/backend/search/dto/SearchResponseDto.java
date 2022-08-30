@@ -45,13 +45,12 @@ public class SearchResponseDto {
 			.name(device.getName())
 			.price(device.getPrice())
 			.mPrice(device.getPrice() / PriceUtil.DEFAULT_MONTH)
-			.dPrice(
-				PriceUtil.deviceDiscount(device, device.getPlan(),
-					PriceUtil.getRecommendedDiscountType(device, device.getPlan()))
-					/ PriceUtil.DEFAULT_MONTH)
+			.dPrice(PriceUtil.discountDevice(device, device.getPlan(),
+				PriceUtil.getRecommendedDiscountType(device, device.getPlan(),
+					PriceUtil.RECOMMENDED_DISCOUNT_TYPE)) / PriceUtil.DEFAULT_MONTH)
 			.plan(PlanPriceResponseDto.fromEntity(device, device.getPlan(),
-				PriceUtil.getRecommendedDiscountType(device, device.getPlan()),
-				PriceUtil.DEFAULT_MONTH))
+				PriceUtil.getRecommendedDiscountType(device, device.getPlan(),
+					PriceUtil.RECOMMENDED_DISCOUNT_TYPE), PriceUtil.DEFAULT_MONTH))
 			.tags(device.getTags().stream()
 				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))
