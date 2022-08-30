@@ -54,7 +54,7 @@ public class SearchServiceUnitTest {
 
 	private Image image1 = Image.builder()
 		.id(1L)
-		.url(
+		.imageUrl(
 			"https://image.lguplus.com/static/pc-contents/images/prdv//20220812-025607-814-9q8rtAhk.jpg")
 		.build();
 

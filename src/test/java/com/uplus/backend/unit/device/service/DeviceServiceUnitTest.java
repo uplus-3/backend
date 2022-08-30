@@ -56,7 +56,7 @@ public class DeviceServiceUnitTest {
 
 	private Image image1 = Image.builder()
 		.id(1L)
-		.url("이미지URL")
+		.imageUrl("이미지URL")
 		.build();
 
 	List<Image> images = List.of(image1);

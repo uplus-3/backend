@@ -125,7 +125,7 @@ public class OrderIntegrationTest {
 		color1 = colorRepository.save(color1);
 
 		image1 = Image.builder()
-			.url(
+			.imageUrl(
 				"https://image.lguplus.com/static/pc-contents/images/prdv//20220812-025607-814-9q8rtAhk.jpg")
 			.color(color1)
 			.build();

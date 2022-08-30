@@ -29,7 +29,7 @@ public class ImageCreateRequestDto {
 
 	public Image toEntity(Color color) {
 		return Image.builder()
-			.url(imageUrl)
+			.imageUrl(imageUrl)
 			.color(color)
 			.build();
 	}

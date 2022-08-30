@@ -82,7 +82,7 @@ public class DeviceRepositoryUnitTest {
 		color1 = em.persist(color1);
 
 		image1 = Image.builder()
-			.url("이미지URL")
+			.imageUrl("이미지URL")
 			.color(color1)
 			.build();
 		image1 = em.persist(image1);
