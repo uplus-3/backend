@@ -8,7 +8,11 @@ import javax.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
@@ -20,12 +24,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity implements Serializable {
 
-	@CreationTimestamp
-	@Column(nullable = false, updatable = false)
+	@CreatedDate
+	@Column(updatable = false, nullable = false)
 	private LocalDateTime createdAt;
 
-	@UpdateTimestamp
-	@Column(nullable = false)
+	@LastModifiedDate
 	private LocalDateTime updatedAt;
 }
 
