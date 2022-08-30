@@ -1,6 +1,5 @@
 package com.uplus.backend.global.config;
 
-
 import javax.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		// configuration.addAllowedOrigin("*");
+		configuration.addAllowedOrigin("*");
 		configuration.addAllowedOriginPattern("*");
 		configuration.addAllowedMethod("*");
 		configuration.addAllowedHeader("*");
@@ -39,7 +38,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 		registry.addResourceHandler("/webjars/**")
 			.addResourceLocations("classpath:/META-INF/resources/webjars/");
-
 	}
 
 	public Filter requestLoggingFilter() {

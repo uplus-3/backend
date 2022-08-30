@@ -1,6 +1,5 @@
 package com.uplus.backend.plan.entity;
 
-import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.order.entity.Order;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -90,10 +88,6 @@ public class Plan extends BaseEntity {
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String basicPromotion;
 
-	@OneToOne
-	@JoinColumn(name = "device_id")
-	private Device device;
-
 	@OneToMany
 	@JoinColumn(name = "orders_id")
 	private List<Order> orders = new ArrayList<>();
@@ -104,6 +98,4 @@ public class Plan extends BaseEntity {
 			order.setPlan(this);
 		}
 	}
-
-
 }

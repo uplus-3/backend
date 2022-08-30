@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class DeviceController {
 		@ApiResponse(code = 200, message = "단말기 생성 성공")
 	})
 	public ResponseEntity<DeviceCreateResponseDto> create(
-		@RequestBody DeviceCreateRequestDto requestDto) {
+		@Valid @RequestBody DeviceCreateRequestDto requestDto) {
 		DeviceCreateResponseDto responseDto = deviceService.create(requestDto);
 
 		return ResponseEntity.ok().body(responseDto);
