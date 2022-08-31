@@ -1,5 +1,9 @@
 package com.uplus.backend.device.dto;
 
+import static com.uplus.backend.global.util.PriceUtil.RECOMMENDED_DISCOUNT_TYPE;
+import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
+import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
+
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.global.util.PriceUtil;
 import com.uplus.backend.plan.dto.PlanPriceResponseDto;
@@ -39,7 +43,7 @@ public class DeviceDetailResponseDto {
 	@ApiModelProperty(name = "정상가", example = "1078000")
 	private int price;
 
-	@ApiModelProperty(name = "정상가 / 할부 달수", example = "44916")
+	@ApiModelProperty(name = "정상가 / 할부 달수", example = "44910")
 	private int mPrice;
 
 	@ApiModelProperty(name = "할인 적용된 월 납부금액(단말기만)", example = "40000")
@@ -69,6 +73,14 @@ public class DeviceDetailResponseDto {
 			plan = device.getPlan();
 		}
 
+		if (discountType == RECOMMENDED_DISCOUNT_TYPE) {
+			discountType = getRecommendedDiscountType(device, plan);
+		}
+
+		int mPrice = divideByMonth(device.getPrice(), installmentPeriod);
+		int tPrice = PriceUtil.getDiscountedDevicePriceByDiscountType(device, discountType);
+		int dPrice = divideByMonth(tPrice, installmentPeriod);
+
 		return DeviceDetailResponseDto.builder()
 			.id(device.getId())
 			.serialNumber(device.getSerialNumber())
@@ -78,14 +90,13 @@ public class DeviceDetailResponseDto {
 			.display(device.getDisplay())
 			.launchedDate(device.getLaunchedDate())
 			.price(device.getPrice())
-			.mPrice(device.getPrice() / installmentPeriod)
-			.dPrice(PriceUtil.getDiscountedDevicePriceByDiscountType(device, plan, discountType)
-				/ installmentPeriod)
-			.tPrice(PriceUtil.getDiscountedDevicePriceByDiscountType(device, plan, discountType))
-			.pSupport(discountType == 0 ? device.getPublicSupport() : 0)
-			.aSupport(discountType == 0 ? device.getAdditionalSupport() : 0)
-			.discountType(PriceUtil.getRecommendedDiscountType(device, plan, discountType))
-			.plan(PlanPriceResponseDto.fromEntity(device, plan, discountType, installmentPeriod))
+			.mPrice(mPrice)
+			.dPrice(dPrice)
+			.tPrice(tPrice)
+			.pSupport(device.getPublicSupport())
+			.aSupport(device.getAdditionalSupport())
+			.discountType(discountType)
+			.plan(PlanPriceResponseDto.fromEntity(plan, discountType))
 			.tags(device.getTags().stream()
 				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))
