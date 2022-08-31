@@ -2,6 +2,7 @@ package com.uplus.backend.global.util;
 
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.plan.entity.Plan;
+import java.util.List;
 
 /**
  * 가격 연산 관련 클래스 정의
@@ -22,8 +23,8 @@ public class PriceUtil {
 	public static int getDiscountedDevicePriceByRecommended(Device device, Plan plan) {
 		if (getRecommendedDiscountType(device, plan, RECOMMENDED_DISCOUNT_TYPE)
 			== PUBLIC_SUPPORT_DISCOUNT_TYPE) {
-			return device.getPrice() - device.getPublicSupport()
-				- device.getAdditionalSupport();
+			return applyAmountDiscount(device.getPrice(),
+				List.of(device.getPublicSupport(), device.getAdditionalSupport()));
 		} else {
 			return device.getPrice();
 		}
@@ -32,7 +33,7 @@ public class PriceUtil {
 	public static int getDiscountedPlanPriceByRecommended(Device device, Plan plan) {
 		if (getRecommendedDiscountType(device, plan, RECOMMENDED_DISCOUNT_TYPE)
 			== SELECT_INSTALLMENT_DISCOUNT_TYPE) {
-			return plan.getPrice() * 75 / 100;
+			return applyPercentDiscount(plan.getPrice(), SELECT_DISCOUNT_AMOUNT);
 		} else {
 			return plan.getPrice();
 		}
@@ -44,8 +45,8 @@ public class PriceUtil {
 			case RECOMMENDED_DISCOUNT_TYPE:
 				return getDiscountedDevicePriceByRecommended(device, plan);
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
-				return device.getPrice() - device.getPublicSupport()
-					- device.getAdditionalSupport();
+				return applyAmountDiscount(device.getPrice(),
+					List.of(device.getPublicSupport(), device.getAdditionalSupport()));
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:
 				return device.getPrice();
 			default: // TODO : 예외 처리
@@ -59,7 +60,8 @@ public class PriceUtil {
 		}
 
 		int pSupportAmount = device.getPublicSupport() + device.getAdditionalSupport();
-		int sDiscountAmount = plan.getPrice() * SELECT_DISCOUNT_AMOUNT / 100 * DEFAULT_MONTH;
+		int sDiscountAmount =
+			plan.getPrice() - applyPercentDiscount(plan.getPrice(), SELECT_DISCOUNT_AMOUNT);
 
 		if (pSupportAmount > sDiscountAmount) {
 			return PUBLIC_SUPPORT_DISCOUNT_TYPE;
@@ -76,7 +78,7 @@ public class PriceUtil {
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
 				return plan.getPrice();
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:
-				return plan.getPrice() * 75 / 100;
+				return applyPercentDiscount(plan.getPrice(), SELECT_DISCOUNT_AMOUNT);
 			default: // TODO : 예외 처리
 				throw new RuntimeException();
 		}
@@ -86,14 +88,31 @@ public class PriceUtil {
 		switch (discountType) {
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
 				return
-					((device.getPrice() - device.getPublicSupport() - device.getAdditionalSupport())
-						/ DEFAULT_MONTH) + plan.getPrice();
+					divideByDefaultMonth(applyAmountDiscount(device.getPrice(),
+						List.of(device.getPublicSupport(), device.getAdditionalSupport())))
+						+ plan.getPrice();
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:
 				return
-					(device.getPrice() / DEFAULT_MONTH) +
-						plan.getPrice() * (100 - SELECT_DISCOUNT_AMOUNT) / 100;
+					divideByDefaultMonth(device.getPrice()) +
+						applyPercentDiscount(plan.getPrice(), SELECT_DISCOUNT_AMOUNT);
 			default:
 				throw new RuntimeException();
 		}
+	}
+
+	public static int divideByDefaultMonth(int price) {
+		return roundDownPrice(price / DEFAULT_MONTH);
+	}
+
+	public static int applyAmountDiscount(int price, List<Integer> discounts) {
+		return price - discounts.stream().reduce(0, Integer::sum);
+	}
+
+	public static int applyPercentDiscount(int price, int percent) {
+		return roundDownPrice(price * (100 - percent) / 100);
+	}
+
+	public static int roundDownPrice(int price) {
+		return (price / 10) * 10;
 	}
 }

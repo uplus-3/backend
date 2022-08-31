@@ -1,9 +1,11 @@
 package com.uplus.backend.plan.dto;
 
 import static com.uplus.backend.global.util.PriceUtil.DEFAULT_MONTH;
+import static com.uplus.backend.global.util.PriceUtil.SELECT_INSTALLMENT_DISCOUNT_TYPE;
+import static com.uplus.backend.global.util.PriceUtil.getDiscountedPlanPriceByDiscountType;
+import static com.uplus.backend.global.util.PriceUtil.roundDownPrice;
 
 import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.global.util.PriceUtil;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -33,11 +35,11 @@ public class PlanPriceResponseDto {
 		return PlanPriceResponseDto.builder()
 			.id(plan.getId())
 			.name(plan.getName())
-			.price(plan.getPrice() * DEFAULT_MONTH / installmentType)
-			.dPrice(PriceUtil.getDiscountedPlanPriceByDiscountType(device, plan, discountType)
-				* DEFAULT_MONTH / installmentType)
-			.sDiscount((plan.getPrice() - PriceUtil.getDiscountedPlanPriceByDiscountType(device, plan, discountType))
-				* DEFAULT_MONTH / installmentType)
+			.price(roundDownPrice(plan.getPrice() * DEFAULT_MONTH / installmentType))
+			.dPrice(roundDownPrice(getDiscountedPlanPriceByDiscountType(device, plan, discountType)
+				* DEFAULT_MONTH / installmentType))
+			.sDiscount((plan.getPrice() - getDiscountedPlanPriceByDiscountType(device, plan,
+				SELECT_INSTALLMENT_DISCOUNT_TYPE)) * DEFAULT_MONTH)
 			.build();
 	}
 }
