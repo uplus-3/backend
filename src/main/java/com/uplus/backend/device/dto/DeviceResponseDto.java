@@ -1,7 +1,10 @@
 package com.uplus.backend.device.dto;
 
+import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
+import static com.uplus.backend.global.util.PriceUtil.getDiscountedDevicePriceByDiscountType;
+import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
+
 import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.global.util.PriceUtil;
 import com.uplus.backend.plan.dto.PlanPriceResponseDto;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
@@ -47,15 +50,23 @@ public class DeviceResponseDto {
 			plan = device.getPlan();
 		}
 
+		if (discountType == -1) {
+			discountType = getRecommendedDiscountType(device, plan);
+		}
+
+		int mPrice = divideByMonth(device.getPrice(), installmentPeriod);
+		int tPrice = getDiscountedDevicePriceByDiscountType(device, discountType);
+		int dPrice = divideByMonth(tPrice, installmentPeriod);
+
 		return DeviceResponseDto.builder()
 			.id(device.getId())
 			.serialNumber(device.getSerialNumber())
 			.name(device.getName())
 			.price(device.getPrice())
-			.mPrice(device.getPrice() / installmentPeriod)
-			.dPrice(PriceUtil.getDiscountedDevicePriceByDiscountType(device, plan, discountType) / installmentPeriod)
-			.discountType(PriceUtil.getRecommendedDiscountType(device, plan, discountType))
-			.plan(PlanPriceResponseDto.fromEntity(device, plan, discountType, installmentPeriod))
+			.mPrice(mPrice)
+			.dPrice(dPrice)
+			.discountType(discountType)
+			.plan(PlanPriceResponseDto.fromEntity(plan, discountType))
 			.tags(device.getTags().stream()
 				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))

@@ -122,7 +122,7 @@ public class DeviceIntegrationTest {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("network-type", String.valueOf(5));
 		params.add("plan", String.valueOf(1L));
-		params.add("discount-type", String.valueOf(0));
+		params.add("discount-type", String.valueOf(1));
 		params.add("installment-period", String.valueOf(24));
 
 		// when & then
