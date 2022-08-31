@@ -95,10 +95,10 @@ public class SearchServiceUnitTest {
 	void 검색_연관검색어_조회_테스트() {
 		// given
 		given(deviceRepository.findAutocompleteKeyword(
-			"갤럭시")).willReturn(List.of(device1));
+			"갤럭시*")).willReturn(List.of(device1));
 		given(
 			deviceRepository.findAutocompleteKeywordWithNetworkType(
-				"갤럭시", 5)).willReturn(List.of(device1));
+				"갤럭시*", 5)).willReturn(List.of(device1));
 
 		// when
 		SearchKeywordListResponseDto responseDtoWithNoNetworkType = searchService.getSearchKeyword(
@@ -117,9 +117,9 @@ public class SearchServiceUnitTest {
 	void 검색_리스트_조회_테스트() {
 		// given
 		given(deviceRepository.search(
-			"갤럭시")).willReturn(List.of(device1));
+			"갤럭시*")).willReturn(List.of(device1));
 		given(deviceRepository.searchWithNetworkType(
-			"갤럭시", 5)).willReturn(List.of(device1));
+			"갤럭시*", 5)).willReturn(List.of(device1));
 
 		// when
 		SearchListResponseDto responseDtoWithNoNetworkType = searchService.searchByKeyword("갤럭시",

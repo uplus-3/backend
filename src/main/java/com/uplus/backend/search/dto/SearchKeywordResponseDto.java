@@ -18,11 +18,16 @@ public class SearchKeywordResponseDto {
 	@ApiModelProperty(name = "이미지 url", example = "이미지 url 해당 이미지")
 	private String imageUrl;
 
+	@ApiModelProperty(name = "시리얼번호", example = "A2633-128")
+	private String serialNumber;
+
+
 	public static SearchKeywordResponseDto fromEntity(Device device) {
 		return SearchKeywordResponseDto.builder()
 			.id(device.getId())
 			.name(device.getName())
 			.imageUrl(device.getRepImageUrl())
+			.serialNumber(device.getSerialNumber())
 			.build();
 	}
 }

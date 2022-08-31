@@ -2,6 +2,7 @@ package com.uplus.backend.search.service;
 
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.repository.DeviceRepository;
+import com.uplus.backend.global.util.QueryUtil;
 import com.uplus.backend.search.dto.SearchKeywordListResponseDto;
 import com.uplus.backend.search.dto.SearchListResponseDto;
 import java.util.List;
@@ -19,6 +20,8 @@ public class SearchService {
 
 	@Transactional(readOnly = true)
 	public SearchKeywordListResponseDto getSearchKeyword(String query, int networkType) {
+		query = QueryUtil.getKeyword(query);
+
 		List<Device> searchList = networkType == 0
 			? deviceRepository.findAutocompleteKeyword(
 			query)
@@ -30,7 +33,9 @@ public class SearchService {
 
 	@Transactional(readOnly = true)
 	public SearchListResponseDto searchByKeyword(String query, int networkType) {
-		List<Device> searchList = networkType == 0
+		query = QueryUtil.getKeyword(query);
+
+		List<Device> searchList =  networkType == 0
 			? deviceRepository.search(
 			query) :
 			deviceRepository.searchWithNetworkType(

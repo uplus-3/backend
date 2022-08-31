@@ -37,9 +37,11 @@ public enum ErrorCode {
 
 
 	// -7XX : Cart
-	CART_NO_DATA_ERROR(404, -704, "존재하지 않는 장바구니");
+	CART_NO_DATA_ERROR(404, -704, "존재하지 않는 장바구니"),
 
 	// -8XX : Search
+	NO_SEARCH_KEYWORD_ERROR(400, -800, "빈 검색 키워드");
+
 	private final int status;
 	private final int detailStatus;
 	private final String message;
