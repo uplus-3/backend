@@ -78,7 +78,7 @@ public class DeviceDetailResponseDto {
 		}
 
 		int mPrice = divideByMonth(device.getPrice(), installmentPeriod);
-		int tPrice = PriceUtil.getDiscountedDevicePriceByDiscountType(device, discountType);
+		int tPrice = PriceUtil.getTDevicePriceByDiscountType(device, discountType);
 		int dPrice = divideByMonth(tPrice, installmentPeriod);
 
 		return DeviceDetailResponseDto.builder()

@@ -5,6 +5,7 @@ import com.uplus.backend.device.dto.DeviceCreateResponseDto;
 import com.uplus.backend.device.dto.DeviceDetailResponseDto;
 import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.PriceListResponseDto;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.repository.DeviceRepository;
 import com.uplus.backend.plan.entity.Plan;
@@ -36,18 +37,24 @@ public class DeviceService {
 	}
 
 	@Transactional(readOnly = true)
-	public DeviceListResponseDto getDeviceList(int networkType, Long planId, int discountType,
-		int installmentPeriod) {
-		Plan plan = null;
+	public DeviceListResponseDto getDevices(int networkType) {
+		List<Device> devices = deviceRepository.findByNetworkType(networkType);
 
+		return DeviceListResponseDto.fromEntity(devices);
+	}
+
+	@Transactional(readOnly = true)
+	public PriceListResponseDto getPrices(Long planId, int networkType, int discountType,
+		int installmentPeriod) {
+		List<Device> devices = deviceRepository.findByNetworkType(networkType);
+
+		Plan plan = null;
 		if (planId != -1) {
 			plan = planRepository.findById(planId)
 				.orElseThrow(RuntimeException::new);
 		}
 
-		List<Device> devices = deviceRepository.findByNetworkType(networkType);
-
-		return DeviceListResponseDto.fromEntity(devices, plan, discountType, installmentPeriod);
+		return PriceListResponseDto.fromEntity(devices, plan, discountType, installmentPeriod);
 	}
 
 	@Transactional(readOnly = true)
