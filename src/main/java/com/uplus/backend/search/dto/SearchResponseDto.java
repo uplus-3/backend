@@ -1,10 +1,15 @@
 package com.uplus.backend.search.dto;
 
+import static com.uplus.backend.global.util.PriceUtil.DEFAULT_MONTH;
+import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
+import static com.uplus.backend.global.util.PriceUtil.getDiscountedDevicePriceByDiscountType;
+import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
+
 import com.uplus.backend.device.dto.ColorResponseDto;
 import com.uplus.backend.device.dto.TagResponseDto;
 import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.global.util.PriceUtil;
 import com.uplus.backend.plan.dto.PlanPriceResponseDto;
+import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,6 +69,9 @@ public class SearchResponseDto {
 	private List<ColorResponseDto> colors;
 
 	public static SearchResponseDto fromEntity(Device device) {
+		Plan plan = device.getPlan();
+		int discountType = getRecommendedDiscountType(device, plan);
+
 		return SearchResponseDto.builder()
 			.id(device.getId())
 			.serialNumber(device.getSerialNumber())
@@ -72,15 +80,11 @@ public class SearchResponseDto {
 			.cpu(device.getCpu())
 			.display(device.getDisplay())
 			.price(device.getPrice())
-			.mPrice(device.getPrice() / PriceUtil.DEFAULT_MONTH)
-			.dPrice(PriceUtil.getDiscountedDevicePriceByDiscountType(device, device.getPlan(),
-				PriceUtil.getRecommendedDiscountType(device, device.getPlan(),
-					PriceUtil.RECOMMENDED_DISCOUNT_TYPE)) / PriceUtil.DEFAULT_MONTH)
-			.discountType(PriceUtil.getRecommendedDiscountType(device, device.getPlan(),
-				PriceUtil.RECOMMENDED_DISCOUNT_TYPE))
-			.plan(PlanPriceResponseDto.fromEntity(device, device.getPlan(),
-				PriceUtil.getRecommendedDiscountType(device, device.getPlan(),
-					PriceUtil.RECOMMENDED_DISCOUNT_TYPE), PriceUtil.DEFAULT_MONTH))
+			.mPrice(divideByMonth(device.getPrice(), DEFAULT_MONTH))
+			.dPrice(divideByMonth(getDiscountedDevicePriceByDiscountType(device, discountType),
+				DEFAULT_MONTH))
+			.discountType(discountType)
+			.plan(PlanPriceResponseDto.fromEntity(device.getPlan(), discountType))
 			.tags(device.getTags().stream()
 				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))
