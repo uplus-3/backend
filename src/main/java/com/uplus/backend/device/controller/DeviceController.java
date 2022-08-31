@@ -6,6 +6,7 @@ import com.uplus.backend.device.dto.DeviceCreateResponseDto;
 import com.uplus.backend.device.dto.DeviceDetailResponseDto;
 import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.PriceListResponseDto;
 import com.uplus.backend.device.service.DeviceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,17 +49,30 @@ public class DeviceController {
 	}
 
 	@GetMapping("")
-	@ApiOperation(value = "단말기 리스트 조회", notes = "단말기 리스트를 조회할 수 있다.")
+	@ApiOperation(value = "네트워크 타입별 단말기 리스트 조회", notes = "네트워크 타입별 단말기 리스트를 조회할 수 있다.")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
 	})
-	public ResponseEntity<DeviceListResponseDto> getDeviceList(
+	public ResponseEntity<DeviceListResponseDto> getDevices(
+		@RequestParam("network-type") int networkType) {
+		DeviceListResponseDto responseDto = deviceService.getDevices(networkType);
+
+		return ResponseEntity.ok().body(responseDto);
+	}
+
+	@GetMapping("/plans/{plan-id}")
+	@ApiOperation(value = "가격 리스트 조회", notes = "네트워크 타입별 단말기 리스트를 조회할 수 있다.")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
+	})
+	public ResponseEntity<PriceListResponseDto> getPrices(
+		@PathVariable("plan-id") Long planId,
 		@RequestParam("network-type") int networkType,
-		@RequestParam("plan") Long planId,
 		@RequestParam("discount-type") int discountType,
-		@RequestParam(name = "installment-period", required = false, defaultValue = "24") int installmentPeriod) {
-		DeviceListResponseDto responseDto =
-			deviceService.getDeviceList(networkType, planId, discountType, installmentPeriod);
+		@RequestParam(name = "installment-period", defaultValue = "24") int installmentPeriod
+	) {
+		PriceListResponseDto responseDto = deviceService.getPrices(planId, networkType,
+			discountType, installmentPeriod);
 
 		return ResponseEntity.ok().body(responseDto);
 	}

@@ -1,8 +1,8 @@
 package com.uplus.backend.search.dto;
 
-import static com.uplus.backend.global.util.PriceUtil.DEFAULT_MONTH;
+import static com.uplus.backend.global.util.PriceUtil.TWO_YEAR;
 import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
-import static com.uplus.backend.global.util.PriceUtil.getDiscountedDevicePriceByDiscountType;
+import static com.uplus.backend.global.util.PriceUtil.getTDevicePriceByDiscountType;
 import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
 
 import com.uplus.backend.device.dto.ColorResponseDto;
@@ -92,9 +92,9 @@ public class SearchResponseDto {
 			.networkType(device.getNetworkType())
 			.repImageUrl(device.getRepImageUrl())
 			.price(device.getPrice())
-			.mPrice(divideByMonth(device.getPrice(), DEFAULT_MONTH))
-			.dPrice(divideByMonth(getDiscountedDevicePriceByDiscountType(device, discountType),
-				DEFAULT_MONTH))
+			.mPrice(divideByMonth(device.getPrice(), TWO_YEAR))
+			.dPrice(divideByMonth(getTDevicePriceByDiscountType(device, discountType),
+				TWO_YEAR))
 			.discountType(discountType)
 			.plan(PlanPriceResponseDto.fromEntity(device.getPlan(), discountType))
 			.tags(device.getTags().stream()
