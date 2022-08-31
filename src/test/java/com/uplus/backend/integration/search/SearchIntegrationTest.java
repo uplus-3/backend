@@ -11,6 +11,7 @@ import com.uplus.backend.plan.repository.PlanRepository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -73,6 +74,7 @@ public class SearchIntegrationTest {
 
 	}
 
+	@Disabled
 	@Test
 	void 검색_연관검색어_조회_테스트() throws Exception {
 		// given
@@ -86,6 +88,7 @@ public class SearchIntegrationTest {
 			.andDo(print());
 	}
 
+	@Disabled
 	@Test
 	void 검색_리스트_조회_테스트() throws Exception {
 		// given
