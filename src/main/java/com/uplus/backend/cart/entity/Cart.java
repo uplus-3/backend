@@ -70,8 +70,8 @@ public class Cart extends BaseEntity {
         }
     }
 
-    public void setDeleted() {
-        this.deleted = true;
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
 }

@@ -22,11 +22,20 @@ public class CartResponseDto {
     @ApiModelProperty(name = "장바구니 품목 추가 시간", example = "2022. 08. 31")
     private String createdAt;
 
+    @ApiModelProperty(name = "요금제 id", example = "2")
+    private Long planId;
+
     @ApiModelProperty(name = "요금제명", example = "5G 라이트 +")
     private String planName;
 
+    @ApiModelProperty(name = "기기 ID", example = "2")
+    private Long deviceId;
+
     @ApiModelProperty(name = "기기명", example = "갤럭시 S20 중고폰")
     private String deviceName;
+
+    @ApiModelProperty(name = "기기 시리얼 넘버", example = "SM-7293")
+    private String serialNumber;
 
     @ApiModelProperty(name = "색상명", example = "보라퍼플")
     private String colorName;
@@ -39,6 +48,9 @@ public class CartResponseDto {
 
     @ApiModelProperty(name = "가격", example = "100235")
     private int price;
+
+    @ApiModelProperty(name = "네트워크 타입", example = "4 or 5")
+    private String networkType;
 
     @ApiModelProperty(name = "가입 유형", example = "0(기기변경) or 1(신규가입) or 2(번호이동)")
     private int registrationType;
@@ -68,8 +80,12 @@ public class CartResponseDto {
             .id(cart.getId())
             .createdAt(cart.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")))
             .planName(cart.getPlan().getName())
+            .planId(cart.getPlan().getId())
             .cartId(cart.getCartId())
+            .deviceId(cart.getColor().getDevice().getId())
             .deviceName(cart.getColor().getDevice().getName())
+            .serialNumber(cart.getColor().getDevice().getSerialNumber())
+            .networkType(cart.getColor().getDevice().getNetworkType() + "g-phone")
             .colorName(cart.getColor().getName())
             .price(PriceUtil.roundDownPrice(planPrice + devicePrice))
             .storage(cart.getColor().getDevice().getStorage())
