@@ -1,5 +1,6 @@
 package com.uplus.backend.device.entity;
 
+import com.uplus.backend.cart.entity.Cart;
 import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.order.entity.Order;
 import java.util.ArrayList;
@@ -56,6 +57,9 @@ public class Color extends BaseEntity {
 
 	@OneToMany(mappedBy = "color")
 	private List<Order> orders = new ArrayList<>();
+
+	@OneToMany(mappedBy = "color")
+	private List<Cart> carts = new ArrayList<>();
 
 	public void setStock(int stock) {
 		this.stock = stock;
