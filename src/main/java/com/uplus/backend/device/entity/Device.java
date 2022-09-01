@@ -57,7 +57,6 @@ public class Device extends BaseEntity {
 	private String storage;
 
 	@Positive(message = "정상가는 양수를 입력해 주세요")
-	@ApiModelProperty(name = "정상가", example = "1078000")
 	@Column(nullable = false)
 	private int price;
 

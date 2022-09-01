@@ -1,5 +1,6 @@
-package com.uplus.backend.device.dto;
+package com.uplus.backend.device.dto.color;
 
+import com.uplus.backend.device.dto.image.ImageResponseDto;
 import com.uplus.backend.device.entity.Color;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;

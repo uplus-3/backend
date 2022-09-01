@@ -1,7 +1,7 @@
 package com.uplus.backend.device.service;
 
-import com.uplus.backend.device.dto.TagCreateRequestDto;
-import com.uplus.backend.device.dto.TagCreateResponseDto;
+import com.uplus.backend.device.dto.tag.TagCreateRequestDto;
+import com.uplus.backend.device.dto.tag.TagCreateResponseDto;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.entity.Tag;
 import com.uplus.backend.device.repository.DeviceRepository;

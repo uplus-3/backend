@@ -1,7 +1,7 @@
 package com.uplus.backend.device.controller;
 
-import com.uplus.backend.device.dto.TagCreateRequestDto;
-import com.uplus.backend.device.dto.TagCreateResponseDto;
+import com.uplus.backend.device.dto.tag.TagCreateRequestDto;
+import com.uplus.backend.device.dto.tag.TagCreateResponseDto;
 import com.uplus.backend.device.service.TagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +28,9 @@ public class TagController {
 	@PostMapping("")
 	@ApiOperation(value = "태그 생성", notes = "태그를 생성할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "태그 생성 성공")
+		@ApiResponse(code = 200, message = "태그 생성 성공"),
+		@ApiResponse(code = 404, message = "존재하지 않는 데이터"),
+		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<TagCreateResponseDto> create(
 		@Valid @RequestBody TagCreateRequestDto requestDto) {

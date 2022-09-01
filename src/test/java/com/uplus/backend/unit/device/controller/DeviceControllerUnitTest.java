@@ -100,10 +100,9 @@ public class DeviceControllerUnitTest {
 		params.add("discount-type", String.valueOf(0));
 		params.add("installment-period", String.valueOf(24));
 
-		DeviceDetailResponseDto responseDto = DeviceDetailResponseDto.fromEntity(device1, plan1, 0,
-			24);
+		DeviceDetailResponseDto responseDto = DeviceDetailResponseDto.fromEntity(device1);
 
-		given(deviceService.getDeviceDetail(device1.getId(), plan1.getId(), 0, 24))
+		given(deviceService.getDeviceDetail(device1.getId()))
 			.willReturn(responseDto);
 
 		// when & then

@@ -1,7 +1,7 @@
 package com.uplus.backend.device.controller;
 
-import com.uplus.backend.device.dto.ImageCreateRequestDto;
-import com.uplus.backend.device.dto.ImageCreateResponseDto;
+import com.uplus.backend.device.dto.image.ImageCreateRequestDto;
+import com.uplus.backend.device.dto.image.ImageCreateResponseDto;
 import com.uplus.backend.device.service.ImageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +28,9 @@ public class ImageController {
 	@PostMapping("")
 	@ApiOperation(value = "이미지 생성", notes = "이미지를 생성할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "이미지 생성 성공")
+		@ApiResponse(code = 200, message = "이미지 생성 성공"),
+		@ApiResponse(code = 404, message = "존재하지 않는 데이터"),
+		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<ImageCreateResponseDto> create(
 		@Valid @RequestBody ImageCreateRequestDto requestDto) {
