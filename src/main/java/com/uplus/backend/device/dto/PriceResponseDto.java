@@ -34,7 +34,6 @@ public class PriceResponseDto {
 		if (plan == null) {
 			plan = device.getPlan();
 		}
-
 		if (discountType == RECOMMENDED_DISCOUNT_TYPE) {
 			discountType = getRecommendedDiscountType(device, plan);
 		}

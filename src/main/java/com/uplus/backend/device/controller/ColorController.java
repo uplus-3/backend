@@ -1,7 +1,7 @@
 package com.uplus.backend.device.controller;
 
-import com.uplus.backend.device.dto.ColorCreateRequestDto;
-import com.uplus.backend.device.dto.ColorCreateResponseDto;
+import com.uplus.backend.device.dto.color.ColorCreateRequestDto;
+import com.uplus.backend.device.dto.color.ColorCreateResponseDto;
 import com.uplus.backend.device.service.ColorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +28,9 @@ public class ColorController {
 	@PostMapping("")
 	@ApiOperation(value = "색상 생성", notes = "색상을 생성할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "색상 생성 성공")
+		@ApiResponse(code = 200, message = "색상 생성 성공"),
+		@ApiResponse(code = 404, message = "존재하지 않는 데이터"),
+		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<ColorCreateResponseDto> create(
 		@Valid @RequestBody ColorCreateRequestDto requestDto) {

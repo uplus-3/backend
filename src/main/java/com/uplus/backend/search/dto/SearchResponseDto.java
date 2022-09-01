@@ -5,17 +5,14 @@ import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
 import static com.uplus.backend.global.util.PriceUtil.getTDevicePriceByDiscountType;
 import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
 
-import com.uplus.backend.device.dto.ColorResponseDto;
-import com.uplus.backend.device.dto.TagResponseDto;
+import com.uplus.backend.device.dto.color.ColorResponseDto;
+import com.uplus.backend.device.dto.tag.TagResponseDto;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.plan.dto.PlanPriceResponseDto;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 

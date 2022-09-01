@@ -1,5 +1,7 @@
 package com.uplus.backend.device.dto;
 
+import com.uplus.backend.device.dto.color.ColorRepResponseDto;
+import com.uplus.backend.device.dto.tag.TagResponseDto;
 import com.uplus.backend.device.entity.Device;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
