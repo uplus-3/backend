@@ -11,17 +11,17 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 
 	List<Device> findByNetworkType(int networkType);
 
-	@Query(value = "SELECT * FROM Device WHERE MATCH(name, company) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC limit 5", nativeQuery = true)
+	@Query(value = "SELECT * FROM device WHERE MATCH(name, company) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC limit 5", nativeQuery = true)
 	List<Device> findAutocompleteKeyword(@Param("keyword") String keyword);
 
-	@Query(value = "SELECT * FROM Device WHERE network_type = :networkType and MATCH(name, company) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC limit 5", nativeQuery = true)
+	@Query(value = "SELECT * FROM device WHERE network_type = :networkType and MATCH(name, company) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC limit 5", nativeQuery = true)
 	List<Device> findAutocompleteKeywordWithNetworkType(@Param("keyword") String keyword,
 		@Param("networkType") int networkType);
 
-	@Query(value = "SELECT * FROM Device WHERE MATCH(name, company) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC", nativeQuery = true)
+	@Query(value = "SELECT * FROM device WHERE MATCH(name, company) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC", nativeQuery = true)
 	List<Device> search(@Param("keyword") String keyword);
 
-	@Query(value = "SELECT * FROM Device WHERE network_type = :networkType and MATCH(name, company) AGAINST(:keyword in boolean mode) ORDER BY launched_date", nativeQuery = true)
+	@Query(value = "SELECT * FROM device WHERE network_type = :networkType and MATCH(name, company) AGAINST(:keyword in boolean mode) ORDER BY launched_date", nativeQuery = true)
 	List<Device> searchWithNetworkType(@Param("keyword") String keyword,
 		@Param("networkType") int networkType);
 
