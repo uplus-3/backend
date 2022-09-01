@@ -1,4 +1,4 @@
-package com.uplus.backend.device.dto;
+package com.uplus.backend.device.dto.tag;
 
 import com.uplus.backend.device.entity.Tag;
 import io.swagger.annotations.ApiModelProperty;

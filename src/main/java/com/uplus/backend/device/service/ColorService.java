@@ -1,7 +1,7 @@
 package com.uplus.backend.device.service;
 
-import com.uplus.backend.device.dto.ColorCreateRequestDto;
-import com.uplus.backend.device.dto.ColorCreateResponseDto;
+import com.uplus.backend.device.dto.color.ColorCreateRequestDto;
+import com.uplus.backend.device.dto.color.ColorCreateResponseDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.repository.ColorRepository;

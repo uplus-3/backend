@@ -5,6 +5,7 @@ import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.order.entity.Order;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -52,7 +53,7 @@ public class Color extends BaseEntity {
 	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
 
-	@OneToMany(mappedBy = "color")
+	@OneToMany(mappedBy = "color", cascade = CascadeType.REMOVE)
 	private List<Image> images = new ArrayList<>();
 
 	@OneToMany(mappedBy = "color")

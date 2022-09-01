@@ -1,13 +1,8 @@
 package com.uplus.backend.device.dto;
 
-import static com.uplus.backend.global.util.PriceUtil.RECOMMENDED_DISCOUNT_TYPE;
-import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
-import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
-
+import com.uplus.backend.device.dto.color.ColorResponseDto;
+import com.uplus.backend.device.dto.tag.TagResponseDto;
 import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.global.util.PriceUtil;
-import com.uplus.backend.plan.dto.PlanPriceResponseDto;
-import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import java.util.List;
@@ -28,81 +23,57 @@ public class DeviceDetailResponseDto {
 	@ApiModelProperty(name = "단말기 명", example = "아이폰 13 128GB")
 	private String name;
 
-	@ApiModelProperty(name = "저장 용량", example = "128GB")
-	private String storage;
-
-	@ApiModelProperty(name = "CPU", example = "Apple A14 Bionic")
-	private String cpu;
-
-	@ApiModelProperty(name = "디스플레이", example = "15.4cm")
-	private String display;
+	@ApiModelProperty(name = "정상가", example = "990000")
+	private int price;
 
 	@ApiModelProperty(name = "출시일", example = "2022-02-02")
 	private Date launchedDate;
 
-	@ApiModelProperty(name = "정상가", example = "1078000")
-	private int price;
+	@ApiModelProperty(name = "제조사", example = "애플")
+	private String company;
 
-	@ApiModelProperty(name = "정상가 / 할부 달수", example = "44910")
-	private int mPrice;
+	@ApiModelProperty(name = "저장용량", example = "256GB")
+	private String storage;
 
-	@ApiModelProperty(name = "할인 적용된 월 납부금액(단말기만)", example = "40000")
-	private int dPrice;
+	@ApiModelProperty(name = "네트워크 타입", example = "5")
+	private int networkType;
 
-	@ApiModelProperty(name = "정상가 - 공시 지원금 - 추가 지원금", example = "828000")
-	private int tPrice;
+	@ApiModelProperty(name = "CPU", example = "Apple A15")
+	private String cpu;
 
-	@ApiModelProperty(name = "할인유형", example = "0")
-	private int discountType;
+	@ApiModelProperty(name = "디스플레이", example = "6.1인치")
+	private String display;
 
-	@ApiModelProperty(name = "공시지원금", example = "200000")
-	private int pSupport;
+	@ApiModelProperty(name = "추천 요금제 식별자", example = "1")
+	private Long recommendedPlanId;
 
-	@ApiModelProperty(name = "추가지원금", example = "50000")
-	private int aSupport;
-
-	private PlanPriceResponseDto plan;
-
-	private List<TagResponseDto> tags;
+	@ApiModelProperty(name = "추천 요금제 명", example = "5G 베이직")
+	private Long recommendedPlanName;
 
 	private List<ColorResponseDto> colors;
 
-	public static DeviceDetailResponseDto fromEntity(Device device, Plan plan, int discountType,
-		int installmentPeriod) {
-		if (plan == null) {
-			plan = device.getPlan();
-		}
+	private List<TagResponseDto> tags;
 
-		if (discountType == RECOMMENDED_DISCOUNT_TYPE) {
-			discountType = getRecommendedDiscountType(device, plan);
-		}
-
-		int mPrice = divideByMonth(device.getPrice(), installmentPeriod);
-		int tPrice = PriceUtil.getTDevicePriceByDiscountType(device, discountType);
-		int dPrice = divideByMonth(tPrice, installmentPeriod);
-
+	public static DeviceDetailResponseDto fromEntity(Device device) {
 		return DeviceDetailResponseDto.builder()
 			.id(device.getId())
 			.serialNumber(device.getSerialNumber())
 			.name(device.getName())
+			.price(device.getPrice())
+			.launchedDate(device.getLaunchedDate())
+			.company(device.getCompany())
 			.storage(device.getStorage())
+			.networkType(device.getNetworkType())
 			.cpu(device.getCpu())
 			.display(device.getDisplay())
-			.launchedDate(device.getLaunchedDate())
-			.price(device.getPrice())
-			.mPrice(mPrice)
-			.dPrice(dPrice)
-			.tPrice(tPrice)
-			.pSupport(device.getPublicSupport())
-			.aSupport(device.getAdditionalSupport())
-			.discountType(discountType)
-			.plan(PlanPriceResponseDto.fromEntity(plan, discountType))
-			.tags(device.getTags().stream()
-				.map(TagResponseDto::fromEntity)
-				.collect(Collectors.toList()))
+			.recommendedPlanId(device.getPlan().getId())
 			.colors(device.getColors().stream()
 				.map(ColorResponseDto::fromEntity)
 				.collect(Collectors.toList()))
+			.tags(device.getTags().stream()
+				.map(TagResponseDto::fromEntity)
+				.collect(Collectors.toList()))
 			.build();
+
 	}
 }
