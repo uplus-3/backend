@@ -1,6 +1,7 @@
 package com.uplus.backend.device.dto;
 
 import static com.uplus.backend.global.util.PriceUtil.RECOMMENDED_DISCOUNT_TYPE;
+import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
 import static com.uplus.backend.global.util.PriceUtil.getDDevicePriceByDiscountType;
 import static com.uplus.backend.global.util.PriceUtil.getDPlanPriceByDiscountType;
 import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
@@ -16,13 +17,15 @@ public class PriceResponseDto {
 
 	private Long deviceId;
 
-	private Long planId;
-
 	private String planName;
 
 	private int discountType;
 
+	private int mDevicePrice;
+
 	private int dDevicePrice;
+
+	private int mPlanPrice;
 
 	private int dPlanPrice;
 
@@ -38,10 +41,11 @@ public class PriceResponseDto {
 
 		return PriceResponseDto.builder()
 			.deviceId(device.getId())
-			.planId(plan.getId())
 			.planName(plan.getName())
 			.discountType(discountType)
+			.mPlanPrice(divideByMonth(device.getPrice(), installmentPeriod))
 			.dDevicePrice(getDDevicePriceByDiscountType(device, discountType, installmentPeriod))
+			.mPlanPrice(plan.getPrice())
 			.dPlanPrice(getDPlanPriceByDiscountType(plan, discountType))
 			.build();
 	}

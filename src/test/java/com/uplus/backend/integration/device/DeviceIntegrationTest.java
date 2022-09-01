@@ -128,20 +128,6 @@ public class DeviceIntegrationTest {
 	}
 
 	@Test
-	void 입력값에_따른_단말기_정보_조회_테스트() throws Exception {
-		// given
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("plan", String.valueOf(1L));
-		params.add("discount-type", String.valueOf(0));
-		params.add("installment-period", String.valueOf(24));
-
-		// when & then
-		mockMvc.perform(get("/api/devices/" + device1.getId()).params(params))
-			.andExpect(status().isOk())
-			.andDo(print());
-	}
-
-	@Test
 	void 가격_리스트_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -151,6 +137,20 @@ public class DeviceIntegrationTest {
 
 		// when & then
 		mockMvc.perform(get("/api/devices/plans/" + plan1.getId()).params(params))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@Test
+	void 입력값에_따른_단말기_정보_조회_테스트() throws Exception {
+		// given
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("plan", String.valueOf(1L));
+		params.add("discount-type", String.valueOf(0));
+		params.add("installment-period", String.valueOf(24));
+
+		// when & then
+		mockMvc.perform(get("/api/devices/" + device1.getId()).params(params))
 			.andExpect(status().isOk())
 			.andDo(print());
 	}
