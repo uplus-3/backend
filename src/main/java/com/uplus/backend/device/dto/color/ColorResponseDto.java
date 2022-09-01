@@ -12,6 +12,9 @@ import lombok.Getter;
 @Builder
 public class ColorResponseDto {
 
+	@ApiModelProperty(name = "색상 식별자", example = "1")
+	private Long id;
+
 	@ApiModelProperty(name = "색상 이름", example = "보라 퍼플")
 	private String name;
 
@@ -25,6 +28,7 @@ public class ColorResponseDto {
 
 	public static ColorResponseDto fromEntity(Color color) {
 		return ColorResponseDto.builder()
+			.id(color.getId())
 			.name(color.getName())
 			.rgb(color.getRgb())
 			.stock(color.getStock())
