@@ -3,6 +3,7 @@ package com.uplus.backend.launchingdevice.entity;
 import com.uplus.backend.global.entity.BaseEntity;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -45,8 +46,21 @@ public class LaunchingColor extends BaseEntity {
     @JoinColumn(name = "launching_device_id", nullable = false)
     private LaunchingDevice launchingDevice;
 
-    @OneToMany(mappedBy = "launchingColor")
+    @OneToMany(mappedBy = "launchingColor", cascade = CascadeType.PERSIST)
     private List<LaunchingImage> launchingImages = new ArrayList<>();
 
+    public void addLaunchingImage(LaunchingImage launchingImage) {
+        this.launchingImages.add(launchingImage);
+        if (launchingImage.getLaunchingColor() != this) {
+            launchingImage.setLaunchingColor(this);
+        }
+    }
 
+    public void setLaunchingDevice(LaunchingDevice launchingDevice) {
+        if (this.launchingDevice != null) {
+            this.launchingDevice.getLaunchingColors().remove(this);
+        }
+        this.launchingDevice = launchingDevice;
+        launchingDevice.getLaunchingColors().add(this);
+    }
 }

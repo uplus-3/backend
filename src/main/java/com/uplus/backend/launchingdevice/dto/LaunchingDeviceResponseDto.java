@@ -40,8 +40,9 @@ public class LaunchingDeviceResponseDto {
             .price(launchingDevice.getPrice())
             .repImageUrl(launchingDevice.getRepImageUrl())
             .launchedDate(launchingDevice.getLaunchedDate())
-            .launchingColors(launchingDevice.getLaunchingColors().stream().map(LaunchingColorResponseDto::fromEntity).collect(
-                Collectors.toList()))
+            .launchingColors(launchingDevice.getLaunchingColors().stream()
+                .map(LaunchingColorResponseDto::fromEntity).collect(
+                    Collectors.toList()))
             .build();
     }
 
