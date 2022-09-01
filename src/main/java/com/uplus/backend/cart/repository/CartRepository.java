@@ -11,5 +11,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     boolean existsByCartId(Long cartId);
 
-    List<Cart> findAllByCartIdAndCreatedAtGreaterThanOrderByCreatedAtDesc(Long cartId, LocalDateTime localDateTime);
+
+
+    List<Cart> findAllByCartIdAndDeletedFalseAndCreatedAtGreaterThanOrderByCreatedAtDesc(Long cartId, LocalDateTime localDateTime);
 }

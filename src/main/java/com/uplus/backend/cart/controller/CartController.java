@@ -41,14 +41,21 @@ public class CartController {
         CartListResponseDto cartListResponseDto;
 
         if (cartId == null) {
-            cartId = Long.valueOf(-1);
+            cartId = (long) -1;
             cartListResponseDto = cartService.create(request, cartId);
-            Cookie cookie = new Cookie("cartId", String.valueOf(cartListResponseDto.getCarts().get(0).getCartId()));
-            cookie.setMaxAge(60 * 60 * 24 * 365);
-            cookie.setDomain("localhost");
-            cookie.setPath("/");
-            cookie.setSecure(true);
-            response.addCookie(cookie);
+            Cookie cartIdCookie = new Cookie("cartId", String.valueOf(cartListResponseDto.getCarts().get(0).getCartId()));
+            Cookie cartCountCookie = new Cookie("cartCount", String.valueOf(cartListResponseDto.getCarts().size()));
+            cartIdCookie.setMaxAge(60 * 60 * 24 * 365);
+            cartIdCookie.setDomain("localhost");
+            cartIdCookie.setPath("/");
+            cartIdCookie.setSecure(true);
+            response.addCookie(cartIdCookie);
+
+            cartCountCookie.setMaxAge(60 * 60 * 24 * 365);
+            cartCountCookie.setDomain("localhost");
+            cartCountCookie.setPath("/");
+            cartCountCookie.setSecure(true);
+            response.addCookie(cartCountCookie);
         } else {
             cartListResponseDto = cartService.create(request, cartId);
         }

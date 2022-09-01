@@ -54,7 +54,7 @@ public class CartService {
 
         LocalDateTime localDateTime = LocalDateTime.now().minusDays(90);
 
-        List<Cart> cartList = cartRepository.findAllByCartIdAndCreatedAtGreaterThanOrderByCreatedAtDesc(cartId, localDateTime);
+        List<Cart> cartList = cartRepository.findAllByCartIdAndDeletedFalseAndCreatedAtGreaterThanOrderByCreatedAtDesc(cartId, localDateTime);
 
 
         return CartListResponseDto.fromEntity(cartList);
@@ -64,8 +64,7 @@ public class CartService {
     public void delete(Long cartItemId) {
 
         Cart cart = cartRepository.findById(cartItemId).orElseThrow(() -> new CustomException(CART_NO_DATA_ERROR));
-
-        cartRepository.delete(cart);
+        cart.setDeleted();
     }
 
     @Transactional(readOnly = true)
@@ -73,7 +72,7 @@ public class CartService {
 
         LocalDateTime localDateTime = LocalDateTime.now().minusDays(90);
 
-        List<Cart> cartList = cartRepository.findAllByCartIdAndCreatedAtGreaterThanOrderByCreatedAtDesc(cartId, localDateTime);
+        List<Cart> cartList = cartRepository.findAllByCartIdAndDeletedFalseAndCreatedAtGreaterThanOrderByCreatedAtDesc(cartId, localDateTime);
 
         return CartListResponseDto.fromEntity(cartList);
     }

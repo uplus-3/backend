@@ -4,6 +4,7 @@ import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.plan.entity.Plan;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -41,6 +42,10 @@ public class Cart extends BaseEntity {
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private int registrationType;
 
+    @Column(nullable = false)
+    @ColumnDefault("false")
+    private boolean deleted;
+
     @ManyToOne
     @JoinColumn(name = "color_id", nullable = false)
     private Color color;
@@ -63,6 +68,10 @@ public class Cart extends BaseEntity {
         if (!plan.getCarts().contains(this)) {
             plan.getCarts().add(this);
         }
+    }
+
+    public void setDeleted() {
+        this.deleted = true;
     }
 
 }
