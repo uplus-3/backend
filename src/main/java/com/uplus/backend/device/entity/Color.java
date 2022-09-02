@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +53,7 @@ public class Color extends BaseEntity {
 	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
 
-	@OneToMany(mappedBy = "color", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "color", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Image> images = new ArrayList<>();
 
 	@OneToMany(mappedBy = "color")
