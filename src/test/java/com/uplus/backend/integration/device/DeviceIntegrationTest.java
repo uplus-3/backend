@@ -68,7 +68,7 @@ public class DeviceIntegrationTest {
 	private Image image1;
 
 	@BeforeAll
-	private void setup() {
+	public void setup() {
 		// given
 		plan1 = Plan.builder()
 			.name("요금제1")
@@ -170,6 +170,14 @@ public class DeviceIntegrationTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(requestDto)))
 			.andExpect(status().isNotFound())
+			.andDo(print());
+	}
+
+	@Test
+	void 단말기_심플_리스트_조회_테스트() throws Exception {
+		// when & then
+		mockMvc.perform(get("/api/devices/simple"))
+			.andExpect(status().isOk())
 			.andDo(print());
 	}
 

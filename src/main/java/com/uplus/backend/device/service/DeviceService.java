@@ -5,6 +5,7 @@ import com.uplus.backend.device.dto.DeviceCreateResponseDto;
 import com.uplus.backend.device.dto.DeviceDetailResponseDto;
 import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.DeviceSimpleListResponseDto;
 import com.uplus.backend.device.dto.PriceListResponseDto;
 import com.uplus.backend.device.dto.PriceDetailResponseDto;
 import com.uplus.backend.device.entity.Device;
@@ -37,6 +38,13 @@ public class DeviceService {
 		device = deviceRepository.save(device);
 
 		return DeviceCreateResponseDto.fromEntity(device);
+	}
+
+	@Transactional(readOnly = true)
+	public DeviceSimpleListResponseDto getSimpleDevices() {
+		List<Device> devices = deviceRepository.findAll();
+
+		return DeviceSimpleListResponseDto.fromEntity(devices);
 	}
 
 	@Transactional(readOnly = true)
