@@ -1,4 +1,4 @@
-package com.uplus.backend.device.dto;
+package com.uplus.backend.device.dto.device;
 
 import com.uplus.backend.device.entity.Device;
 import java.util.List;

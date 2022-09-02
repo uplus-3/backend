@@ -1,4 +1,4 @@
-package com.uplus.backend.device.dto;
+package com.uplus.backend.device.dto.device;
 
 import com.uplus.backend.device.dto.color.ColorRepResponseDto;
 import com.uplus.backend.device.dto.tag.TagResponseDto;
