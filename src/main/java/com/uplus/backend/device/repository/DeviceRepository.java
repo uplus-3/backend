@@ -11,10 +11,10 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 
 	List<Device> findByNetworkType(int networkType);
 
-	@Query(value = "SELECT d FROM Device d JOIN FETCH d.colors JOIN FETCH d.plan WHERE d.id = :id")
+	@Query(value = "SELECT DISTINCT d FROM Device d JOIN FETCH d.colors JOIN FETCH d.plan WHERE d.id = :id")
 	Optional<Device> findByIdFetchJoinColorAndTag(@Param("id") Long id);
 
-	@Query(value = "SELECT d FROM Device d JOIN FETCH d.colors JOIN FETCH d.plan WHERE d.networkType = :networkType")
+	@Query(value = "SELECT DISTINCT d FROM Device d JOIN FETCH d.colors JOIN FETCH d.plan WHERE d.networkType = :networkType")
 	List<Device> findByNetworkTypeFetchJoinColorAndTag(@Param("networkType") int networkType);
 
 	@Query(value = "SELECT * FROM device WHERE MATCH(name, company, serial_number) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC limit 5", nativeQuery = true)
