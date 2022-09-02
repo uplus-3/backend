@@ -1,13 +1,13 @@
 package com.uplus.backend.device.service;
 
-import com.uplus.backend.device.dto.DeviceCreateRequestDto;
-import com.uplus.backend.device.dto.DeviceCreateResponseDto;
-import com.uplus.backend.device.dto.DeviceDetailResponseDto;
-import com.uplus.backend.device.dto.DeviceListResponseDto;
-import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
-import com.uplus.backend.device.dto.DeviceSimpleListResponseDto;
-import com.uplus.backend.device.dto.PriceListResponseDto;
-import com.uplus.backend.device.dto.PriceDetailResponseDto;
+import com.uplus.backend.device.dto.device.DeviceCreateRequestDto;
+import com.uplus.backend.device.dto.device.DeviceCreateResponseDto;
+import com.uplus.backend.device.dto.device.DeviceDetailResponseDto;
+import com.uplus.backend.device.dto.device.DeviceListResponseDto;
+import com.uplus.backend.device.dto.device.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.device.DeviceSimpleListResponseDto;
+import com.uplus.backend.device.dto.price.PriceListResponseDto;
+import com.uplus.backend.device.dto.price.PriceDetailResponseDto;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.repository.DeviceRepository;
 import com.uplus.backend.global.exception.CustomException;

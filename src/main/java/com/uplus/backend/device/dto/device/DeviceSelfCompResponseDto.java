@@ -1,9 +1,8 @@
-package com.uplus.backend.device.dto;
+package com.uplus.backend.device.dto.device;
 
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.plan.dto.PlanDetailResponseDto;
 import com.uplus.backend.plan.entity.Plan;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
