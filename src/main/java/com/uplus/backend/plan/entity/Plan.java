@@ -1,5 +1,6 @@
 package com.uplus.backend.plan.entity;
 
+import com.uplus.backend.cart.entity.Cart;
 import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.order.entity.Order;
 import java.util.ArrayList;
@@ -89,6 +90,9 @@ public class Plan extends BaseEntity {
 
 	@OneToMany(mappedBy = "plan")
 	private List<Order> orders = new ArrayList<>();
+
+	@OneToMany(mappedBy = "plan")
+	private List<Cart> carts = new ArrayList<>();
 
 	public void addOrders(Order order) {
 		this.orders.add(order);
