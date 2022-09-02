@@ -1,6 +1,7 @@
 package com.uplus.backend.plan.dto;
 
-import static com.uplus.backend.global.util.PriceUtil.getDiscountedPlanPriceByDiscountType;
+import static com.uplus.backend.global.util.PriceUtil.SELECT_INSTALLMENT_DISCOUNT_TYPE;
+import static com.uplus.backend.global.util.PriceUtil.getDPlanPriceByDiscountType;
 
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
@@ -31,8 +32,9 @@ public class PlanPriceResponseDto {
 			.id(plan.getId())
 			.name(plan.getName())
 			.price(plan.getPrice())
-			.dPrice(getDiscountedPlanPriceByDiscountType(plan, discountType))
-			.sDiscount(plan.getPrice() - getDiscountedPlanPriceByDiscountType(plan, discountType))
+			.dPrice(getDPlanPriceByDiscountType(plan, discountType))
+			.sDiscount(plan.getPrice() - getDPlanPriceByDiscountType(plan,
+				SELECT_INSTALLMENT_DISCOUNT_TYPE))
 			.build();
 	}
 }

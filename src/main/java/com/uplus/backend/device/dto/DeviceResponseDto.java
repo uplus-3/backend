@@ -1,13 +1,10 @@
 package com.uplus.backend.device.dto;
 
-import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
-import static com.uplus.backend.global.util.PriceUtil.getDiscountedDevicePriceByDiscountType;
-import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
-
+import com.uplus.backend.device.dto.color.ColorRepResponseDto;
+import com.uplus.backend.device.dto.tag.TagResponseDto;
 import com.uplus.backend.device.entity.Device;
-import com.uplus.backend.plan.dto.PlanPriceResponseDto;
-import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Builder;
@@ -26,52 +23,34 @@ public class DeviceResponseDto {
 	@ApiModelProperty(name = "단말기 명", example = "아이폰 13 128GB")
 	private String name;
 
-	@ApiModelProperty(name = "정상가", example = "1078000")
+	@ApiModelProperty(name = "정상가", example = "990000")
 	private int price;
 
-	@ApiModelProperty(name = "정상가 / 약정 달수", example = "44916")
-	private int mPrice;
+	@ApiModelProperty(name = "출시일", example = "2022-02-02")
+	private Date launchedDate;
 
-	@ApiModelProperty(name = "할인 적용된 월 납부금액(단말기만)", example = "40000")
-	private int dPrice;
+	@ApiModelProperty(name = "제조사", example = "애플")
+	private String company;
 
-	@ApiModelProperty(name = "할인유형", example = "0")
-	private int discountType;
-
-	private PlanPriceResponseDto plan;
+	@ApiModelProperty(name = "저장용량", example = "256GB")
+	private String storage;
 
 	private List<TagResponseDto> tags;
 
-	private List<ColorResponseDto> colors;
+	private List<ColorRepResponseDto> colors;
 
-	public static DeviceResponseDto fromEntity(Device device, Plan plan, int discountType,
-		int installmentPeriod) {
-		if (plan == null) {
-			plan = device.getPlan();
-		}
-
-		if (discountType == -1) {
-			discountType = getRecommendedDiscountType(device, plan);
-		}
-
-		int mPrice = divideByMonth(device.getPrice(), installmentPeriod);
-		int tPrice = getDiscountedDevicePriceByDiscountType(device, discountType);
-		int dPrice = divideByMonth(tPrice, installmentPeriod);
-
+	public static DeviceResponseDto fromEntity(Device device) {
 		return DeviceResponseDto.builder()
 			.id(device.getId())
 			.serialNumber(device.getSerialNumber())
 			.name(device.getName())
 			.price(device.getPrice())
-			.mPrice(mPrice)
-			.dPrice(dPrice)
-			.discountType(discountType)
-			.plan(PlanPriceResponseDto.fromEntity(plan, discountType))
-			.tags(device.getTags().stream()
-				.map(TagResponseDto::fromEntity)
+			.launchedDate(device.getLaunchedDate())
+			.company(device.getCompany())
+			.storage(device.getStorage())
+			.tags(device.getTags().stream().map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))
-			.colors(device.getColors().stream()
-				.map(ColorResponseDto::fromEntity)
+			.colors(device.getColors().stream().map(ColorRepResponseDto::fromEntity)
 				.collect(Collectors.toList()))
 			.build();
 	}

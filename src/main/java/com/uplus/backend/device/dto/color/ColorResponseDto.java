@@ -1,5 +1,6 @@
-package com.uplus.backend.device.dto;
+package com.uplus.backend.device.dto.color;
 
+import com.uplus.backend.device.dto.image.ImageResponseDto;
 import com.uplus.backend.device.entity.Color;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.List;
@@ -10,6 +11,9 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ColorResponseDto {
+
+	@ApiModelProperty(name = "색상 식별자", example = "1")
+	private Long id;
 
 	@ApiModelProperty(name = "색상 이름", example = "보라 퍼플")
 	private String name;
@@ -24,6 +28,7 @@ public class ColorResponseDto {
 
 	public static ColorResponseDto fromEntity(Color color) {
 		return ColorResponseDto.builder()
+			.id(color.getId())
 			.name(color.getName())
 			.rgb(color.getRgb())
 			.stock(color.getStock())

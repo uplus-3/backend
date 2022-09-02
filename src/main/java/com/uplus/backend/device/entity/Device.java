@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,7 +57,6 @@ public class Device extends BaseEntity {
 	private String storage;
 
 	@Positive(message = "정상가는 양수를 입력해 주세요")
-	@ApiModelProperty(name = "정상가", example = "1078000")
 	@Column(nullable = false)
 	private int price;
 
@@ -102,10 +102,10 @@ public class Device extends BaseEntity {
 	@JoinColumn(name = "plan_id", nullable = false)
 	private Plan plan;
 
-	@OneToMany(mappedBy = "device")
+	@OneToMany(mappedBy = "device", cascade = CascadeType.REMOVE)
 	private List<Color> colors = new ArrayList<>();
 
-	@OneToMany(mappedBy = "device")
+	@OneToMany(mappedBy = "device", cascade = CascadeType.REMOVE)
 	private List<Tag> tags = new ArrayList<>();
 
 	public void addColor(Color color) {

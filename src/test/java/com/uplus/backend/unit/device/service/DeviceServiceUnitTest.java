@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 import com.uplus.backend.device.dto.DeviceDetailResponseDto;
-import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
@@ -91,35 +90,12 @@ public class DeviceServiceUnitTest {
 		.build();
 
 	@Test
-	void 단말기_리스트_조회_테스트() {
-		// given
-		given(planRepository.findById(plan1.getId())).willReturn(Optional.of(plan1));
-		given(deviceRepository.findByNetworkType(device1.getNetworkType())).willReturn(
-			List.of(device1));
-
-		// when
-		DeviceListResponseDto responseDto = deviceService.getDeviceList(device1.getNetworkType(),
-			plan1.getId(), 0, 24);
-
-		// then
-		assertThat(responseDto.getDevices().get(0).getName()).isEqualTo("스마트폰1");
-		assertThat(responseDto.getDevices().get(0).getTags().get(0).getContent())
-			.isEqualTo("최신");
-		assertThat(responseDto.getDevices().get(0).getColors().get(0).getName())
-			.isEqualTo("색상1");
-		assertThat(responseDto.getDevices().get(0).getColors().get(0).getImages().get(0).getImageUrl())
-			.isEqualTo("이미지URL");
-	}
-
-	@Test
 	void 입력값에_따른_단말기_정보_조회_테스트() {
 		// given
-		given(planRepository.findById(plan1.getId())).willReturn(Optional.of(plan1));
 		given(deviceRepository.findById(device1.getId())).willReturn(Optional.of(device1));
 
 		// when
-		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(device1.getId(),
-			plan1.getId(), 0, 24);
+		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(device1.getId());
 
 		// then
 		assertThat(responseDto.getName()).isEqualTo("스마트폰1");

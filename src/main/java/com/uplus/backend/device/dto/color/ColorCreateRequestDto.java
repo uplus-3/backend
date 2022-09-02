@@ -1,4 +1,4 @@
-package com.uplus.backend.device.dto;
+package com.uplus.backend.device.dto.color;
 
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;

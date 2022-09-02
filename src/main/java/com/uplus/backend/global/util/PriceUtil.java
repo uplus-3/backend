@@ -10,7 +10,10 @@ import java.util.List;
 
 public class PriceUtil {
 
-	public static final int DEFAULT_MONTH = 24;
+	// TODO : enum
+	public static final int ONE_YEAR = 12;
+
+	public static final int TWO_YEAR = 24;
 
 	public static final int SELECT_DISCOUNT_AMOUNT = 25;
 
@@ -32,19 +35,31 @@ public class PriceUtil {
 		}
 	}
 
-	public static int getDiscountedDevicePriceByDiscountType(Device device, int discountType) {
+	public static int getTDevicePriceByDiscountType(Device device, int discountType) {
+		int tDevicePrice;
+
 		switch (discountType) {
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
-				return applyAmountDiscount(device.getPrice(),
+				tDevicePrice = applyAmountDiscount(device.getPrice(),
 					List.of(device.getPublicSupport(), device.getAdditionalSupport()));
+				break;
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:
-				return device.getPrice();
+				tDevicePrice = device.getPrice();
+				break;
 			default: // TODO : 예외 처리
 				throw new RuntimeException();
 		}
+
+		return tDevicePrice;
 	}
 
-	public static int getDiscountedPlanPriceByDiscountType(Plan plan, int discountType) {
+	public static int getDDevicePriceByDiscountType(Device device, int discountType,
+		int installmentPeriod) {
+		return divideByMonth(getTDevicePriceByDiscountType(device, discountType),
+			installmentPeriod);
+	}
+
+	public static int getDPlanPriceByDiscountType(Plan plan, int discountType) {
 		switch (discountType) {
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
 				return plan.getPrice();
@@ -60,9 +75,9 @@ public class PriceUtil {
 			case PUBLIC_SUPPORT_DISCOUNT_TYPE:
 				return divideByMonth(applyAmountDiscount(device.getPrice(),
 						List.of(device.getPublicSupport(), device.getAdditionalSupport())),
-					DEFAULT_MONTH) + plan.getPrice();
+					TWO_YEAR) + plan.getPrice();
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:
-				return divideByMonth(device.getPrice(), DEFAULT_MONTH) + applyPercentDiscount(
+				return divideByMonth(device.getPrice(), TWO_YEAR) + applyPercentDiscount(
 					plan.getPrice(), SELECT_DISCOUNT_AMOUNT);
 			default:
 				throw new RuntimeException();

@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uplus.backend.device.controller.DeviceController;
 import com.uplus.backend.device.dto.DeviceDetailResponseDto;
-import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
@@ -94,27 +93,6 @@ public class DeviceControllerUnitTest {
 		.build();
 
 	@Test
-	void 단말기_리스트_조회_테스트() throws Exception {
-		// given
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("network-type", String.valueOf(device1.getNetworkType()));
-		params.add("plan", String.valueOf(plan1.getId()));
-		params.add("discount-type", String.valueOf(0));
-		params.add("installment-period", String.valueOf(24));
-
-		DeviceListResponseDto responseDto = DeviceListResponseDto.fromEntity(List.of(device1),
-			plan1, 0, 24);
-
-		given(deviceService.getDeviceList(device1.getNetworkType(), plan1.getId(), 0, 24))
-			.willReturn(responseDto);
-
-		// when & then
-		mockMvc.perform(get("/api/devices").params(params))
-			.andExpect(status().isOk())
-			.andDo(print());
-	}
-
-	@Test
 	void 입력값에_따른_단말기_정보_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -122,10 +100,9 @@ public class DeviceControllerUnitTest {
 		params.add("discount-type", String.valueOf(0));
 		params.add("installment-period", String.valueOf(24));
 
-		DeviceDetailResponseDto responseDto = DeviceDetailResponseDto.fromEntity(device1, plan1, 0,
-			24);
+		DeviceDetailResponseDto responseDto = DeviceDetailResponseDto.fromEntity(device1);
 
-		given(deviceService.getDeviceDetail(device1.getId(), plan1.getId(), 0, 24))
+		given(deviceService.getDeviceDetail(device1.getId()))
 			.willReturn(responseDto);
 
 		// when & then
