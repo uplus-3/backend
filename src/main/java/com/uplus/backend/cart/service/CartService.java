@@ -43,7 +43,7 @@ public class CartService {
                 checkCartIdDuplicated = cartRepository.existsByCartId(
                     CartIdUtil.createCartId());
             } while (checkCartIdDuplicated);
-        }else {
+        } else {
             // 해당 장바구니 Id가 db에 없을 경우 에러 처리
             boolean isExitedCartId = cartRepository.existsByCartId(cartId);
 
@@ -84,6 +84,10 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public CartListResponseDto getCartListByCartId(Long cartId) {
+
+        boolean isExitedCartId = cartRepository.existsByCartId(cartId);
+
+        if(!isExitedCartId) throw new CustomException(NO_CART_DATA_ERROR);
 
         LocalDateTime localDateTime = LocalDateTime.now().minusDays(90);
 

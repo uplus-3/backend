@@ -72,7 +72,7 @@ public class CartController {
         @ApiResponse(code = 404, message = "존재하지 않는 데이터"),
     })
     public ResponseEntity<CartListResponseDto> getCartListByCartId(@PathVariable Long cartId) {
-        //TODO : Cookie value 없을 때 validation 처리
+
         CartListResponseDto cartListResponseDto = cartService.getCartListByCartId(cartId);
 
         return ResponseEntity.ok().body(cartListResponseDto);
