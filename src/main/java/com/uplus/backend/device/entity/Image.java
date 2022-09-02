@@ -44,5 +44,4 @@ public class Image extends BaseEntity {
 			color.getImages().add(this);
 		}
 	}
-
 }

@@ -2,14 +2,12 @@ package com.uplus.backend.device.entity;
 
 import com.uplus.backend.global.entity.BaseEntity;
 import com.uplus.backend.plan.entity.Plan;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -103,23 +101,9 @@ public class Device extends BaseEntity {
 	@JoinColumn(name = "plan_id", nullable = false)
 	private Plan plan;
 
-	@OneToMany(mappedBy = "device", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "device", cascade = CascadeType.REMOVE)
 	private List<Color> colors = new ArrayList<>();
 
 	@OneToMany(mappedBy = "device", cascade = CascadeType.REMOVE)
 	private List<Tag> tags = new ArrayList<>();
-
-	public void addColor(Color color) {
-		this.colors.add(color);
-		if (color.getDevice() != this) {
-			color.setDevice(this);
-		}
-	}
-
-	public void addTag(Tag tag) {
-		this.tags.add(tag);
-		if (tag.getDevice() != this) {
-			tag.setDevice(this);
-		}
-	}
 }
