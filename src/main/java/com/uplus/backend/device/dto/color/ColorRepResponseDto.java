@@ -12,10 +12,13 @@ public class ColorRepResponseDto {
 	@ApiModelProperty(name = "색상 식별자", example = "1")
 	private Long id;
 
+	@ApiModelProperty(name = "색상 이름", example = "보라 퍼플")
 	private String name;
 
+	@ApiModelProperty(name = "색상 코드", example = "#000000")
 	private String rgb;
 
+	@ApiModelProperty(name = "색상별 대표 이미지 URL", example = "#000000")
 	private String imageUrl;
 
 	public static ColorRepResponseDto fromEntity(Color color) {

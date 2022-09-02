@@ -49,7 +49,7 @@ public class DeviceService {
 
 	@Transactional(readOnly = true)
 	public DeviceListResponseDto getDevices(int networkType) {
-		List<Device> devices = deviceRepository.findByNetworkType(networkType);
+		List<Device> devices = deviceRepository.findByNetworkTypeFetchJoinColorAndTag(networkType);
 
 		return DeviceListResponseDto.fromEntity(devices);
 	}
@@ -69,12 +69,13 @@ public class DeviceService {
 
 	@Transactional(readOnly = true)
 	public DeviceDetailResponseDto getDeviceDetail(Long deviceId) {
-		Device device = deviceRepository.findById(deviceId)
+		Device device = deviceRepository.findByIdFetchJoinColorAndTag(deviceId)
 			.orElseThrow(() -> new CustomException(ErrorCode.DEVICE_NO_DATA_ERROR));
 
 		return DeviceDetailResponseDto.fromEntity(device);
 	}
 
+	@Transactional(readOnly = true)
 	public PriceDetailResponseDto getPriceDetail(Long deviceId, Long planId,
 		int discountType, int installmentPeriod) {
 		Device device = deviceRepository.findById(deviceId)

@@ -50,11 +50,11 @@ public class Color extends BaseEntity {
 	@Column(nullable = false)
 	private int stock;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
 
-	@OneToMany(mappedBy = "color", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "color", cascade = CascadeType.REMOVE)
 	private List<Image> images = new ArrayList<>();
 
 	@OneToMany(mappedBy = "color")
