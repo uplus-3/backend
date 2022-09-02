@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.uplus.backend.device.dto.DeviceCreateRequestDto;
+import com.uplus.backend.device.dto.device.DeviceCreateRequestDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.entity.Image;

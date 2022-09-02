@@ -1,4 +1,4 @@
-package com.uplus.backend.device.dto;
+package com.uplus.backend.device.dto.price;
 
 import static com.uplus.backend.global.util.PriceUtil.RECOMMENDED_DISCOUNT_TYPE;
 import static com.uplus.backend.global.util.PriceUtil.divideByMonth;

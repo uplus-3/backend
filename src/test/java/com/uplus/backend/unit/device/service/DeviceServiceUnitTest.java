@@ -3,8 +3,8 @@ package com.uplus.backend.unit.device.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-import com.uplus.backend.device.dto.DeviceDetailResponseDto;
-import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.device.DeviceDetailResponseDto;
+import com.uplus.backend.device.dto.device.DeviceSelfCompResponseDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.entity.Image;
