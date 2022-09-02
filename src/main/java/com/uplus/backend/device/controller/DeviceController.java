@@ -6,6 +6,7 @@ import com.uplus.backend.device.dto.DeviceCreateResponseDto;
 import com.uplus.backend.device.dto.DeviceDetailResponseDto;
 import com.uplus.backend.device.dto.DeviceListResponseDto;
 import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.DeviceSimpleListResponseDto;
 import com.uplus.backend.device.dto.PriceDetailResponseDto;
 import com.uplus.backend.device.dto.PriceListResponseDto;
 import com.uplus.backend.device.service.DeviceService;
@@ -47,6 +48,18 @@ public class DeviceController {
 	public ResponseEntity<DeviceCreateResponseDto> create(
 		@Valid @RequestBody DeviceCreateRequestDto requestDto) {
 		DeviceCreateResponseDto responseDto = deviceService.create(requestDto);
+
+		return ResponseEntity.ok().body(responseDto);
+	}
+
+	@GetMapping("/simple")
+	@ApiOperation(value = "단말기 심플 리스트 조회", notes = "단말기 심플 리스트를 조회할 수 있다.")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "단말기 심플 리스트 조회 성공"),
+		@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<DeviceSimpleListResponseDto> getSimpleDevices() {
+		DeviceSimpleListResponseDto responseDto = deviceService.getSimpleDevices();
 
 		return ResponseEntity.ok().body(responseDto);
 	}
