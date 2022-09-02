@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @Slf4j
 @Api(value = "장바구니 API", tags = {"Cart"})
 @RestController
-@RequestMapping("api/cart")
+@RequestMapping("api/carts")
 @RequiredArgsConstructor
 public class CartController {
 
@@ -33,7 +33,8 @@ public class CartController {
     @PostMapping("")
     @ApiOperation(value = "장바구니 항목 추가", notes = "장바구니 항목을 추가한다.")
     @ApiResponses({
-        @ApiResponse(code = 200, message = "장바구니 항목 추가 성공")
+        @ApiResponse(code = 200, message = "장바구니 항목 추가 성공"),
+        @ApiResponse(code = 404, message = "존재하지 않는 데이터"),
     })
     public ResponseEntity<CartListResponseDto> createCartItem(
         @Valid @RequestBody CartRequestDto request, @CookieValue(name = "cartId", required = false) Long cartId, HttpServletResponse response) {
@@ -41,7 +42,7 @@ public class CartController {
         CartListResponseDto cartListResponseDto;
 
         if (cartId == null) {
-            cartId = (long) -1;
+            cartId = -1L;
             cartListResponseDto = cartService.create(request, cartId);
             Cookie cartIdCookie = new Cookie("cartId", String.valueOf(cartListResponseDto.getCarts().get(0).getCartId()));
             Cookie cartCountCookie = new Cookie("cartCount", String.valueOf(cartListResponseDto.getCarts().size()));
@@ -67,7 +68,8 @@ public class CartController {
     @GetMapping("/{cartId}")
     @ApiOperation(value = "장바구니 조회 성공", notes = "장바구니 ID를 통해 조회를 합니다.")
     @ApiResponses({
-        @ApiResponse(code = 200, message = "장바구니 조회 성공")
+        @ApiResponse(code = 200, message = "장바구니 조회 성공"),
+        @ApiResponse(code = 404, message = "존재하지 않는 데이터"),
     })
     public ResponseEntity<CartListResponseDto> getCartListByCartId(@PathVariable Long cartId) {
         //TODO : Cookie value 없을 때 validation 처리
@@ -79,7 +81,8 @@ public class CartController {
     @DeleteMapping("/{cartItemId}")
     @ApiOperation(value = "장바구니 항목 삭제", notes = "장바구니 항목을 삭제한다.")
     @ApiResponses({
-        @ApiResponse(code = 200, message = "장바구니 항목 삭제 성공")
+        @ApiResponse(code = 200, message = "장바구니 항목 삭제 성공"),
+        @ApiResponse(code = 404, message = "존재하지 않는 데이터"),
     })
     public ResponseEntity<CartListResponseDto> deleteCartItem(@PathVariable("cartItemId") Long cartItemId) {
         cartService.delete(cartItemId);

@@ -50,9 +50,11 @@ public class CartService {
             if(!isExitedCartId) throw new CustomException(NO_CART_DATA_ERROR);
         }
         
-        Color color = colorRepository.findById(requestDto.getColorId()).orElseThrow(() -> new CustomException(COLOR_NO_DATA_ERROR));
+        Color color = colorRepository.findById(requestDto.getColorId())
+            .orElseThrow(() -> new CustomException(COLOR_NO_DATA_ERROR));
 
-        Plan plan = planRepository.findById(requestDto.getPlanId()).orElseThrow(() -> new CustomException(PLAN_NO_DATA_ERROR));
+        Plan plan = planRepository.findById(requestDto.getPlanId())
+            .orElseThrow(() -> new CustomException(PLAN_NO_DATA_ERROR));
 
         Cart cart = requestDto.toEntity(color, plan, cartId);
 
@@ -69,7 +71,8 @@ public class CartService {
     @Transactional
     public void delete(Long cartItemId) {
 
-        Cart cart = cartRepository.findById(cartItemId).orElseThrow(() -> new CustomException(NO_CART_DATA_ERROR));
+        Cart cart = cartRepository.findById(cartItemId)
+            .orElseThrow(() -> new CustomException(NO_CART_DATA_ERROR));
 
         if(cart.isDeleted()){
             throw new CustomException(ALREADY_DELETED_CART_ITEM);
