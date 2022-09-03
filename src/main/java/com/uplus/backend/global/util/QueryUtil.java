@@ -18,6 +18,7 @@ public class QueryUtil {
 			String queryList[] = query.split(" ");
 
 			for (int i = 0; i < queryList.length; i++) {
+				if(i == 0)keyword = "+" + keyword;
 				keyword += queryList[i]+ "*";
 			}
 			return keyword;
