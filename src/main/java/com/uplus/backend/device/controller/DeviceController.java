@@ -1,12 +1,14 @@
 package com.uplus.backend.device.controller;
 
 
-import com.uplus.backend.device.dto.DeviceCreateRequestDto;
-import com.uplus.backend.device.dto.DeviceCreateResponseDto;
-import com.uplus.backend.device.dto.DeviceDetailResponseDto;
-import com.uplus.backend.device.dto.DeviceListResponseDto;
-import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
-import com.uplus.backend.device.dto.PriceListResponseDto;
+import com.uplus.backend.device.dto.device.DeviceCreateRequestDto;
+import com.uplus.backend.device.dto.device.DeviceCreateResponseDto;
+import com.uplus.backend.device.dto.device.DeviceDetailResponseDto;
+import com.uplus.backend.device.dto.device.DeviceListResponseDto;
+import com.uplus.backend.device.dto.device.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.device.DeviceSimpleListResponseDto;
+import com.uplus.backend.device.dto.price.PriceDetailResponseDto;
+import com.uplus.backend.device.dto.price.PriceListResponseDto;
 import com.uplus.backend.device.service.DeviceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,7 +41,9 @@ public class DeviceController {
 	@PostMapping("")
 	@ApiOperation(value = "단말기 생성", notes = "단말기를 생성할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "단말기 생성 성공")
+		@ApiResponse(code = 200, message = "단말기 생성 성공"),
+		@ApiResponse(code = 404, message = "존재하지 않는 데이터"),
+		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<DeviceCreateResponseDto> create(
 		@Valid @RequestBody DeviceCreateRequestDto requestDto) {
@@ -48,10 +52,23 @@ public class DeviceController {
 		return ResponseEntity.ok().body(responseDto);
 	}
 
+	@GetMapping("/simple")
+	@ApiOperation(value = "단말기 심플 리스트 조회", notes = "단말기 심플 리스트를 조회할 수 있다.")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "단말기 심플 리스트 조회 성공"),
+		@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<DeviceSimpleListResponseDto> getSimpleDevices() {
+		DeviceSimpleListResponseDto responseDto = deviceService.getSimpleDevices();
+
+		return ResponseEntity.ok().body(responseDto);
+	}
+
 	@GetMapping("")
 	@ApiOperation(value = "네트워크 타입별 단말기 리스트 조회", notes = "네트워크 타입별 단말기 리스트를 조회할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
+		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공"),
+		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<DeviceListResponseDto> getDevices(
 		@RequestParam("network-type") int networkType) {
@@ -63,7 +80,9 @@ public class DeviceController {
 	@GetMapping("/plans/{plan-id}")
 	@ApiOperation(value = "가격 리스트 조회", notes = "네트워크 타입별 단말기 리스트를 조회할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
+		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공"),
+		@ApiResponse(code = 404, message = "존재하지 않는 데이터"),
+		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<PriceListResponseDto> getPrices(
 		@PathVariable("plan-id") Long planId,
@@ -78,17 +97,34 @@ public class DeviceController {
 	}
 
 	@GetMapping("/{device-id}")
-	@ApiOperation(value = "입력값에 따른 단말기 정보 조회",
-		notes = "입력값에 따른 단말기 정보를 조회할 수 있다.")
+	@ApiOperation(value = "단말기 상세 정보 조회",
+		notes = "단말기 상세 정보를 조회할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
+		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공"),
+		@ApiResponse(code = 404, message = "존재하지 않는 데이터"),
+		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<DeviceDetailResponseDto> getDeviceDetail(
+		@PathVariable("device-id") Long deviceId) {
+		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(deviceId);
+
+		return ResponseEntity.ok().body(responseDto);
+	}
+
+	@GetMapping("/{device-id}/plans/{plan-id}")
+	@ApiOperation(value = "상세 가격 조회", notes = "상세 가격 정보를 조회할 수 있다.")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "상세 가격 조회 성공"),
+		@ApiResponse(code = 404, message = "존재하지 않는 데이터"),
+		@ApiResponse(code = 500, message = "서버 오류")
+	})
+	public ResponseEntity<PriceDetailResponseDto> getPriceDetail(
 		@PathVariable("device-id") Long deviceId,
-		@RequestParam("plan") Long planId,
+		@PathVariable("plan-id") Long planId,
 		@RequestParam("discount-type") int discountType,
-		@RequestParam("installment-period") int installmentPeriod) {
-		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(deviceId, planId,
+		@RequestParam(name = "installment-period", defaultValue = "24") int installmentPeriod
+	) {
+		PriceDetailResponseDto responseDto = deviceService.getPriceDetail(deviceId, planId,
 			discountType, installmentPeriod);
 
 		return ResponseEntity.ok().body(responseDto);
@@ -97,7 +133,9 @@ public class DeviceController {
 	@GetMapping("/{device-id}/self")
 	@ApiOperation(value = "동일 기기 비교 조회", notes = "동일 기기 비교 조회할 수 있다.")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공")
+		@ApiResponse(code = 200, message = "단말기 리스트 조회 성공"),
+		@ApiResponse(code = 404, message = "존재하지 않는 데이터"),
+		@ApiResponse(code = 500, message = "서버 오류")
 	})
 	public ResponseEntity<DeviceSelfCompResponseDto> getDeviceSelfComp(
 		@PathVariable("device-id") Long deviceId) {

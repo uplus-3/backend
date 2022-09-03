@@ -1,10 +1,12 @@
 package com.uplus.backend.integration.device;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uplus.backend.device.dto.device.DeviceCreateRequestDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.entity.Image;
@@ -24,6 +26,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -65,7 +68,7 @@ public class DeviceIntegrationTest {
 	private Image image1;
 
 	@BeforeAll
-	private void setup() {
+	public void setup() {
 		// given
 		plan1 = Plan.builder()
 			.name("요금제1")
@@ -117,6 +120,68 @@ public class DeviceIntegrationTest {
 	}
 
 	@Test
+	void 단말기_생성_테스트() throws Exception {
+		// given
+		DeviceCreateRequestDto requestDto = DeviceCreateRequestDto.builder()
+			.name("스마트폰1")
+			.serialNumber("1234-5679")
+			.storage("256GB")
+			.price(990_000)
+			.launchedDate(Timestamp.valueOf(LocalDateTime.now()))
+			.company("제조회사")
+			.networkType(5)
+			.cpu("CPU")
+			.display("디스플레이")
+			.publicSupport(200_000)
+			.additionalSupport(50_000)
+			.repImageUrl("대표이미지URL")
+			.planId(plan1.getId())
+			.build();
+
+		// when & then
+		mockMvc.perform(post("/api/devices/")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(requestDto)))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@Test
+	void 단말기_생성_테스트_404에러() throws Exception {
+		// given
+		DeviceCreateRequestDto requestDto = DeviceCreateRequestDto.builder()
+			.name("스마트폰1")
+			.serialNumber("1234-5679")
+			.storage("256GB")
+			.price(990_000)
+			.launchedDate(Timestamp.valueOf(LocalDateTime.now()))
+			.company("제조회사")
+			.networkType(5)
+			.cpu("CPU")
+			.display("디스플레이")
+			.publicSupport(200_000)
+			.additionalSupport(50_000)
+			.repImageUrl("대표이미지URL")
+			.planId(plan1.getId() + 1)
+			.build();
+
+		// when & then
+		mockMvc.perform(post("/api/devices/")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(requestDto)))
+			.andExpect(status().isNotFound())
+			.andDo(print());
+	}
+
+	@Test
+	void 단말기_심플_리스트_조회_테스트() throws Exception {
+		// when & then
+		mockMvc.perform(get("/api/devices/simple"))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@Test
 	void 네트워크별_단말기_리스트_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
@@ -128,21 +193,7 @@ public class DeviceIntegrationTest {
 	}
 
 	@Test
-	void 입력값에_따른_단말기_정보_조회_테스트() throws Exception {
-		// given
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("plan", String.valueOf(1L));
-		params.add("discount-type", String.valueOf(0));
-		params.add("installment-period", String.valueOf(24));
-
-		// when & then
-		mockMvc.perform(get("/api/devices/" + device1.getId()).params(params))
-			.andExpect(status().isOk())
-			.andDo(print());
-	}
-
-	@Test
-	void 가격_리스트_조회_테스트() throws Exception {
+	void 네트워크별_가격_리스트_조회_테스트() throws Exception {
 		// given
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("network-type", String.valueOf(5));
@@ -156,10 +207,78 @@ public class DeviceIntegrationTest {
 	}
 
 	@Test
+	void 네트워크별_가격_리스트_조회_테스트_404에러() throws Exception {
+		// given
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("network-type", String.valueOf(5));
+		params.add("discount-type", String.valueOf(1));
+		params.add("installment-period", String.valueOf(24));
+
+		// when & then
+		mockMvc.perform(get("/api/devices/plans/" + (plan1.getId() + 1)).params(params))
+			.andExpect(status().isNotFound())
+			.andDo(print());
+	}
+
+	@Test
+	void 단말기_상세정보_조회_테스트() throws Exception {
+		// when & then
+		mockMvc.perform(get("/api/devices/" + device1.getId()))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@Test
+	void 단말기_상세정보_조회_테스트_404에러() throws Exception {
+		// when & then
+		mockMvc.perform(get("/api/devices/" + (device1.getId() + 1)))
+			.andExpect(status().isNotFound())
+			.andDo(print());
+	}
+
+	@Test
+	void 가격_상세정보_조회_테스트() throws Exception {
+		// given
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("network-type", String.valueOf(5));
+		params.add("discount-type", String.valueOf(1));
+		params.add("installment-period", String.valueOf(24));
+
+		// when & then
+		mockMvc.perform(
+				get("/api/devices/" + device1.getId() + "/plans/" + plan1.getId()).params(params))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@Test
+	void 가격_상세정보_조회_테스트_404에러() throws Exception {
+		// given
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("network-type", String.valueOf(5));
+		params.add("discount-type", String.valueOf(1));
+		params.add("installment-period", String.valueOf(24));
+
+		// when & then
+		mockMvc.perform(
+				get("/api/devices/" + device1.getId() + "/plans/" + (plan1.getId() + 1)).params(params))
+			.andExpect(status().isNotFound())
+			.andDo(print());
+	}
+
+	@Test
 	void 동일_기기_비교_조회_테스트() throws Exception {
 		// when & then
 		mockMvc.perform(get("/api/devices/" + device1.getId() + "/self"))
 			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@Test
+	void 동일_기기_비교_조회_테스트_404에러() throws Exception {
+		// when & then
+		mockMvc.perform(get("/api/devices/" + (device1.getId() + 1) + "/self"))
+			.andExpect(status().isNotFound())
 			.andDo(print());
 	}
 }

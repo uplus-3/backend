@@ -3,6 +3,7 @@ package com.uplus.backend.device.entity;
 import com.uplus.backend.global.entity.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,7 @@ public class Tag extends BaseEntity {
 	@Column(nullable = false, columnDefinition = "CHAR(7)")
 	private String rgb;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "device_id", nullable = false)
 	private Device device;
 

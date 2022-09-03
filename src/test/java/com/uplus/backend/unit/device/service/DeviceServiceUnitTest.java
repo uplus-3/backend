@@ -3,8 +3,8 @@ package com.uplus.backend.unit.device.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
-import com.uplus.backend.device.dto.DeviceDetailResponseDto;
-import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.device.DeviceDetailResponseDto;
+import com.uplus.backend.device.dto.device.DeviceSelfCompResponseDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.entity.Image;
@@ -92,12 +92,10 @@ public class DeviceServiceUnitTest {
 	@Test
 	void 입력값에_따른_단말기_정보_조회_테스트() {
 		// given
-		given(planRepository.findById(plan1.getId())).willReturn(Optional.of(plan1));
-		given(deviceRepository.findById(device1.getId())).willReturn(Optional.of(device1));
+		given(deviceRepository.findByIdFetchJoinColorAndTag(device1.getId())).willReturn(Optional.of(device1));
 
 		// when
-		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(device1.getId(),
-			plan1.getId(), 0, 24);
+		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(device1.getId());
 
 		// then
 		assertThat(responseDto.getName()).isEqualTo("스마트폰1");

@@ -7,8 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uplus.backend.device.controller.DeviceController;
-import com.uplus.backend.device.dto.DeviceDetailResponseDto;
-import com.uplus.backend.device.dto.DeviceSelfCompResponseDto;
+import com.uplus.backend.device.dto.device.DeviceDetailResponseDto;
+import com.uplus.backend.device.dto.device.DeviceSelfCompResponseDto;
 import com.uplus.backend.device.entity.Color;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.entity.Image;
@@ -100,10 +100,9 @@ public class DeviceControllerUnitTest {
 		params.add("discount-type", String.valueOf(0));
 		params.add("installment-period", String.valueOf(24));
 
-		DeviceDetailResponseDto responseDto = DeviceDetailResponseDto.fromEntity(device1, plan1, 0,
-			24);
+		DeviceDetailResponseDto responseDto = DeviceDetailResponseDto.fromEntity(device1);
 
-		given(deviceService.getDeviceDetail(device1.getId(), plan1.getId(), 0, 24))
+		given(deviceService.getDeviceDetail(device1.getId()))
 			.willReturn(responseDto);
 
 		// when & then

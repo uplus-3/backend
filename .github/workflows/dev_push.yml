@@ -1,10 +1,8 @@
 name: Build React Artifact and Deploy Image to ECR
 
 on:
-  pull_request:
+  push:
     branches: [ "develop" ]
-    types:
-      - closed
   workflow_dispatch:
     branches: [ "develop" ]
 
@@ -16,8 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  ifmerged:
-    if: github.event.pull_request.merged == true
+  push:
     runs-on: ubuntu-latest
 
     steps:
@@ -69,30 +66,23 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: dev3api
-          IMAGE_TAG: ${{ github.sha }} # Github commit ID (sha)
+          IMAGE_TAG: latest # Github commit ID (sha)
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$REGISTRY/$REPOSITORY:$IMAGE_TAG"
 #
-      - name: Download Task Definition
-        run: |
-          aws ecs describe-task-definition \
-          --task-definition dev3task \
-          --query taskDefinition > task-definition.json
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
         with:
-          task-definition: task-definition.json
-          container-name: dev3api
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          cluster: u3-dev
-          service: dev3service
-          wait-for-service-stability: true
+          host: ${{ secrets.DEV_HOST }}
+          username: ec2-user
+          key: ${{ secrets.PEM_KEY }}
+          script: |
+            sudo docker image prune -f
+            docker-compose down
+            aws s3 cp s3://hj-uplus-cloud/docker-compose-uplus3-dev.yml docker-compose.yml
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 888045237793.dkr.ecr.ap-northeast-2.amazonaws.com
+            docker-compose pull
+            docker-compose build
+            docker-compose up -d
