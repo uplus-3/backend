@@ -42,7 +42,7 @@ public class LaunchingDeviceResponseDto {
             .launchedDate(launchingDevice.getLaunchedDate())
             .launchingColors(launchingDevice.getLaunchingColors().stream()
                 .map(LaunchingColorResponseDto::fromEntity)
-                    .collect(Collectors.toList()))
+                .collect(Collectors.toList()))
             .build();
     }
 

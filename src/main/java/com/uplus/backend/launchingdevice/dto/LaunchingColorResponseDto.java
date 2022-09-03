@@ -25,7 +25,7 @@ public class LaunchingColorResponseDto {
             .rgb(launchingColor.getRgb())
             .launchingImages(launchingColor.getLaunchingImages().stream()
                 .map(LaunchingImageResponseDto::fromEntity)
-                    .collect(Collectors.toList()))
+                .collect(Collectors.toList()))
             .build();
     }
 }
