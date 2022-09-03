@@ -70,8 +70,6 @@ public class LaunchingDeviceCreateRequestDto {
     @ApiModelProperty(name = "대표이미지", example = "이미지 URL")
     private String repImageUrl;
 
-
-    @ApiModelProperty(name = "색상 배열", example = "[]")
     private List<LaunchingColorCreateRequestDto> colors;
 
 }

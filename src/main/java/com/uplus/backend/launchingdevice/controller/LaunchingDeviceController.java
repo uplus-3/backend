@@ -34,7 +34,6 @@ public class LaunchingDeviceController {
     public ResponseEntity<LaunchingDeviceCreateResponseDto> create(
         @Valid @RequestBody LaunchingDeviceCreateRequestDto requestDto
     ) {
-        System.out.println(requestDto.getColors().get(0).getImages().get(0).getImageUrl());
         LaunchingDeviceCreateResponseDto responseDto = launchingDeviceService.create(requestDto);
 
         return ResponseEntity.ok().body(responseDto);
