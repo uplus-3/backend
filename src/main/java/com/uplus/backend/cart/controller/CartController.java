@@ -34,12 +34,13 @@ public class CartController {
     @ApiOperation(value = "장바구니 항목 추가", notes = "장바구니 항목을 추가한다.")
     @ApiResponses({
         @ApiResponse(code = 200, message = "장바구니 항목 추가 성공"),
+        @ApiResponse(code = 400, message = "잘못된 장바구니 생성 정보 전송"),
         @ApiResponse(code = 404, message = "존재하지 않는 데이터"),
     })
     public ResponseEntity<CartListResponseDto> createCartItem(
         @Valid @RequestBody CartRequestDto request, @PathVariable("cartId") Long cartId) {
 
-        CartListResponseDto cartListResponseDto;   cartListResponseDto = cartService.create(request, cartId);
+        CartListResponseDto cartListResponseDto = cartService.create(request, cartId);
 
         return ResponseEntity.ok().body(cartListResponseDto);
     }
