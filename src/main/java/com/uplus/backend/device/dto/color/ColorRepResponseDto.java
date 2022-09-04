@@ -21,12 +21,16 @@ public class ColorRepResponseDto {
 	@ApiModelProperty(name = "색상별 대표 이미지 URL", example = "#000000")
 	private String imageUrl;
 
+	@ApiModelProperty(name = "재고", example = "10")
+	private int stock;
+
 	public static ColorRepResponseDto fromEntity(Color color) {
 		return ColorRepResponseDto.builder()
 			.id(color.getId())
 			.name(color.getName())
 			.rgb(color.getRgb())
 			.imageUrl(color.getImages().get(0).getImageUrl())
+			.stock(color.getStock())
 			.build();
 	}
 }

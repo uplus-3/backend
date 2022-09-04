@@ -18,8 +18,10 @@ import com.uplus.backend.order.dto.OrderCreateRequestDto;
 import com.uplus.backend.order.repository.OrderRepository;
 import com.uplus.backend.plan.entity.Plan;
 import com.uplus.backend.plan.repository.PlanRepository;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -41,153 +43,277 @@ import org.springframework.util.MultiValueMap;
 @TestInstance(Lifecycle.PER_CLASS)
 public class OrderIntegrationTest {
 
-	@Autowired
-	private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-	@Autowired
-	private ObjectMapper objectMapper;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-	@Autowired
-	private DeviceRepository deviceRepository;
+    @Autowired
+    private DeviceRepository deviceRepository;
 
-	@Autowired
-	private PlanRepository planRepository;
+    @Autowired
+    private PlanRepository planRepository;
 
-	@Autowired
-	private OrderRepository orderRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
-	@Autowired
-	private TagRepository tagRepository;
+    @Autowired
+    private TagRepository tagRepository;
 
-	@Autowired
-	private ColorRepository colorRepository;
+    @Autowired
+    private ColorRepository colorRepository;
 
-	@Autowired
-	private ImageRepository imageRepository;
+    @Autowired
+    private ImageRepository imageRepository;
 
-	private Plan plan1;
+    private Plan plan1;
 
-	private Device device1;
+    private Device device1;
 
-	private Tag tag1;
+    private Tag tag1;
 
-	private Color color1;
+    private Color color1;
 
-	private Image image1;
+    private Color color2;
 
-	private com.uplus.backend.order.entity.Order order1;
+    private Image image1;
 
-	@BeforeAll
-	private void setup() {
-		// given
-		plan1 = Plan.builder()
-			.name("5G 시그니처")
-			.networkType(5)
-			.price(130_000)
-			.data("무제한")
-			.voiceCall("집/이동전화 무제한")
-			.message("기본제공")
-			.build();
-		plan1 = planRepository.save(plan1);
+    private com.uplus.backend.order.entity.Order order1;
 
-		device1 = Device.builder()
-			.name("갤럭시 Z Fold 4 512GB")
-			.serialNumber("SM-F936N512")
-			.storage("512GB")
-			.price(2_119_700)
-			.launchedDate(Timestamp.valueOf(LocalDateTime.now()))
-			.company("삼성")
-			.networkType(5)
-			.cpu("스냅드래곤 8+Gen1 (SM8475) (4nm, Octa-Core)")
-			.display(
-				"메인 : 6.7” (170.3 mm) FHD+ , Dynamic AMOLED 2X 커버 : 1.9”(48.2 mm) , Super AMOLED")
-			.publicSupport(200_000)
-			.additionalSupport(50_000)
-			.repImageUrl(
-				"https://image.lguplus.com/static/pc-contents/images/prdv//20220812-025607-814-9q8rtAhk.jpg")
-			.plan(plan1)
-			.build();
-		device1 = deviceRepository.save(device1);
+    @BeforeAll
+    private void setup() {
+        // given
+        plan1 = Plan.builder()
+                .name("5G 시그니처")
+                .networkType(5)
+                .price(130_000)
+                .data("무제한")
+                .voiceCall("집/이동전화 무제한")
+                .message("기본제공")
+                .build();
+        plan1 = planRepository.save(plan1);
 
-		tag1 = Tag.builder()
-			.content("최신")
-			.rgb("#D44602")
-			.device(device1)
-			.build();
-		tag1 = tagRepository.save(tag1);
+        device1 = Device.builder()
+                .name("갤럭시 Z Fold 4 512GB")
+                .serialNumber("SM-F936N512")
+                .storage("512GB")
+                .price(2_119_700)
+                .launchedDate(Timestamp.valueOf(LocalDateTime.now()))
+                .company("삼성")
+                .networkType(5)
+                .cpu("스냅드래곤 8+Gen1 (SM8475) (4nm, Octa-Core)")
+                .display(
+                        "메인 : 6.7” (170.3 mm) FHD+ , Dynamic AMOLED 2X 커버 : 1.9”(48.2 mm) , Super AMOLED")
+                .publicSupport(200_000)
+                .additionalSupport(50_000)
+                .repImageUrl(
+                        "https://image.lguplus.com/static/pc-contents/images/prdv//20220812-025607-814-9q8rtAhk.jpg")
+                .plan(plan1)
+                .build();
+        device1 = deviceRepository.save(device1);
 
-		color1 = Color.builder()
-			.name("색상1")
-			.rgb("#B8AAC8")
-			.stock(1_000)
-			.device(device1)
-			.build();
-		color1 = colorRepository.save(color1);
+        tag1 = Tag.builder()
+                .content("최신")
+                .rgb("#D44602")
+                .device(device1)
+                .build();
+        tag1 = tagRepository.save(tag1);
 
-		image1 = Image.builder()
-			.imageUrl(
-				"https://image.lguplus.com/static/pc-contents/images/prdv//20220812-025607-814-9q8rtAhk.jpg")
-			.color(color1)
-			.build();
-		image1 = imageRepository.save(image1);
+        color1 = Color.builder()
+                .name("색상1")
+                .rgb("#B8AAC8")
+                .stock(1_000)
+                .device(device1)
+                .build();
+        color1 = colorRepository.save(color1);
 
-		order1 = com.uplus.backend.order.entity.Order.builder()
-			.name("윤유플")
-			.number(2208281234L)
-			.phoneNumber("010-1234-5678")
-			.address("(03924)서울특별시 마포구 월드컵북로 416")
-			.price(100_236)
-			.discountType(0)
-			.registrationType(0)
-			.shipmentType(0)
-			.installmentPeriod(24)
-			.color(color1)
-			.plan(plan1)
-			.build();
+        color2 = Color.builder()
+                .name("색상1")
+                .rgb("#B8AAC8")
+                .stock(0)
+                .device(device1)
+                .build();
+        color2 = colorRepository.save(color2);
 
-		order1 = orderRepository.save(order1);
+        image1 = Image.builder()
+                .imageUrl(
+                        "https://image.lguplus.com/static/pc-contents/images/prdv//20220812-025607-814-9q8rtAhk.jpg")
+                .color(color1)
+                .build();
+        image1 = imageRepository.save(image1);
 
-	}
+        order1 = com.uplus.backend.order.entity.Order.builder()
+                .name("윤유플")
+                .number(2208281234L)
+                .phoneNumber("010-1234-5678")
+                .address("(03924)서울특별시 마포구 월드컵북로 416")
+                .price(100_236)
+                .discountType(0)
+                .registrationType(0)
+                .shipmentType(0)
+                .installmentPeriod(24)
+                .color(color1)
+                .plan(plan1)
+                .build();
 
-	@Test
-	@Order(1)
-	void 주문_생성_테스트() throws Exception {
-		// given
-		OrderCreateRequestDto requestDto = OrderCreateRequestDto.builder()
-			.name("윤유플")
-			.phoneNumber("010-1234-5678")
-			.address("(03924)서울특별시 마포구 월드컵북로 416")
-			.price(100_236)
-			.discountType(0)
-			.registrationType(0)
-			.shipmentType(0)
-			.installmentPeriod(24)
-			.colorId(1L)
-			.planId(1L)
-			.build();
+        order1 = orderRepository.save(order1);
 
-		// when & then
-		mockMvc.perform(post("/api/orders")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(requestDto)))
-			.andExpect(status().isOk())
-			.andDo(print());
+    }
 
-	}
+    @Test
+    @Order(1)
+    void 주문_생성_테스트() throws Exception {
+        // given
+        OrderCreateRequestDto requestDto = OrderCreateRequestDto.builder()
+                .name("윤유플")
+                .phoneNumber("010-1234-5678")
+                .address("(03924)서울특별시 마포구 월드컵북로 416")
+                .price(100_236)
+                .discountType(0)
+                .registrationType(0)
+                .shipmentType(0)
+                .installmentPeriod(24)
+                .colorId(color1.getId())
+                .planId(plan1.getId())
+                .build();
 
-	@Test
-	@Order(2)
-	void 주문_조회_테스트() throws Exception {
-		// given
-		com.uplus.backend.order.entity.Order order = orderRepository.findById(order1.getId()).get();
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("name", "윤유플");
-		params.add("number", String.valueOf(order.getNumber()));
+        // when & then
+        mockMvc.perform(post("/api/orders")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isOk())
+                .andDo(print());
 
-		// when & then
-		mockMvc.perform(get("/api/orders").params(params))
-			.andExpect(status().isOk())
-			.andDo(print());
-	}
+    }
 
+    @Test
+    @Order(2)
+    void 주문_조회_테스트() throws Exception {
+        // given
+        com.uplus.backend.order.entity.Order order = orderRepository.findById(order1.getId()).get();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("name", "윤유플");
+        params.add("number", String.valueOf(order.getNumber()));
+
+        // when & then
+        mockMvc.perform(get("/api/orders").params(params))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @Test
+    @Order(3)
+    void 주문_생성_테스트_404_COLOR_ERROR() throws Exception {
+        // given
+        OrderCreateRequestDto requestDto = OrderCreateRequestDto.builder()
+                .name("윤유플")
+                .phoneNumber("010-1234-5678")
+                .address("(03924)서울특별시 마포구 월드컵북로 416")
+                .price(100_236)
+                .discountType(0)
+                .registrationType(0)
+                .shipmentType(0)
+                .installmentPeriod(24)
+                .colorId(color1.getId() + 123)
+                .planId(plan1.getId())
+                .build();
+
+        // when & then
+        mockMvc.perform(post("/api/orders")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    @Order(4)
+    void 주문_생성_테스트_404_PLAN_ERROR() throws Exception {
+        // given
+        OrderCreateRequestDto requestDto = OrderCreateRequestDto.builder()
+                .name("윤유플")
+                .phoneNumber("010-1234-5678")
+                .address("(03924)서울특별시 마포구 월드컵북로 416")
+                .price(100_236)
+                .discountType(0)
+                .registrationType(0)
+                .shipmentType(0)
+                .installmentPeriod(24)
+                .colorId(color1.getId())
+                .planId(plan1.getId() + 1)
+                .build();
+
+        // when & then
+        mockMvc.perform(post("/api/orders")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
+
+    @Test
+    @Order(5)
+    void 주문_생성_테스트_302_STOCK_ERROR() throws Exception {
+        // given
+        OrderCreateRequestDto requestDto = OrderCreateRequestDto.builder()
+                .name("윤유플")
+                .phoneNumber("010-1234-5678")
+                .address("(03924)서울특별시 마포구 월드컵북로 416")
+                .price(100_236)
+                .discountType(0)
+                .registrationType(0)
+                .shipmentType(0)
+                .installmentPeriod(24)
+                .colorId(color2.getId())
+                .planId(plan1.getId())
+                .build();
+
+        // when & then
+        mockMvc.perform(post("/api/orders")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isMovedTemporarily())
+                .andDo(print());
+    }
+
+    @Test
+    @Order(6)
+    void 주문_생성_테스트_400_INVALID_REQUEST_ERROR() throws Exception {
+        // given
+        OrderCreateRequestDto requestDto = OrderCreateRequestDto.builder()
+                .name("윤유플")
+                .phoneNumber("010-14-5678")
+                .address("(03924)서울특별시 마포구 월드컵북로 416")
+                .price(100_236)
+                .discountType(0)
+                .registrationType(0)
+                .shipmentType(0)
+                .installmentPeriod(24)
+                .colorId(color1.getId())
+                .planId(plan1.getId() + 1)
+                .build();
+
+        // when & then
+        mockMvc.perform(post("/api/orders")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+    @Test
+    @Order(7)
+    void 주문_조회_테스트_404_NO_DATA_ERROR() throws Exception {
+        // given
+        com.uplus.backend.order.entity.Order order = orderRepository.findById(order1.getId()).get();
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("name", "윤플유");
+        params.add("number", String.valueOf(order.getNumber()));
+
+        // when & then
+        mockMvc.perform(get("/api/orders").params(params))
+                .andExpect(status().isNotFound())
+                .andDo(print());
+    }
 }

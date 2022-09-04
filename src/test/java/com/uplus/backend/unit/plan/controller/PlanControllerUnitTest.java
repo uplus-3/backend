@@ -26,8 +26,6 @@ public class PlanControllerUnitTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @MockBean
     private PlanService planService;
