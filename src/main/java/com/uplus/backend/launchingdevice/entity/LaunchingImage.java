@@ -37,4 +37,12 @@ public class LaunchingImage extends BaseEntity {
     @JoinColumn(name = "launching_color_id", nullable = false)
     private LaunchingColor launchingColor;
 
+    public void setLaunchingColor(LaunchingColor launchingColor) {
+        if (this.launchingColor != null) {
+            this.launchingColor.getLaunchingImages().remove(this);
+        }
+        this.launchingColor = launchingColor;
+        launchingColor.getLaunchingImages().add(this);
+    }
+
 }
