@@ -8,6 +8,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class LaunchingImageResponseDto {
+
     @ApiModelProperty(name = "이미지 id", example = "1")
     private Long id;
 

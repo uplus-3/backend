@@ -64,8 +64,9 @@ public class LaunchingDeviceResponseDto {
             .display(launchingDevice.getDisplay())
             .repImageUrl(launchingDevice.getRepImageUrl())
             .isLaunching(true)
-            .launchingColors(launchingDevice.getLaunchingColors().stream().map(LaunchingColorResponseDto::fromEntity).collect(
-                Collectors.toList()))
+            .launchingColors(launchingDevice.getLaunchingColors().stream()
+                .map(LaunchingColorResponseDto::fromEntity)
+                .collect(Collectors.toList()))
             .build();
     }
 

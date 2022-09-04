@@ -16,8 +16,8 @@ public class LaunchingDeviceListResponseDto {
         List<LaunchingDevice> launchingDevices) {
         return LaunchingDeviceListResponseDto.builder()
             .launchingDevices(
-                launchingDevices.stream().map(LaunchingDeviceResponseDto::fromEntity).collect(
-                    Collectors.toList())
+                launchingDevices.stream().map(LaunchingDeviceResponseDto::fromEntity)
+                .collect(Collectors.toList())
             )
             .build();
     }
