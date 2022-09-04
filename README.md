@@ -14,6 +14,7 @@ http://uplus3-dev.s3-website.ap-northeast-2.amazonaws.com
 ## 개발 환경
 
 - JDK(Java version) : jdk 11
+- Spring-Boot : Spring-Boot 2.6.11
 - Spring-Boot-Starter : Spring-Boot-Starter 3.0.0
 - Annotation auto create : Lombok 1.18.24
 - Production DB : MySQL Community Server 8.0.30
