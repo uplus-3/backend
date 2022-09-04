@@ -27,7 +27,7 @@ public interface DeviceRepository extends JpaRepository<Device, Long> {
 	@Query(value = "SELECT * FROM device WHERE MATCH(name, company, serial_number) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC", nativeQuery = true)
 	List<Device> search(@Param("keyword") String keyword);
 
-	@Query(value = "SELECT * FROM device WHERE network_type = :networkType and MATCH(name, company, serial_number) AGAINST(:keyword in boolean mode) ORDER BY launched_date", nativeQuery = true)
+	@Query(value = "SELECT * FROM device WHERE network_type = :networkType and MATCH(name, company, serial_number) AGAINST(:keyword in boolean mode) ORDER BY launched_date DESC", nativeQuery = true)
 	List<Device> searchWithNetworkType(@Param("keyword") String keyword,
 		@Param("networkType") int networkType);
 }
