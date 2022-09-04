@@ -81,6 +81,9 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$REGISTRY/$REPOSITORY:$IMAGE_TAG"
 #
+      - name: Update kube config
+        run: aws eks update-kubeconfig --name uplus3 --region ap-northeast-2
+        
       - name: Deploy Image to Amazon EKS
         run: |
           kubectl apply -f k8s/aws-auth.yml
