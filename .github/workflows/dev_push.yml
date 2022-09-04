@@ -1,0 +1,88 @@
+name: Build React Artifact and Deploy Image to ECR
+
+on:
+  push:
+    branches: [ "develop" ]
+  workflow_dispatch:
+    branches: [ "develop" ]
+
+env:
+  AWS_REGION : ap-northeast-2
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      
+      - name: Create application-db.yml
+        run: |
+          touch ./src/main/resources/application-db.yml
+          echo "${{ secrets.DB_YML }}" > ./src/main/resources/application-db.yml
+      
+      - name: Create application-swagger.yml
+        run: |
+          touch ./src/main/resources/application-swagger.yml
+          echo "${{ secrets.SWAGGER_YML }}" > ./src/main/resources/application-swagger.yml
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      # Gradle wrapper 파일 실행 권한주기
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Gradle clean
+        run: ./gradlew clean
+
+      - name: Execute Gradle build
+        run: ./gradlew build
+
+      # Configure the GitHub Actions environment with a role using GitHub's OIDC provider and your desired region
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      # Login to Amazon ECR Private, then build and push a Docker image
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push docker image to Amazon ECR
+        id: build-image
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: dev3api
+          IMAGE_TAG: latest # Github commit ID (sha)
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$REGISTRY/$REPOSITORY:$IMAGE_TAG"
+#
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          username: ec2-user
+          key: ${{ secrets.PEM_KEY }}
+          script: |
+            sudo docker image prune -f
+            docker-compose down
+            aws s3 cp s3://hj-uplus-cloud/docker-compose-uplus3-dev.yml docker-compose.yml
+            aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 888045237793.dkr.ecr.ap-northeast-2.amazonaws.com
+            docker-compose pull
+            docker-compose build
+            docker-compose up -d

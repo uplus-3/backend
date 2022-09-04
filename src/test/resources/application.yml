@@ -1,3 +1,6 @@
 spring:
   profiles:
     include: db
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
