@@ -33,6 +33,7 @@ public class OrderController {
     @ApiResponses({
         @ApiResponse(code = 200, message = "주문 생성 완료"),
         @ApiResponse(code = 400, message = "잘못된 주문 생성 정보 전송"),
+        @ApiResponse(code = 404, message = "존재하지 않는 색상 Id 또는 요금제 Id 전송"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<OrderCreateResponseDto> createOrder(
