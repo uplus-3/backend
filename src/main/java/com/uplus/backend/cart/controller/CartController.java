@@ -30,36 +30,16 @@ public class CartController {
 
     private final CartService cartService;
 
-    @PostMapping("")
+    @PostMapping("/{cartId}")
     @ApiOperation(value = "장바구니 항목 추가", notes = "장바구니 항목을 추가한다.")
     @ApiResponses({
         @ApiResponse(code = 200, message = "장바구니 항목 추가 성공"),
         @ApiResponse(code = 404, message = "존재하지 않는 데이터"),
     })
     public ResponseEntity<CartListResponseDto> createCartItem(
-        @Valid @RequestBody CartRequestDto request, @CookieValue(name = "cartId", required = false) Long cartId, HttpServletResponse response) {
+        @Valid @RequestBody CartRequestDto request, @PathVariable("cartId") Long cartId) {
 
-        CartListResponseDto cartListResponseDto;
-
-        if (cartId == null) {
-            cartId = -1L;
-            cartListResponseDto = cartService.create(request, cartId);
-            Cookie cartIdCookie = new Cookie("cartId", String.valueOf(cartListResponseDto.getCarts().get(0).getCartId()));
-            Cookie cartCountCookie = new Cookie("cartCount", String.valueOf(cartListResponseDto.getCarts().size()));
-            cartIdCookie.setMaxAge(60 * 60 * 24 * 365);
-            cartIdCookie.setDomain("localhost");
-            cartIdCookie.setPath("/");
-            cartIdCookie.setSecure(true);
-            response.addCookie(cartIdCookie);
-
-            cartCountCookie.setMaxAge(60 * 60 * 24 * 365);
-            cartCountCookie.setDomain("localhost");
-            cartCountCookie.setPath("/");
-            cartCountCookie.setSecure(true);
-            response.addCookie(cartCountCookie);
-        } else {
-            cartListResponseDto = cartService.create(request, cartId);
-        }
+        CartListResponseDto cartListResponseDto;   cartListResponseDto = cartService.create(request, cartId);
 
         return ResponseEntity.ok().body(cartListResponseDto);
     }
