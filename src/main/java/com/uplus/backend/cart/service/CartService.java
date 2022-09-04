@@ -53,8 +53,11 @@ public class CartService {
         Color color = colorRepository.findById(requestDto.getColorId())
             .orElseThrow(() -> new CustomException(COLOR_NO_DATA_ERROR));
 
-        Plan plan = planRepository.findById(requestDto.getPlanId())
-            .orElseThrow(() -> new CustomException(PLAN_NO_DATA_ERROR));
+        Plan plan = null;
+        if (requestDto.getPlanId() != -1) {
+            plan = planRepository.findById(requestDto.getPlanId())
+                .orElseThrow(() -> new CustomException(PLAN_NO_DATA_ERROR));
+        }
 
         Cart cart = requestDto.toEntity(color, plan, cartId);
 

@@ -35,11 +35,15 @@ public class CartRequestDto {
     @ApiModelProperty(name = "기종 색상 ID", example = "1")
     private Long colorId;
 
-    @Positive(message = "요금제 식별자는 1이상의 Long형입니다.")
     @ApiModelProperty(name = "요금제 ID", example = "1")
     private Long planId;
 
     public Cart toEntity(Color color, Plan plan, Long cartId) {
+
+        if (plan == null) {
+            plan = color.getDevice().getPlan();
+        }
+
         return Cart.builder()
             .discountType(discountType)
             .registrationType(registrationType)
