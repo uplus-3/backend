@@ -20,6 +20,9 @@ public class PriceDetailResponseDto {
 	@ApiModelProperty(name = "단말기 정상가", example = "1078000")
 	private int devicePrice;
 
+	@ApiModelProperty(name = "식별 번호", example = "1234-5678")
+	private String serialNumber;
+
 	@ApiModelProperty(name = "정상가 / 할부 달수", example = "44910")
 	private int mDevicePrice;
 
@@ -65,6 +68,7 @@ public class PriceDetailResponseDto {
 
 		return PriceDetailResponseDto.builder()
 			.devicePrice(device.getPrice())
+			.serialNumber(device.getSerialNumber())
 			.mDevicePrice(mDevicePrice)
 			.dDevicePrice(dDevicePrice)
 			.tDevicePrice(tDevicePrice)
