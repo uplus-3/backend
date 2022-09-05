@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 이일환
+ */
 @Getter
 @Builder
 public class PriceListResponseDto {
@@ -16,9 +19,9 @@ public class PriceListResponseDto {
 	public static PriceListResponseDto fromEntity(List<Device> devices, Plan plan,
 		int discountType, int installmentPeriod) {
 		return PriceListResponseDto.builder()
-			.devices(devices.stream().map(
-				device -> PriceResponseDto.fromEntity(device, plan, discountType,
-					installmentPeriod)).collect(Collectors.toList()))
+			.devices(devices.stream()
+				.map(device -> PriceResponseDto.fromEntity(device, plan, discountType, installmentPeriod))
+				.collect(Collectors.toList()))
 			.build();
 	}
 }

@@ -6,6 +6,9 @@ import java.time.format.DateTimeFormatter;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 윤병찬
+ */
 @Builder
 @Getter
 public class OrderResponseDto {

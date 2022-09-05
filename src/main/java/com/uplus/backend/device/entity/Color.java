@@ -24,6 +24,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 담당자 : 이일환, 윤병찬
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -73,19 +76,4 @@ public class Color extends BaseEntity {
 			device.getColors().add(this);
 		}
 	}
-
-	public void addImages(Image image) {
-		this.images.add(image);
-		if (image.getColor() != this) {
-			image.setColor(this);
-		}
-	}
-
-	public void addOrders(Order order) {
-		this.orders.add(order);
-		if (order.getColor() != this) {
-			order.setColor(this);
-		}
-	}
-
 }

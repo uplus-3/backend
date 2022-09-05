@@ -23,6 +23,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/**
+ * 담당자 : 이일환
+ */
 @ExtendWith(MockitoExtension.class)
 public class DeviceServiceUnitTest {
 
@@ -92,7 +95,8 @@ public class DeviceServiceUnitTest {
 	@Test
 	void 입력값에_따른_단말기_정보_조회_테스트() {
 		// given
-		given(deviceRepository.findByIdFetchJoinColorAndTag(device1.getId())).willReturn(Optional.of(device1));
+		given(deviceRepository.findByIdFetchJoinColorAndTag(device1.getId())).willReturn(
+			Optional.of(device1));
 
 		// when
 		DeviceDetailResponseDto responseDto = deviceService.getDeviceDetail(device1.getId());

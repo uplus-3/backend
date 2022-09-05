@@ -6,8 +6,8 @@ import com.uplus.backend.device.dto.device.DeviceDetailResponseDto;
 import com.uplus.backend.device.dto.device.DeviceListResponseDto;
 import com.uplus.backend.device.dto.device.DeviceSelfCompResponseDto;
 import com.uplus.backend.device.dto.device.DeviceSimpleListResponseDto;
-import com.uplus.backend.device.dto.price.PriceListResponseDto;
 import com.uplus.backend.device.dto.price.PriceDetailResponseDto;
+import com.uplus.backend.device.dto.price.PriceListResponseDto;
 import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.device.repository.DeviceRepository;
 import com.uplus.backend.global.exception.CustomException;
@@ -20,7 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
+/**
+ * 담당자 : 이일환
+ */
 @Service
 @RequiredArgsConstructor
 public class DeviceService {

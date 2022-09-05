@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 이일환
+ */
 @Getter
 @Builder
 public class ColorCreateResponseDto {

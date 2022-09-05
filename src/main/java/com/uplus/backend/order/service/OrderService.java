@@ -23,6 +23,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 담당자 : 윤병찬, 김수현
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -36,12 +39,9 @@ public class OrderService {
 
     @Transactional
     public OrderCreateResponseDto create(OrderCreateRequestDto orderCreateRequestDto) {
-
-        // TODO : COLOR_NO_DATA_ERROR Test 코드 작성
         Color color = colorRepository.findById(orderCreateRequestDto.getColorId())
             .orElseThrow(() -> new CustomException(COLOR_NO_DATA_ERROR));
 
-        // TODO : PLAN_NO_DATA_ERROR Test 코드 작성
         Plan plan = planRepository.findById(orderCreateRequestDto.getPlanId())
             .orElseThrow(() -> new CustomException(PLAN_NO_DATA_ERROR));
 
@@ -50,7 +50,6 @@ public class OrderService {
             color.setStock(color.getStock() - 1);
             colorRepository.save(color);
         } else {
-            // TODO : NO_STOCK_ERROR Test 코드 작성
             throw new CustomException(NO_STOCK_ERROR);
         }
 
@@ -73,8 +72,6 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public OrderResponseDto getByNameAndNumber(String name, Long number) {
-
-        // TODO : ORDER_NO_DATA_ERROR Test 코드 작성
         Order order = orderRepository.findByNameAndNumber(name, number)
             .orElseThrow(() -> new CustomException(ORDER_NO_DATA_ERROR));
 

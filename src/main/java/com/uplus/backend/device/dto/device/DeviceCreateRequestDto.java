@@ -4,7 +4,6 @@ import com.uplus.backend.device.entity.Device;
 import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
-import javax.persistence.Column;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -16,6 +15,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 담당자 : 이일환
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -41,7 +43,6 @@ public class DeviceCreateRequestDto {
 	@ApiModelProperty(name = "정상가", example = "1078000")
 	private int price;
 
-	//	TODO : date Validation 메서드 구현
 	@ApiModelProperty(name = "출시일", example = "2021-01-23")
 	private Date launchedDate;
 

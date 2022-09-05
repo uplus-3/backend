@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 검색 관련 API 요청 처리를 위한 컨트롤러 정의.
+ * 담당자 : 윤병찬 검색 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
 @Slf4j
 @Api(value = "검색 API", tags = {"Search"})
@@ -59,6 +59,5 @@ public class SearchController {
 
 		return ResponseEntity.ok().body(searchResponseListDto);
 	}
-
 }
 

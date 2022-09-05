@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 이일환
+ */
 @Getter
 @Builder
 public class DeviceResponseDto {
@@ -48,9 +51,11 @@ public class DeviceResponseDto {
 			.launchedDate(device.getLaunchedDate())
 			.company(device.getCompany())
 			.storage(device.getStorage())
-			.tags(device.getTags().stream().map(TagResponseDto::fromEntity)
+			.tags(device.getTags().stream()
+				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))
-			.colors(device.getColors().stream().map(ColorRepResponseDto::fromEntity)
+			.colors(device.getColors().stream()
+				.map(ColorRepResponseDto::fromEntity)
 				.collect(Collectors.toList()))
 			.build();
 	}

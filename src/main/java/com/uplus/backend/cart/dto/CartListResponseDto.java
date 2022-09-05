@@ -1,6 +1,5 @@
 package com.uplus.backend.cart.dto;
 
-
 import com.uplus.backend.cart.entity.Cart;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +7,10 @@ import lombok.Getter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+/**
+ * 담당자 : 성아영
+ */
 @Getter
 @Builder
 public class CartListResponseDto {
@@ -21,5 +24,4 @@ public class CartListResponseDto {
                 .collect(Collectors.toList()))
             .build();
     }
-
 }

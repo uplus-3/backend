@@ -16,6 +16,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 담당자 : 윤병찬
+ */
 @Getter
 @Builder
 @AllArgsConstructor
@@ -36,7 +39,6 @@ public class OrderCreateRequestDto {
 	@ApiModelProperty(name = "주문자 주소", example = "(03924)서울특별시 마포구 월드컵북로 416")
 	private String address;
 
-	// TODO : 직접 금액 받지 않고 합계 처리 해서 넣는 방식으로 리팩토링하기
 	@Positive(message = "주문금액은 양수로 입력해 주세요")
 	@ApiModelProperty(name = "주문금액", example = "100236")
 	private int price;

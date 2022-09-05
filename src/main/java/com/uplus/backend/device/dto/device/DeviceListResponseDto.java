@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 이일환
+ */
 @Getter
 @Builder
 public class DeviceListResponseDto {
@@ -14,8 +17,9 @@ public class DeviceListResponseDto {
 
 	public static DeviceListResponseDto fromEntity(List<Device> devices) {
 		return DeviceListResponseDto.builder()
-			.devices(
-				devices.stream().map(DeviceResponseDto::fromEntity).collect(Collectors.toList()))
+			.devices(devices.stream()
+				.map(DeviceResponseDto::fromEntity)
+				.collect(Collectors.toList()))
 			.build();
 	}
 }

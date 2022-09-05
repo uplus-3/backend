@@ -26,6 +26,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+/**
+ * 담당자 : 이일환
+ */
 @WebMvcTest(controllers = DeviceController.class)
 public class DeviceControllerUnitTest {
 

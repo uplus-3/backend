@@ -15,6 +15,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * 담당자 : 김수현
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -41,7 +44,6 @@ public class LaunchingDeviceCreateRequestDto {
     @ApiModelProperty(name = "정상가", example = "1690000")
     private int price;
 
-    //	TODO : date Validation 메서드 구현
     @ApiModelProperty(name = "출시일", example = "2022-09-23")
     private Date launchedDate;
 

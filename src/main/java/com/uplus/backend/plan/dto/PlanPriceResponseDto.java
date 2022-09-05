@@ -8,6 +8,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 이일환, 윤병찬
+ */
 @Getter
 @Builder
 public class PlanPriceResponseDto {

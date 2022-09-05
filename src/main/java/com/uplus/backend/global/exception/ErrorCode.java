@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * 담당자 : 김수현, 성아영, 윤병찬, 이일환
  * 예외 처리 코드 정의.
  */
 @Getter
