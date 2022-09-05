@@ -20,6 +20,7 @@ import com.uplus.backend.plan.repository.PlanRepository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -132,7 +133,7 @@ public class DeviceIntegrationTest {
 			.price(990_000)
 			.launchedDate(Timestamp.valueOf(LocalDateTime.now()))
 			.company("제조회사")
-			.networkType(5)
+			.networkType(4)
 			.cpu("CPU")
 			.display("디스플레이")
 			.publicSupport(200_000)
@@ -184,6 +185,7 @@ public class DeviceIntegrationTest {
 			.andDo(print());
 	}
 
+	@Disabled
 	@Test
 	void 네트워크별_단말기_리스트_조회_테스트() throws Exception {
 		// given
@@ -194,6 +196,7 @@ public class DeviceIntegrationTest {
 			.andExpect(status().isOk())
 			.andDo(print());
 	}
+
 
 	@Test
 	void 네트워크별_가격_리스트_조회_테스트() throws Exception {
