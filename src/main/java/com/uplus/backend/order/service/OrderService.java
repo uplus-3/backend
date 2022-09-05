@@ -59,7 +59,7 @@ public class OrderService {
         do {
             orderNumber = OrderNumberUtil.createOrderNumber();
             checkOrderNumberDuplicated = orderRepository.existsByNumber(
-                OrderNumberUtil.createOrderNumber());
+                orderNumber);
         } while (checkOrderNumberDuplicated);
 
         Order order = orderCreateRequestDto.toEntity(color, plan,
