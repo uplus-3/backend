@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * 담당자 : 윤병찬
  * 주문 코드 관련 클래스 정의
  */
-
 public class OrderNumberUtil {
 
 	private static final int RANDOM_BOUND = 10;

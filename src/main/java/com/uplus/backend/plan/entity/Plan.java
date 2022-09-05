@@ -22,7 +22,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * 담당자 : 윤병찬
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -84,7 +86,6 @@ public class Plan extends BaseEntity {
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String premiumService;
 
-	//TODO : nullable validation 적용
 	@Column(columnDefinition = "VARCHAR(50)")
 	private String basicPromotion;
 
@@ -93,13 +94,4 @@ public class Plan extends BaseEntity {
 
 	@OneToMany(mappedBy = "plan")
 	private List<Cart> carts = new ArrayList<>();
-
-	public void addOrders(Order order) {
-		this.orders.add(order);
-		if (order.getPlan() != this) {
-			order.setPlan(this);
-		}
-	}
-
-
 }

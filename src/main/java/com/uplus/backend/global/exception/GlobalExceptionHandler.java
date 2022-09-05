@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * 전역 예외 처리 Handler 정의
+ * 담당자 : 윤병찬 전역 예외 처리 Handler 정의
  */
-
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {

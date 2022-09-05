@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 김수현
+ */
 @Builder
 @Getter
 public class LaunchingDeviceResponseDto {

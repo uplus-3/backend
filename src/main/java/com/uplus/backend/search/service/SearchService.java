@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 담당자 : 윤병찬
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -22,11 +25,10 @@ public class SearchService {
 	public SearchKeywordListResponseDto getSearchKeyword(String query, int networkType) {
 		query = QueryUtil.getKeyword(query);
 
-		List<Device> searchList = networkType == 0
-			? deviceRepository.findAutocompleteKeyword(
-			query)
-			: deviceRepository.findAutocompleteKeywordWithNetworkType(
-				query, networkType);
+		List<Device> searchList =
+			networkType == 0 ?
+				deviceRepository.findAutocompleteKeyword(query) :
+				deviceRepository.findAutocompleteKeywordWithNetworkType(query, networkType);
 
 		return SearchKeywordListResponseDto.fromEntity(searchList);
 	}
@@ -35,11 +37,10 @@ public class SearchService {
 	public SearchListResponseDto searchByKeyword(String query, int networkType) {
 		query = QueryUtil.getKeyword(query);
 
-		List<Device> searchList =  networkType == 0
-			? deviceRepository.search(
-			query) :
-			deviceRepository.searchWithNetworkType(
-				query, networkType);
+		List<Device> searchList =
+			networkType == 0 ?
+				deviceRepository.search(query) :
+				deviceRepository.searchWithNetworkType(query, networkType);
 
 		return SearchListResponseDto.fromEntity(searchList);
 	}

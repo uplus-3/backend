@@ -16,6 +16,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
+ * 담당자 : 윤병찬
  * 모델 간 공통 사항 정의.
  */
 @Getter

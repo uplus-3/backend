@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+/**
+ * 담당자 : 이일환, 윤병찬
+ */
 public interface DeviceRepository extends JpaRepository<Device, Long> {
 
 	List<Device> findByNetworkType(int networkType);

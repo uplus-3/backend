@@ -21,10 +21,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
- * Spring Data JPA 관련 추가 설정 정의.
+ * 담당자 : 윤병찬 Spring Data JPA 관련 추가 설정 정의.
  */
-
-
 @Configuration
 @EnableJpaAuditing
 public class JpaConfig {

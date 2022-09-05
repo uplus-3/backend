@@ -16,6 +16,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 담당자 : 김수현
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,26 +26,26 @@ import lombok.NoArgsConstructor;
 @Getter
 public class LaunchingImage extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(updatable = false)
+	private Long id;
 
-    @NotBlank(message = "이미지Url을 입력해 주세요")
-    @Size(max = 1024, message = "이미지 url은 최대 1024자로 입력해 주세요")
-    @Column(nullable = false, columnDefinition = "VARCHAR(1024)")
-    private String imageUrl;
+	@NotBlank(message = "이미지Url을 입력해 주세요")
+	@Size(max = 1024, message = "이미지 url은 최대 1024자로 입력해 주세요")
+	@Column(nullable = false, columnDefinition = "VARCHAR(1024)")
+	private String imageUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "launching_color_id", nullable = false)
-    private LaunchingColor launchingColor;
+	@ManyToOne
+	@JoinColumn(name = "launching_color_id", nullable = false)
+	private LaunchingColor launchingColor;
 
-    public void setLaunchingColor(LaunchingColor launchingColor) {
-        if (this.launchingColor != null) {
-            this.launchingColor.getLaunchingImages().remove(this);
-        }
-        this.launchingColor = launchingColor;
-        launchingColor.getLaunchingImages().add(this);
-    }
+	public void setLaunchingColor(LaunchingColor launchingColor) {
+		if (this.launchingColor != null) {
+			this.launchingColor.getLaunchingImages().remove(this);
+		}
+		this.launchingColor = launchingColor;
+		launchingColor.getLaunchingImages().add(this);
+	}
 
 }

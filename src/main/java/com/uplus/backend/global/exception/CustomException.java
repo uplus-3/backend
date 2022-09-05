@@ -1,6 +1,8 @@
 package com.uplus.backend.global.exception;
 
-
+/**
+ * 담당자 : 윤병찬
+ */
 public class CustomException extends RuntimeException {
 
 	private final ErrorCode errorCode;

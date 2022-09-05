@@ -13,6 +13,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 이일환
+ */
 @Getter
 @Builder
 public class PriceDetailResponseDto {
@@ -63,8 +66,8 @@ public class PriceDetailResponseDto {
 		int tDevicePrice = PriceUtil.getTDevicePriceByDiscountType(device, discountType);
 		int dDevicePrice = divideByMonth(tDevicePrice, installmentPeriod);
 		int dPlanPrice = getDPlanPriceByDiscountType(plan, discountType);
-		int sDiscount = plan.getPrice() - getDPlanPriceByDiscountType(plan,
-			SELECT_INSTALLMENT_DISCOUNT_TYPE);
+		int sDiscount =
+			plan.getPrice()- getDPlanPriceByDiscountType(plan, SELECT_INSTALLMENT_DISCOUNT_TYPE);
 
 		return PriceDetailResponseDto.builder()
 			.devicePrice(device.getPrice())

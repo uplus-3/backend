@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 윤병찬
+ */
 @Getter
 @Builder
 public class SearchListResponseDto {

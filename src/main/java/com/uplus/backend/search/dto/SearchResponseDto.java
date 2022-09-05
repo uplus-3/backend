@@ -2,8 +2,8 @@ package com.uplus.backend.search.dto;
 
 import static com.uplus.backend.global.util.PriceUtil.TWO_YEAR;
 import static com.uplus.backend.global.util.PriceUtil.divideByMonth;
-import static com.uplus.backend.global.util.PriceUtil.getTDevicePriceByDiscountType;
 import static com.uplus.backend.global.util.PriceUtil.getRecommendedDiscountType;
+import static com.uplus.backend.global.util.PriceUtil.getTDevicePriceByDiscountType;
 
 import com.uplus.backend.device.dto.color.ColorResponseDto;
 import com.uplus.backend.device.dto.tag.TagResponseDto;
@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 윤병찬
+ */
 @Getter
 @Builder
 public class SearchResponseDto {
@@ -43,7 +46,7 @@ public class SearchResponseDto {
 
 	@ApiModelProperty(name = "네트워크유형", example = "5(5G)")
 	private int networkType;
-	
+
 	@ApiModelProperty(name = "단말기 정상가", example = "2000000")
 	private int price;
 
@@ -90,8 +93,7 @@ public class SearchResponseDto {
 			.repImageUrl(device.getRepImageUrl())
 			.price(device.getPrice())
 			.mPrice(divideByMonth(device.getPrice(), TWO_YEAR))
-			.dPrice(divideByMonth(getTDevicePriceByDiscountType(device, discountType),
-				TWO_YEAR))
+			.dPrice(divideByMonth(getTDevicePriceByDiscountType(device, discountType), TWO_YEAR))
 			.discountType(discountType)
 			.plan(PlanPriceResponseDto.fromEntity(device.getPlan(), discountType))
 			.tags(device.getTags().stream()

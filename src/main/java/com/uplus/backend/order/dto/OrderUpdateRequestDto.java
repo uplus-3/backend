@@ -9,6 +9,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 담당자 : 김수현
+ */
 @Getter
 @Builder
 @AllArgsConstructor

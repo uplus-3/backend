@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 담당자 : 이일환
+ */
 @Slf4j
 @Api(value = "이미지 API", tags = {"Image"})
 @RestController

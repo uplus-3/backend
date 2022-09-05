@@ -13,6 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 /**
+ * 담당자 : 윤병찬
  * API 문서 관련 swagger2 설정 정의.
  */
 @Configuration
