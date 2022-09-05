@@ -37,6 +37,9 @@ public class OrderController {
 
 	private final OrderService orderService;
 
+	/**
+	 * 담당자 : 윤병찬
+	 */
 	@PostMapping("")
 	@ApiOperation(value = "주문 생성", notes = "전송 받은 정보로 주문 데이터를 생성합니다.")
 	@ApiResponses({
@@ -53,6 +56,11 @@ public class OrderController {
 		return ResponseEntity.ok().body(orderCreateResponseDto);
 	}
 
+
+
+	/**
+	 * 담당자 : 윤병찬
+	 */
 	@GetMapping("")
 	@ApiOperation(value = "주문 조회", notes = "전송 받은 주문자 이름과 주문 번호로 주문 데이터를 조회합니다.")
 	@ApiResponses({
@@ -68,6 +76,10 @@ public class OrderController {
 		return ResponseEntity.ok().body(orderResponseDto);
 	}
 
+
+	/**
+	 * 담당자 : 김수현
+	 */
 	@PutMapping("/{order-id}")
 	@ApiOperation(value = "주문 수정", notes = "전송 받은 주문 번호에 해당하는 주문 데이터를 전송 받은 데이터로 수정합니다.")
 	@ApiResponses({
@@ -84,6 +96,9 @@ public class OrderController {
 		return ResponseEntity.ok().body(orderResponseDto);
 	}
 
+	/**
+	 * 담당자 : 김수현
+	 */
 	@DeleteMapping("/{order-id}")
 	@ApiOperation(value = "주문 삭제", notes = "전송 받은 주문 번호에 해당하는 주문 데이터를 삭제합니다.")
 	@ApiResponses({
