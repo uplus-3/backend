@@ -84,5 +84,4 @@ jobs:
             aws s3 cp s3://hj-uplus-cloud/docker-compose-uplus3-dev.yml docker-compose.yml
             aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 888045237793.dkr.ecr.ap-northeast-2.amazonaws.com
             docker-compose pull
-            docker-compose build
             docker-compose up -d
