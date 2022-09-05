@@ -125,4 +125,23 @@ public class DeviceRepositoryUnitTest {
 		assertThat(devices4G.size()).isEqualTo(0);
 		assertThat(devices5G.size()).isEqualTo(1);
 	}
+
+	@Test
+	void 단말기_조회_페치조인_테스트() {
+		// when
+		Device device = deviceRepository.findByIdFetchJoinColorAndTag(device1.getId()).get();
+
+		// then
+		assertThat(device.getName()).isEqualTo(device1.getName());
+	}
+
+	@Test
+	void 네트워크별_단말기_조회_페치조인_테스트() {
+		// when
+		List<Device> devices = deviceRepository.findByNetworkTypeFetchJoinColorAndTag(
+			device1.getNetworkType());
+
+		// then
+		assertThat(devices.size()).isEqualTo(1);
+	}
 }
