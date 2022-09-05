@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 이일환
+ */
 @Getter
 @Builder
 public class DeviceDetailResponseDto {
@@ -48,7 +51,7 @@ public class DeviceDetailResponseDto {
 	private Long recommendedPlanId;
 
 	@ApiModelProperty(name = "추천 요금제 명", example = "5G 베이직")
-	private Long recommendedPlanName;
+	private String recommendedPlanName;
 
 	private List<ColorResponseDto> colors;
 
@@ -67,6 +70,7 @@ public class DeviceDetailResponseDto {
 			.cpu(device.getCpu())
 			.display(device.getDisplay())
 			.recommendedPlanId(device.getPlan().getId())
+			.recommendedPlanName(device.getPlan().getName())
 			.colors(device.getColors().stream()
 				.map(ColorResponseDto::fromEntity)
 				.collect(Collectors.toList()))
@@ -74,6 +78,5 @@ public class DeviceDetailResponseDto {
 				.map(TagResponseDto::fromEntity)
 				.collect(Collectors.toList()))
 			.build();
-
 	}
 }

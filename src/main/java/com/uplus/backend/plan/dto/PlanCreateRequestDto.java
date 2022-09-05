@@ -4,17 +4,18 @@ import com.uplus.backend.plan.entity.Plan;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
-import javax.validation.constraintvalidation.SupportedValidationTarget;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 담당자 : 윤병찬
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

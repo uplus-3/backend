@@ -20,9 +20,45 @@ http://uplus3-dev.s3-website.ap-northeast-2.amazonaws.com
 - Production DB : MySQL Community Server 8.0.30
 - API documentation & management : swagger(2) 3.0.0
 - Test Tool : Junit 5.8.2, Mockito 4.0.0
-- Test DB : H2 1.4.200, MySQL Community Server 8.0.30
+- Test DB : H2 1.4.200
 
-
+## 담당자
+- global : [김수현](https://github.com/HiBird00), [성아영](https://github.com/Sungayoung), [윤병찬](https://github.com/Chaaany), [이일환](https://github.com/pppp0722)
+- cart
+  - controller : [성아영](https://github.com/Sungayoung)
+  - dto : [성아영](https://github.com/Sungayoung)
+  - entity : [성아영](https://github.com/Sungayoung)
+  - repository : [성아영](https://github.com/Sungayoung)
+  - service : [성아영](https://github.com/Sungayoung)
+- device
+  - controller : [이일환](https://github.com/pppp0722)
+  - dto : [이일환](https://github.com/pppp0722)
+  - entity : [이일환](https://github.com/pppp0722), [윤병찬](https://github.com/Chaaany)
+  - repository : [이일환](https://github.com/pppp0722), [윤병찬](https://github.com/Chaaany)
+  - service : [이일환](https://github.com/pppp0722)
+- launchingdevice
+  - controller : [김수현](https://github.com/HiBird00)
+  - dto : [김수현](https://github.com/HiBird00)
+  - entity : [김수현](https://github.com/HiBird00)
+  - repository : [김수현](https://github.com/HiBird00)
+  - service : [김수현](https://github.com/HiBird00)
+- order
+  - controller : [윤병찬](https://github.com/Chaaany), [김수현](https://github.com/HiBird00)
+  - dto : [윤병찬](https://github.com/Chaaany), [김수현](https://github.com/HiBird00)
+  - entity : [윤병찬](https://github.com/Chaaany)
+  - repository : [윤병찬](https://github.com/Chaaany)
+  - service : [윤병찬](https://github.com/Chaaany), [김수현](https://github.com/HiBird00)
+- plan
+  - controller : [윤병찬](https://github.com/Chaaany)
+  - dto : [윤병찬](https://github.com/Chaaany)
+  - entity : [윤병찬](https://github.com/Chaaany)
+  - repository : [윤병찬](https://github.com/Chaaany)
+  - service : [윤병찬](https://github.com/Chaaany)
+- search
+  - controller : [윤병찬](https://github.com/Chaaany)
+  - dto : [윤병찬](https://github.com/Chaaany)
+  - service : [윤병찬](https://github.com/Chaaany)
+ - test : 각 도메인 담당자별 작성
 ## UML(Class Diagram)
 ![image](https://user-images.githubusercontent.com/34885297/188303218-930d47a1-a9ee-4660-9892-743fbfde5565.png)
 

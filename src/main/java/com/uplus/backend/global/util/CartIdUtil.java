@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * 담당자 : 성아영
+ */
 public class CartIdUtil {
 
     private static final int RANDOM_BOUND = 10;

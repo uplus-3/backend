@@ -9,6 +9,9 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+/**
+ * 담당자 : 성아영
+ */
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -50,6 +53,10 @@ public class Cart extends BaseEntity {
     @JoinColumn(name = "color_id", nullable = false)
     private Color color;
 
+    @ManyToOne
+    @JoinColumn(name = "plan_id", nullable = false)
+    private Plan plan;
+
     public void setColor(Color color) {
         this.color = color;
 
@@ -57,10 +64,6 @@ public class Cart extends BaseEntity {
             color.getCarts().add(this);
         }
     }
-
-    @ManyToOne
-    @JoinColumn(name = "plan_id", nullable = false)
-    private Plan plan;
 
     public void setPlan(Plan plan) {
         this.plan = plan;
@@ -73,5 +76,4 @@ public class Cart extends BaseEntity {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
-
 }

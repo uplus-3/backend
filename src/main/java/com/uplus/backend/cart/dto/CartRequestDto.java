@@ -10,6 +10,9 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+/**
+ * 담당자 : 성아영
+ */
 @Getter
 @Builder
 @AllArgsConstructor
@@ -39,7 +42,6 @@ public class CartRequestDto {
     private Long planId;
 
     public Cart toEntity(Color color, Plan plan, Long cartId) {
-
         if (plan == null) {
             plan = color.getDevice().getPlan();
         }

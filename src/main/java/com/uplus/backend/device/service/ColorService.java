@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 담당자 : 이일환
+ */
 @Service
 @RequiredArgsConstructor
 public class ColorService {

@@ -6,19 +6,21 @@ import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 담당자 : 김수현
+ */
 @Getter
 @Builder
 public class LaunchingDeviceListResponseDto {
 
-    private List<LaunchingDeviceResponseDto> launchingDevices;
+	private List<LaunchingDeviceResponseDto> launchingDevices;
 
-    public static LaunchingDeviceListResponseDto fromEntity(
-        List<LaunchingDevice> launchingDevices) {
-        return LaunchingDeviceListResponseDto.builder()
-            .launchingDevices(
-                launchingDevices.stream().map(LaunchingDeviceResponseDto::fromEntity)
-                .collect(Collectors.toList())
-            )
-            .build();
-    }
+	public static LaunchingDeviceListResponseDto fromEntity(
+		List<LaunchingDevice> launchingDevices) {
+		return LaunchingDeviceListResponseDto.builder()
+			.launchingDevices(launchingDevices.stream()
+				.map(LaunchingDeviceResponseDto::fromEntity)
+				.collect(Collectors.toList()))
+			.build();
+	}
 }

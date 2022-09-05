@@ -1,17 +1,16 @@
 package com.uplus.backend.global.util;
 
 import com.uplus.backend.device.entity.Device;
+import com.uplus.backend.global.exception.CustomException;
+import com.uplus.backend.global.exception.ErrorCode;
 import com.uplus.backend.plan.entity.Plan;
 import java.util.List;
 
 /**
- * 가격 연산 관련 클래스 정의
+ * 담당자 : 이일환 가격 연산 관련 클래스 정의
  */
 
 public class PriceUtil {
-
-	// TODO : enum
-	public static final int ONE_YEAR = 12;
 
 	public static final int TWO_YEAR = 24;
 
@@ -46,8 +45,8 @@ public class PriceUtil {
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:
 				tDevicePrice = device.getPrice();
 				break;
-			default: // TODO : 예외 처리
-				throw new RuntimeException();
+			default:
+				throw new CustomException(ErrorCode.INVALID_REQUEST_VALUE_ERROR);
 		}
 
 		return tDevicePrice;
@@ -65,8 +64,8 @@ public class PriceUtil {
 				return plan.getPrice();
 			case SELECT_INSTALLMENT_DISCOUNT_TYPE:
 				return applyPercentDiscount(plan.getPrice(), SELECT_DISCOUNT_AMOUNT);
-			default: // TODO : 예외 처리
-				throw new RuntimeException();
+			default:
+				throw new CustomException(ErrorCode.INVALID_REQUEST_VALUE_ERROR);
 		}
 	}
 
@@ -80,7 +79,7 @@ public class PriceUtil {
 				return divideByMonth(device.getPrice(), TWO_YEAR) + applyPercentDiscount(
 					plan.getPrice(), SELECT_DISCOUNT_AMOUNT);
 			default:
-				throw new RuntimeException();
+				throw new CustomException(ErrorCode.INVALID_REQUEST_VALUE_ERROR);
 		}
 	}
 

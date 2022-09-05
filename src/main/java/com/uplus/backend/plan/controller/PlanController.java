@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 담당자 : 윤병찬
  * 요금제 관련 API 요청 처리를 위한 컨트롤러 정의.
  */
 @Slf4j
