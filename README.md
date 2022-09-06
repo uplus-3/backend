@@ -59,6 +59,9 @@ http://uplus3-dev.s3-website.ap-northeast-2.amazonaws.com
   - dto : [윤병찬](https://github.com/Chaaany)
   - service : [윤병찬](https://github.com/Chaaany)
  - test : 각 도메인 담당자별 작성
+## ERD 
+![image](https://user-images.githubusercontent.com/34885297/188538778-3c07653e-3806-421a-b8d9-71257f773751.png)
+
 ## UML(Class Diagram)
 ![image](https://user-images.githubusercontent.com/34885297/188303218-930d47a1-a9ee-4660-9892-743fbfde5565.png)
 
